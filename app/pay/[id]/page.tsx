@@ -14,7 +14,7 @@ function RemloLogo({ size = 28 }: { size?: number }) {
   return <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />;
 }
 function ArcLogo({ size = 28 }: { size?: number }) {
-  return <img src="/arc-logo.JPG" alt="Arc" width={size} height={size} style={{ objectFit: "contain", borderRadius: "6px" }} />;
+  return <img src="/arc-logo.jpg" alt="Arc" width={size} height={size} style={{ objectFit: "contain", borderRadius: "6px" }} />;
 }
 function USDCLogo({ size = 24 }: { size?: number }) {
   return <img src="/usdc-logo.png" alt="USDC" width={size} height={size} style={{ objectFit: "contain", borderRadius: "50%" }} />;
