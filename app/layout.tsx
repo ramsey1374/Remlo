@@ -2,9 +2,19 @@ import "./globals.css";
 import Providers from "./providers";
 
 export const metadata = {
-  title: "Arc Invoice",
-  description: "Unified USDC Payments",
+  title: "Remlo",
+  description: "Pay USDC from anywhere — settles on Arc Network",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "Remlo",
+    description: "Pay USDC from anywhere — settles on Arc Network",
+    images: ["/og-image.png"], // see step 3
+    url: "https://remlo-five.vercel.app",
+  },
 };
+
 
 export default function RootLayout({
   children,
