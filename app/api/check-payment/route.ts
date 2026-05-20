@@ -17,7 +17,7 @@ export async function POST(req: Request) {
       networkType: "testnet",
     });
 
-    const totalUSDC = balances?.total || 0;
+    const totalUSDC = balances?.totalConfirmedBalance ? parseFloat(balances.totalConfirmedBalance) : 0;
 
     return NextResponse.json({
       success: true,

@@ -99,7 +99,7 @@ export default function CreateInvoicePage() {
       const { error } = await supabase.from("invoices").insert({
         id,
         amount: sanitizedAmount,
-        receiver: address,
+        receiver: address!,
         paid: false,
         status: "pending",
         description: sanitizedDescription || null,
@@ -115,7 +115,7 @@ export default function CreateInvoicePage() {
       }
 
       localStorage.setItem("invoice", JSON.stringify({
-        id, amount: String(sanitizedAmount), receiver: address, token: "",
+        id, amount: String(sanitizedAmount), receiver: address!, token: "",
       }));
 
       setInvoiceId(id);
@@ -199,7 +199,7 @@ export default function CreateInvoicePage() {
           <div className="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-white/[0.04] mb-2">
             <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
             <span className="text-white/70 text-xs font-mono flex-1 truncate">
-              {address.slice(0, 6)}...{address.slice(-4)}
+              {address?.slice(0, 6)}...{address?.slice(-4)}
             </span>
           </div>
           <button onClick={() => disconnect()}
@@ -313,7 +313,7 @@ export default function CreateInvoicePage() {
                   <ArcLogo size={28} />
                   <div>
                     <div className="text-white text-sm font-semibold">Arc Testnet</div>
-                    <div className="text-white/30 text-xs font-mono">{address.slice(0, 6)}...{address.slice(-4)}</div>
+                    <div className="text-white/30 text-xs font-mono">{address?.slice(0, 6)}...{address?.slice(-4)}</div>
                   </div>
                 </div>
                 <span className="text-emerald-400 text-xs font-semibold bg-emerald-400/10 px-2 py-1 rounded-full border border-emerald-400/20 hidden sm:inline-flex">
