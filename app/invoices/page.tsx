@@ -289,7 +289,7 @@ export default function InvoicesPage() {
           <div>
             <h1 className="text-white text-xl md:text-2xl font-bold tracking-tight mb-1">Invoices</h1>
             <p className="text-white/40 text-sm">
-              All payments settle on Arc Testnet.
+              All payments settle on Arc.
               <span className="text-white/20 ml-2 text-xs">
                 Refreshed {formatTimeAgo(lastRefresh.toISOString())}
               </span>

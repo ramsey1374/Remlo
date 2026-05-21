@@ -48,12 +48,12 @@ function PayPageMockup() {
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-indigo-500/15 to-transparent pointer-events-none" />
       <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-gradient-to-br from-indigo-500/20 to-transparent opacity-80 pointer-events-none animate-float-slow" />
       <div className="px-6 pt-6 pb-5 text-center border-b border-white/[0.06]">
-        <div className="text-white font-semibold text-sm mb-1">Ramsey</div>
-        <div className="text-white/40 text-xs font-mono">0x8F0F1E...D62</div>
+        <div className="text-white font-semibold text-sm mb-1">Rogers</div>
+        <div className="text-white/40 text-xs font-mono"></div>
         <div className="text-white/30 text-[11px] mt-2">is requesting payment</div>
         <div className="text-white/40 text-xs mt-4 mb-1">Amount</div>
         <div className="flex items-baseline justify-center gap-2">
-          <span className="text-white text-4xl font-black tracking-tight">2.00</span>
+          <span className="text-white text-4xl font-black tracking-tight">100</span>
           <span className="text-white/40 text-xl font-semibold">USDC</span>
         </div>
       </div>
@@ -62,7 +62,7 @@ function PayPageMockup() {
         {[
           { label: "Invoice ID", value: "1aa523" },
           { label: "Recipient", value: "0x8F0F1E...D62", mono: true },
-          { label: "Settlement", value: "Arc Testnet", accent: true },
+          { label: "Settlement", value: "Arc Network", accent: true },
         ].map((row) => (
           <div key={row.label} className="flex justify-between items-center text-sm">
             <span className="text-white/30">{row.label}</span>
@@ -79,9 +79,9 @@ function PayPageMockup() {
         </div>
         <div className="grid grid-cols-3 gap-3">
           {[
-            { icon: <USDCLogo size={22} />, label: "You pay USDC", sub: "from any network" },
-            { icon: <IconSearch size={18} />, label: "We find best", sub: "network for you" },
-            { icon: <ArcLogo size={22} />, label: "We settle on", sub: "Arc Testnet" },
+            { icon: <USDCLogo size={22} />, label: "You tap PAY", sub: "from any network" },
+            { icon: <IconSearch size={18} />, label: "We detect USDC", sub: "automatically in your wallet" },
+            { icon: <ArcLogo size={22} />, label: "We settle on", sub: "Arc Network" },
           ].map((step, i) => (
             <div key={i} className="rounded-2xl bg-white/[0.03] p-3 text-center">
               <div className="mx-auto mb-2 flex h-11 w-11 items-center justify-center rounded-2xl bg-white/[0.06]">
@@ -104,11 +104,11 @@ function PayPageMockup() {
         <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-emerald-500/5 border border-emerald-500/15 rounded-2xl">
           <div className="w-2 h-2 rounded-full bg-blue-400" />
           <span className="text-emerald-400 text-xs">
-            8.00 USDC found on Base Sepolia — ready to pay
+            100 USDC found on Base Sepolia — ready to pay
           </span>
         </div>
         <div className="w-full py-3 rounded-2xl text-center text-white text-sm font-bold ui-button-primary">
-          Pay 2.00 USDC →
+          Pay 100 USDC →
         </div>
         <div className="text-center text-white/20 text-[10px] mt-2">
           USDC sent from best chain. We'll handle everything for you.
@@ -211,7 +211,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-white/50 text-lg leading-8 max-w-md">
-              Create invoice links that keep payments fast, secure, and settled on Arc Network without asking payers to switch chains.
+              Create invoice links. We automatically find USDC in your payer’s wallet — they click pay, and you receive USDC on Arc Network.
             </p>
 
             <div className="flex flex-wrap gap-3 mb-3">

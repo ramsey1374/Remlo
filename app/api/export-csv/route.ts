@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
       "Receiver": inv.receiver,
       "Payer": intent?.recipient ?? "",
       "Source Chain": intent?.chain_id ? chainMap[intent.chain_id] ?? "" : "",
-      "Settlement": "Arc Testnet",
+      "Settlement": "Arc Network",
       "Tx Hash": intent?.tx_hash ?? "",
       "Created": inv.created_at ? new Date(inv.created_at).toISOString() : "",
       "Expires": inv.expires_at ? new Date(inv.expires_at).toISOString() : "",

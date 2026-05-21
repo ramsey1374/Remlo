@@ -351,7 +351,7 @@ export default function CreateInvoicePage() {
                 <div className="flex items-center gap-3">
                   <ArcLogo size={28} />
                   <div>
-                    <div className="text-white text-sm font-semibold">Arc Testnet</div>
+                    <div className="text-white text-sm font-semibold">Arc Network</div>
                     <div className="text-white/30 text-xs font-mono">{address?.slice(0, 6)}...{address?.slice(-4)}</div>
                   </div>
                 </div>
@@ -359,7 +359,7 @@ export default function CreateInvoicePage() {
                   On Arc <IconCheck size={12} />
                 </span>
               </div>
-              <p className="text-white/25 text-xs mt-1.5">Your funds are always settled on Arc Testnet.</p>
+              <p className="text-white/25 text-xs mt-1.5">Your funds are always settled on Arc Network.</p>
             </div>
 
             <button onClick={createInvoice}
@@ -381,12 +381,7 @@ export default function CreateInvoicePage() {
                 <div className="text-white text-3xl md:text-4xl font-black tracking-tight">
                   {amount ? parseFloat(amount).toFixed(2) : "0.00"} USDC
                 </div>
-                {description && <div className="text-white/40 text-xs mt-2">{description}</div>}
-                <div className="text-white/30 text-xs mt-2">You will receive on</div>
-                <div className="flex items-center justify-center gap-1.5 mt-1">
-                  <ArcLogo size={16} />
-                  <span className="text-white font-semibold text-sm">Arc Testnet</span>
-                </div>
+                
               </div>
               <div className="flex flex-col gap-2 border-t border-white/[0.06] pt-4">
                 {[

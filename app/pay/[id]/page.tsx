@@ -360,7 +360,7 @@ if (creatorSettings?.display_name) {
                 <div className="flex justify-between mb-1.5"><span>Includes tip</span><span className="text-white/60">{parseFloat(tipAmount).toFixed(2)} USDC</span></div>
               )}
               <div className="flex justify-between mb-1.5"><span>Source</span><span className="text-white/60">{paidChain ?? "—"}</span></div>
-              <div className="flex justify-between"><span>Settlement</span><span className="text-indigo-400">Arc Testnet</span></div>
+              
             </div>
             <div className="flex flex-col gap-2">
               <button onClick={() => generateReceipt({
@@ -454,7 +454,7 @@ if (creatorSettings?.display_name) {
 
               {/* Pay section */}
               <div className="px-5 py-5">
-                <div className="text-white font-semibold text-sm mb-3">Pay with USDC</div>
+                
 
                 {/* Custom amount / tip options */}
                 {(settings?.allow_partial || settings?.allow_tip) && (
@@ -551,7 +551,7 @@ if (creatorSettings?.display_name) {
                   <div className="flex items-center gap-2 bg-emerald-500/5 border border-emerald-500/15 rounded-xl px-3 py-2.5 mb-3">
                     <div className={`w-2 h-2 rounded-full flex-shrink-0 ${chainDotColor(detectedChainId)}`} />
                     <span className="text-emerald-400 text-xs font-medium">
-                      {detectedBalance} USDC found on {chainName(detectedChainId)} — ready to pay
+                      {detectedBalance} USDC found on {chainName(detectedChainId)} — Ready to pay
                     </span>
                   </div>
                 )}
