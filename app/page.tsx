@@ -1,5 +1,5 @@
-import CreateInvoice from "@/components/CreateInvoice";
+import LandingPage from "./components/LandingPage";
 
-export default function HomePage() {
-  return <CreateInvoice />;
+export default function Page() {
+  return <LandingPage />;
 }
