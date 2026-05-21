@@ -62,13 +62,13 @@ function PayPageMockup() {
         {[
           { label: "Invoice ID", value: "1aa523" },
           { label: "Recipient", value: "0x8F0F1E...D62", mono: true },
-          { label: "Settlement", value: "Arc Network", accent: true },
+          
         ].map((row) => (
           <div key={row.label} className="flex justify-between items-center text-sm">
             <span className="text-white/30">{row.label}</span>
-            <span className={`font-medium ${row.accent ? "text-indigo-400" : row.mono ? "font-mono text-white/60" : "text-white/60"}`}>
-              {row.value}
-            </span>
+            <span className={`text-xs font-medium ${row.mono ? "font-mono text-white/60" : "text-white/60"}`}>
+                      {row.value}
+                    </span>
           </div>
         ))}
       </div>
@@ -95,7 +95,7 @@ function PayPageMockup() {
       </div>
 
       <div className="px-6 py-4">
-        <div className="text-white font-semibold text-sm mb-3">Pay with USDC</div>
+        
         <div className="flex items-center gap-2 mb-2 px-3 py-2 bg-white/[0.03] border border-white/[0.06] rounded-2xl">
           <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
           <span className="text-white/40 text-xs">Connected:</span>

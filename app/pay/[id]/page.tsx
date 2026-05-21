@@ -416,11 +416,11 @@ if (creatorSettings?.display_name) {
                 {[
                   { label: "Invoice ID", value: invoice.id },
                   { label: "Recipient", value: (invoice.recipient ?? invoice.receiver)?.slice(0, 8) + "..." + (invoice.recipient ?? invoice.receiver)?.slice(-4), mono: true },
-                  { label: "Settlement", value: "Arc Testnet", accent: true },
+                  
                 ].map((row) => (
                   <div key={row.label} className="flex items-center justify-between">
                     <span className="text-white/30 text-xs">{row.label}</span>
-                    <span className={`text-xs font-medium ${row.accent ? "text-indigo-400" : row.mono ? "font-mono text-white/60" : "text-white/60"}`}>
+                    <span className={`text-xs font-medium ${row.mono ? "font-mono text-white/60" : "text-white/60"}`}>
                       {row.value}
                     </span>
                   </div>
