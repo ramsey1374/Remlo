@@ -96,10 +96,7 @@ function PayPageMockup() {
 
       <div className="px-6 py-4">
         
-        <div className="flex items-center gap-2 mb-2 px-3 py-2 bg-white/[0.03] border border-white/[0.06] rounded-2xl">
-          <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
-          
-        </div>
+        
         <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-emerald-500/5 border border-emerald-500/15 rounded-2xl">
           <div className="w-2 h-2 rounded-full bg-blue-400" />
           <span className="text-emerald-400 text-xs">
