@@ -11,10 +11,13 @@ import * as Sentry from "@sentry/nextjs";
 
 function RemloLogo({ size = 28 }: { size?: number }) {
   return (
-    <div className="flex items-center gap-2">
-      <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />
-      <span className="text-white font-bold text-base tracking-tight">Remlo</span>
-    </div>
+    <img
+      src="/remlo-logo.png"
+      alt="Remlo"
+      width={size}
+      height={size}
+      style={{ objectFit: "contain" }}
+    />
   );
 }
 
