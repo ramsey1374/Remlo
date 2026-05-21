@@ -11,7 +11,7 @@ import { checkRateLimit, formatResetTime } from "@/lib/rate-limit";
 import * as Sentry from "@sentry/nextjs";
 
 
-function RemloLogo({ size = 28 }: { size?: number }) {
+function RemloLogo({ size = 18 }: { size?: number }) {
   return <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />;
 }
 function ArcLogo({ size = 28 }: { size?: number }) {
