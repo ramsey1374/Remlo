@@ -346,10 +346,10 @@ export default function LandingPage() {
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.06] px-4 py-2 text-white/60 text-xs uppercase tracking-[0.24em]">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.35)]" />
-                Built on Arc Network
+                Why Remlo?
               </div>
               <h2 className="font-black tracking-tight text-4xl sm:text-5xl max-w-2xl">
-                Payments across chains are broken. Remlo makes them effortless.
+                Payments across chains are rigid. Remlo makes them effortless.
               </h2>
               <p className="text-white/40 max-w-2xl leading-8 text-lg">
                 Payers don’t need to bridge, switch networks, or manage balances manually. Merchants stop losing conversions to chain friction.
@@ -371,7 +371,7 @@ export default function LandingPage() {
                   <p>Remlo automatically detects USDC across chains.</p>
                   <p>Payer simply clicks “Pay”.</p>
                   <p>Merchant always receives USDC on Arc Network.</p>
-                  <p>No bridging confusion. No chain switching friction.</p>
+                  <p>No bridging confusion. No chain switching confusion.</p>
                 </div>
               </div>
             </div>
@@ -397,7 +397,7 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto text-center">
           <div className="inline-flex items-center justify-center gap-2 rounded-full bg-white/[0.03] px-4 py-2 mb-4 text-xs uppercase tracking-[0.24em] text-white/50">
             <span className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.18)]" />
-            Supported Chains
+            Ecosystem
           </div>
           <h2 className="font-black mb-3 text-4xl sm:text-5xl tracking-tight">Supported Chains</h2>
           <p className="text-white/40 text-base max-w-2xl mx-auto mb-8">More chains. More liquidity. One seamless payment.</p>
@@ -432,7 +432,7 @@ export default function LandingPage() {
                   </div>
                   <div className="flex-1 text-left min-w-0">
                     <div className="text-white font-semibold truncate">{c.name}</div>
-                    <div className="text-white/40 text-sm truncate">Native USDC support</div>
+                    
                   </div>
                 </div>
               ))}
@@ -450,9 +450,9 @@ export default function LandingPage() {
               Non-custodial · Wallet-native checkout
             </div>
             <div className="space-y-4">
-              <h2 className="font-black text-4xl sm:text-5xl tracking-tight">Trusted by builders who accept USDC across chains.</h2>
+              <h2 className="font-black text-4xl sm:text-5xl tracking-tight">The easiest way to recieve USDC across chains.</h2>
               <p className="text-white/40 max-w-2xl leading-8 text-lg mx-auto">
-                Remlo keeps the payment experience minimal while providing the credibility and enterprise feel that investors and merchants expect.
+                Remlo keeps the payment experience minimal while providing the credibility and enterprise feel that investors and developers expect.
               </p>
             </div>
 
@@ -534,7 +534,7 @@ export default function LandingPage() {
                 <span className="text-white font-bold text-sm">Remlo</span>
               </div>
               <p className="text-white/30 text-xs leading-relaxed max-w-xs">
-                Universal USDC Checkout.
+                Auto detect USDC.
                 <br />
                 Accept from any chain.
                 <br />
@@ -550,7 +550,7 @@ export default function LandingPage() {
                   𝕏 Twitter
                 </a>
               <a
-                  href="https://github.com/remloapp"
+                  href="https://github.com/ramsey1374/Remlo"
                   target="_blank"
                   className="text-white/30 hover:text-white transition-colors text-xs"
                 >
