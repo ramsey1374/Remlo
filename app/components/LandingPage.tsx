@@ -165,14 +165,14 @@ export default function LandingPage() {
   const { isConnected } = useAccount();
   const router = useRouter();
 
-  useEffect(() => {
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleLogoClick = () => {
     if (isConnected) {
       router.push("/create-invoice");
     }
-  }, [isConnected, router]);
-
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -209,12 +209,16 @@ export default function LandingPage() {
         }}
       >
         {/* Logo */}
-        <div className="flex items-center gap-2.5">
+        <button
+          onClick={handleLogoClick}
+          disabled={!isConnected}
+          className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-default"
+        >
           <RemloLogo size={28} />
           <span className="text-white font-bold text-base tracking-tight">
             Remlo
           </span>
-        </div>
+        </button>
 
         {/* Nav links */}
         <div className="hidden md:flex items-center gap-8">

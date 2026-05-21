@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAccount, useDisconnect } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { supabase } from "@/lib/db";
@@ -33,8 +34,10 @@ const TEMPLATES = [
 export default function CreateInvoicePage() {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
+  const router = useRouter();
   const { toast } = useToast();
 
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [notes, setNotes] = useState(""); // private notes
@@ -160,12 +163,15 @@ export default function CreateInvoicePage() {
   return (
     <div className="flex min-h-screen bg-[#0d0d14]">
       <aside className="hidden md:flex w-[200px] min-h-screen bg-[#13131a] border-r border-white/[0.06] flex-col">
-        <div className="flex items-center justify-center px-4 py-4 border-b border-white/[0.06]">
+        <button 
+          onClick={() => router.push("/create-invoice")}
+          className="flex items-center justify-center px-4 py-4 border-b border-white/[0.06] hover:opacity-80 transition-opacity cursor-pointer"
+        >
           <div className="flex items-center gap-2.5">
             <RemloLogo size={28} />
             <span className="text-white font-bold text-base tracking-tight">Remlo</span>
           </div>
-        </div>
+        </button>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
           {[
             { label: "Create Invoice", icon: "+", href: "/create-invoice", active: true },
@@ -199,11 +205,47 @@ export default function CreateInvoicePage() {
 
       <main className="flex-1 p-4 md:p-8 pb-24 md:pb-8">
         <div className="flex md:hidden items-center justify-between mb-6">
-          <div className="flex items-center gap-2.5">
+          <button 
+            onClick={() => router.push("/create-invoice")}
+            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
+          >
             <RemloLogo size={28} />
             <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+          </button>
+          <div className="relative">
+            <button 
+              onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/40 hover:text-white/70 text-sm transition-colors"
+            >
+              <span>☰</span>
+            </button>
+            {mobileDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-[#13131a] border border-white/[0.06] rounded-lg shadow-lg z-50">
+                {[
+                  { label: "Invoices", icon: "☰", href: "/invoices" },
+                  { label: "Payments", icon: "↕", href: "/payments" },
+                  { label: "Analytics", icon: "◎", href: "/analytics" },
+                  { label: "Settings", icon: "⚙", href: "/settings" },
+                ].map((item) => (
+                  <a 
+                    key={item.label} 
+                    href={item.href}
+                    onClick={() => setMobileDropdownOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-white/70 hover:text-white hover:bg-white/[0.04] border-b border-white/[0.06] last:border-b-0 transition-colors"
+                  >
+                    <span className="text-base opacity-70">{item.icon}</span>
+                    {item.label}
+                  </a>
+                ))}
+                <div className="px-4 py-3 border-t border-white/[0.06]">
+                  <button onClick={() => { disconnect(); setMobileDropdownOpen(false); }}
+                    className="w-full text-center text-xs text-white/30 hover:text-white/60 py-1 transition-colors">
+                    Disconnect
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-          <a href="/invoices" className="text-white/40 text-sm hover:text-white transition-colors">Invoices →</a>
         </div>
 
         <div className="mb-6 md:mb-8">
