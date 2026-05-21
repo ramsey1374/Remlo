@@ -396,128 +396,46 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="relative pointer-events-none">
-            <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-indigo-500/10 via-transparent to-sky-400/5 blur-3xl" />
-            <div className="relative rounded-[2.5rem] border border-white/[0.06] bg-slate-950/80 p-6 shadow-[0_40px_120px_rgba(13,13,20,0.3)] overflow-hidden">
-              <div className="absolute -left-12 top-10 w-36 h-36 rounded-full bg-indigo-500/10 blur-3xl" />
-              <div className="absolute right-0 top-16 w-24 h-24 rounded-full bg-emerald-400/10 blur-3xl" />
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <div className="text-white font-semibold text-sm mb-1">Invoice checkout</div>
-                  <div className="text-white/40 text-xs">USDC detection</div>
-                </div>
-                <div className="text-xs text-emerald-300 bg-emerald-400/10 px-3 py-1 rounded-full border border-emerald-400/15">
-                  Arc Testnet
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="text-white/70 text-xs">Payer wallet</div>
-                    <div className="text-emerald-300 text-xs">Automatic</div>
-                  </div>
-                  <div className="rounded-3xl bg-[#0f172a] p-4">
-                    <div className="flex items-center justify-between text-sm mb-3">
-                      <span className="text-white/80">USDC across chains</span>
-                      <span className="text-white/50">Detected</span>
-                    </div>
-                    <div className="grid grid-cols-3 gap-3">
-                      {[
-                        { label: "Arbitrum", value: "3.2 USDC" },
-                        { label: "Base", value: "8.1 USDC" },
-                        { label: "Ethereum", value: "1.4 USDC" },
-                      ].map((item) => (
-                        <div key={item.label} className="rounded-3xl bg-white/[0.03] p-3 text-center">
-                          <div className="text-white/40 text-[10px] uppercase tracking-[0.26em] mb-2">{item.label}</div>
-                          <div className="text-white font-semibold">{item.value}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    { label: "Chain", value: "Arbitrum" },
-                    { label: "Status", value: "Ready to pay" },
-                    { label: "Settlement", value: "Arc" },
-                    { label: "Receive", value: "USDC" },
-                  ].map((item) => (
-                    <div key={item.label} className="rounded-3xl bg-white/[0.02] border border-white/[0.06] p-3 text-xs text-white/60">
-                      <div className="text-white/40 uppercase tracking-[0.24em] mb-2">{item.label}</div>
-                      <div className="text-white font-semibold">{item.value}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* removed Invoice checkout demo to simplify landing layout per design update */}
         </div>
       </section>
 
-      {/* SUPPORTED CHAINS */}
+      {/* SUPPORTED CHAINS - redesigned to premium fintech aesthetic */}
       <section id="supported-chains" className="py-16 md:py-24 px-6 md:px-12">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center justify-center gap-2 rounded-full bg-white/[0.05] px-4 py-2 mb-6 text-xs uppercase tracking-[0.24em] text-white/50">
-            <span className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_14px_rgba(56,189,248,0.3)]" />
-            Chain ecosystem
+          <div className="inline-flex items-center justify-center gap-2 rounded-full bg-white/[0.03] px-4 py-2 mb-4 text-xs uppercase tracking-[0.24em] text-white/50">
+            <span className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.18)]" />
+            Supported Chains
           </div>
-          <h2 className="font-black mb-4 text-4xl sm:text-5xl tracking-tight">
-            One routing layer for every USDC network.
-          </h2>
-          <p className="text-white/40 text-base max-w-2xl mx-auto mb-12">
-            Floating chain cards, liquidity routing, and network badges show how Remlo makes every payment feel seamless.
-          </p>
+          <h2 className="font-black mb-3 text-4xl sm:text-5xl tracking-tight">Supported Chains</h2>
+          <p className="text-white/40 text-base max-w-2xl mx-auto mb-8">More chains. More liquidity. One seamless payment.</p>
 
-          <div className="relative mx-auto max-w-6xl">
-            <div className="absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.12),_transparent_40%)]" />
-            <div className="absolute left-1/2 top-8 -translate-x-1/2 h-2 w-2 rounded-full bg-indigo-400/30 blur-2xl" />
-            <div className="relative grid gap-6 sm:grid-cols-3">
+          {/* Chain cards container */}
+          <div className="mx-auto max-w-4xl">
+            <div className="flex flex-wrap justify-center gap-4">
               {[
-                { name: "Base", badge: "BASE", color: "from-sky-500/15 to-sky-900/15" },
-                { name: "Arbitrum", badge: "ARB", color: "from-indigo-500/15 to-indigo-900/15" },
-                { name: "Ethereum", badge: "ETH", color: "from-violet-500/15 to-violet-900/15" },
-              ].map((chain, i) => (
+                { name: "Arbitrum", short: "ARB" },
+                { name: "Base", short: "BASE" },
+                { name: "Ethereum", short: "ETH" },
+                { name: "Optimism", short: "OP" },
+                { name: "And more...", short: "+" },
+              ].map((c) => (
                 <div
-                  key={chain.name}
-                  className="relative rounded-[2rem] border border-white/[0.06] bg-white/[0.03] p-6 overflow-hidden"
+                  key={c.name}
+                  className="w-full sm:w-48 md:w-52 lg:w-56 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-sm p-4 flex items-center gap-4 transition-transform transform hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30"
+                  style={{ minWidth: 0 }}
                 >
-                  <div className={`absolute inset-x-0 top-0 h-24 rounded-b-[2rem] bg-gradient-to-b ${chain.color}`} />
-                  <div className="relative z-10 flex items-center justify-between gap-4 mb-6">
-                    <div>
-                      <div className="text-xs uppercase tracking-[0.3em] text-white/40 mb-2">{chain.name}</div>
-                      <div className="text-white text-2xl font-semibold">{chain.badge}</div>
-                    </div>
-                    <div className="rounded-2xl bg-white/[0.08] px-3 py-2 text-xs text-white/80">
-                      + USDC liquidity
+                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-white/[0.03] to-white/[0.01] border border-white/[0.04] flex-shrink-0">
+                    <div className="w-8 h-8 flex items-center justify-center rounded-md text-white font-bold text-sm" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))' }}>
+                      {c.short}
                     </div>
                   </div>
-                  <div className="space-y-3">
-                    <div className="rounded-3xl bg-white/[0.03] p-4 border border-white/[0.06]">
-                      <div className="text-white/40 text-[11px] uppercase tracking-[0.24em] mb-2">Route</div>
-                      <div className="text-white font-semibold">Stable USDC flow</div>
-                    </div>
-                    <div className="rounded-3xl bg-white/[0.03] p-4 border border-white/[0.06]">
-                      <div className="text-white/40 text-[11px] uppercase tracking-[0.24em] mb-2">Settle</div>
-                      <div className="text-white font-semibold">Arc Network</div>
-                    </div>
+                  <div className="flex-1 text-left min-w-0">
+                    <div className="text-white font-semibold truncate">{c.name}</div>
+                    <div className="text-white/40 text-sm truncate">Native USDC support</div>
                   </div>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-8 grid gap-4 sm:grid-cols-3 text-white/50 text-sm">
-              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.05] p-4">
-                <div className="text-xs uppercase tracking-[0.26em] text-white/40 mb-2">Liquidity routing</div>
-                <div className="font-semibold text-white">Dynamic source selection</div>
-              </div>
-              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.05] p-4">
-                <div className="text-xs uppercase tracking-[0.26em] text-white/40 mb-2">Network support</div>
-                <div className="font-semibold text-white">Base · Arbitrum · Ethereum</div>
-              </div>
-              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.05] p-4">
-                <div className="text-xs uppercase tracking-[0.26em] text-white/40 mb-2">More coming soon</div>
-                <div className="font-semibold text-white">Expanded ecosystem support</div>
-              </div>
             </div>
           </div>
         </div>
@@ -552,29 +470,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] bg-gradient-to-br from-white/[0.04] via-white/[0.02] to-slate-950 border border-white/[0.06] p-8 shadow-[0_40px_120px_rgba(13,13,20,0.25)] backdrop-blur-xl">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <div className="text-white font-semibold text-sm">Arc Network</div>
-                <div className="text-white/40 text-xs">Settlement layer</div>
-              </div>
-              <div className="text-emerald-300 text-xs uppercase tracking-[0.24em] bg-emerald-400/5 px-3 py-1 rounded-full border border-emerald-400/10">
-                Arc Testnet
-              </div>
-            </div>
-            <div className="grid gap-4">
-              {[
-                { title: "Enterprise-grade UX", desc: "Minimal workflows with premium clarity." },
-                { title: "No bridge required", desc: "Payers stay on their chain while funds settle to Arc." },
-                { title: "Built for scale", desc: "Modern, transparent checkout for merchants and builders." },
-              ].map((item) => (
-                <div key={item.title} className="rounded-3xl bg-white/[0.02] border border-white/[0.05] p-4">
-                  <div className="text-white font-semibold mb-1">{item.title}</div>
-                  <div className="text-white/50 text-sm">{item.desc}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Arc Network settlement panel removed per request */}
         </div>
       </section>
 
