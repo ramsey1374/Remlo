@@ -191,8 +191,8 @@ export default function LandingPage() {
       </nav>
 
       {/* HERO */}
-      <section className="relative pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.9fr] items-center">
+      <section className="relative pt-20 pb-20 px-6 md:px-8">
+        <div className="max-w-6xl mx-auto grid gap-8 lg:grid-cols-[1.2fr_0.9fr] items-center">
           {/* Left */}
           <div className="flex flex-col gap-6 max-w-xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/15 text-xs font-semibold text-indigo-200 w-fit">
@@ -249,9 +249,9 @@ export default function LandingPage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" className="py-16 md:py-20 px-6 md:px-12">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
+      <section id="how-it-works" className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
             <h2
               className="font-black mb-3"
               style={{ fontSize: "clamp(1.8rem, 4vw, 2.5rem)", letterSpacing: "-0.8px" }}
@@ -263,7 +263,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
             {[
               {
                 num: "1",
@@ -332,24 +332,17 @@ export default function LandingPage() {
           </div>
 
           {/* Powered by banner */}
-          <div
-            className="flex items-center justify-center gap-2 py-3 px-6 rounded-full mx-auto w-fit"
-            style={{
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.06)",
-            }}
-          >
+          <div className="flex items-center justify-center gap-2 py-3 px-6 rounded-full mx-auto w-fit"
+            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
             <ArcLogo size={14} />
-            <span className="text-white/40 text-xs">
-              Powered by Circle · Settled on Arc Network
-            </span>
+            <span className="text-white/40 text-xs">Powered by Circle · Settled on Arc Network</span>
           </div>
         </div>
       </section>
 
       {/* PROBLEM → SOLUTION */}
-      <section id="benefits" className="py-16 md:py-24 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto grid gap-12 lg:grid-cols-[1.05fr_0.95fr] items-center">
+      <section id="benefits" className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
+        <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.05fr_0.95fr] items-center">
           <div className="space-y-8">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.06] px-4 py-2 text-white/60 text-xs uppercase tracking-[0.24em]">
@@ -359,7 +352,7 @@ export default function LandingPage() {
               <h2 className="font-black tracking-tight text-4xl sm:text-5xl max-w-2xl">
                 Payments across chains are broken. Remlo makes them effortless.
               </h2>
-              <p className="text-white/40 max-w-xl leading-8 text-lg">
+              <p className="text-white/40 max-w-2xl leading-8 text-lg">
                 Payers don’t need to bridge, switch networks, or manage balances manually. Merchants stop losing conversions to chain friction.
               </p>
             </div>
@@ -401,8 +394,8 @@ export default function LandingPage() {
       </section>
 
       {/* SUPPORTED CHAINS - redesigned to premium fintech aesthetic */}
-      <section id="supported-chains" className="py-16 md:py-24 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto text-center">
+      <section id="supported-chains" className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
+        <div className="max-w-6xl mx-auto text-center">
           <div className="inline-flex items-center justify-center gap-2 rounded-full bg-white/[0.03] px-4 py-2 mb-4 text-xs uppercase tracking-[0.24em] text-white/50">
             <span className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.18)]" />
             Supported Chains
@@ -411,7 +404,7 @@ export default function LandingPage() {
           <p className="text-white/40 text-base max-w-2xl mx-auto mb-8">More chains. More liquidity. One seamless payment.</p>
 
           {/* Chain cards container */}
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto max-w-3xl">
             <div className="flex flex-wrap justify-center gap-4">
               {[
                 { name: "Arbitrum", short: "ARB" },
@@ -442,8 +435,8 @@ export default function LandingPage() {
       </section>
 
       {/* TRUST SIGNALS */}
-      <section className="py-16 md:py-24 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center">
+      <section className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
+        <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.05] px-4 py-2 text-xs uppercase tracking-[0.24em] text-white/50 w-fit">
               <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.35)]" />
@@ -451,18 +444,18 @@ export default function LandingPage() {
             </div>
             <div className="space-y-4">
               <h2 className="font-black text-4xl sm:text-5xl tracking-tight">Trusted by builders who accept USDC across chains.</h2>
-              <p className="text-white/40 max-w-xl leading-8 text-lg">
+              <p className="text-white/40 max-w-2xl leading-8 text-lg mx-auto">
                 Remlo keeps the payment experience minimal while providing the credibility and enterprise feel that investors and merchants expect.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6">
+            <div className="mt-6 max-w-md mx-auto grid grid-cols-2 gap-4">
+              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6 text-center">
                 <div className="text-white/40 uppercase text-[11px] tracking-[0.3em] mb-2">Transactions</div>
                 <div className="text-3xl font-black text-white">120+</div>
                 <div className="text-white/50 text-sm mt-1">invoices created</div>
               </div>
-              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6">
+              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6 text-center">
                 <div className="text-white/40 uppercase text-[11px] tracking-[0.3em] mb-2">Testnet Volume</div>
                 <div className="text-3xl font-black text-white">$4,200+</div>
                 <div className="text-white/50 text-sm mt-1">settled on Arc</div>
@@ -475,15 +468,9 @@ export default function LandingPage() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="py-16 md:py-20 px-6 md:px-12">
-        <div
-          className="max-w-5xl mx-auto rounded-3xl p-12 md:p-16 relative overflow-hidden"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(13,13,20,0.8) 60%)",
-            border: "1px solid rgba(99,102,241,0.2)",
-          }}
-        >
+      <section className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
+        <div className="max-w-3xl mx-auto rounded-3xl p-12 md:p-16 relative overflow-hidden"
+          style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(13,13,20,0.8) 60%)", border: "1px solid rgba(99,102,241,0.2)" }}>
           {/* Decorative R */}
           <div
             className="absolute right-8 bottom-0 text-[200px] font-black leading-none select-none pointer-events-none"
@@ -494,7 +481,7 @@ export default function LandingPage() {
           >
           </div>
 
-          <div className="relative z-10 max-w-lg">
+          <div className="relative z-10 max-w-lg mx-auto text-center">
             <h2
               className="font-black mb-4 leading-tight"
               style={{ fontSize: "clamp(2rem, 5vw, 3rem)", letterSpacing: "-1px" }}
@@ -503,7 +490,7 @@ export default function LandingPage() {
               <br />
               <span className="text-white/60">the smart way.</span>
             </h2>
-            <p className="text-white/40 text-base mb-8">
+            <p className="text-white/40 text-base mb-8 max-w-2xl mx-auto">
               Create invoice links and get paid on Arc Network.
             </p>
 
@@ -514,7 +501,7 @@ export default function LandingPage() {
                     setNavigateAfterConnect(true);
                     openConnectModal();
                   }}
-                  className="flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 active:scale-95"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 active:scale-95"
                   style={{
                     background:
                       "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
@@ -530,11 +517,8 @@ export default function LandingPage() {
       </section>
 
       {/* FOOTER */}
-      <footer
-        className="px-6 md:px-12 py-8 md:py-12"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-      >
-        <div className="max-w-5xl mx-auto">
+      <footer className="px-6 md:px-8 py-8 md:py-12 border-t border-white/[0.04]">
+        <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             {/* Brand */}
             <div>
