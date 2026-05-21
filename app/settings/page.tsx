@@ -170,7 +170,7 @@ export default function SettingsPage() {
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity text-left"
           >
             <RemloLogo size={28} />
-            <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+        
           </button>
         </div>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
@@ -208,7 +208,7 @@ export default function SettingsPage() {
         <div className="flex md:hidden items-center justify-between mb-6">
           <div className="flex items-center gap-2.5">
             <RemloLogo size={28} />
-            <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+            
           </div>
           <div className="relative">
             <button className="h-10 w-10 rounded-xl border border-white/[0.08] bg-[#13131a] text-white/70 hover:text-white transition" onClick={() => setMobileDropdownOpen((c) => !c)}>

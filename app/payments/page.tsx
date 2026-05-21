@@ -130,7 +130,7 @@ export default function PaymentsPage() {
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity text-left"
           >
             <RemloLogo size={28} />
-            <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+          
           </button>
         </div>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
@@ -174,7 +174,7 @@ export default function PaymentsPage() {
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
           >
             <RemloLogo size={28} />
-            <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+          
           </button>
           <div className="relative">
             <button

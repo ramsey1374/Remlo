@@ -56,7 +56,7 @@ SETTLEMENT:  Arc Testnet
 TX HASH:
 ${txHash ?? "Pending"}
 ────────────────────────────────
-Powered by Remlo · Circle · Arc
+Powered by Remlo
 ════════════════════════════════`.trim();
   const blob = new Blob([content], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
@@ -338,7 +338,7 @@ if (creatorSettings?.display_name) {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2.5">
             <RemloLogo size={28} />
-            <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+            
           </div>
           <span className="text-emerald-400 text-xs font-semibold bg-emerald-400/10 px-2.5 py-1 rounded-full border border-emerald-400/20"><IconShield size={12} /> Secure</span>
         </div>
