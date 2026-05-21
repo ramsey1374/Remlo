@@ -137,6 +137,25 @@ export default function CreateInvoicePage() {
     setTimeout(() => setCopied(false), 2000);
   }
 
+  if (!isConnected) {
+    return (
+      <div className="min-h-screen bg-[#0d0d14] flex items-center justify-center px-6">
+        <div className="relative z-10 text-center max-w-sm w-full">
+          <div className="flex items-center justify-center mb-10"><RemloLogo size={120} /></div>
+          <h1 className="text-white text-3xl font-bold tracking-tight mb-3">Connect your wallet</h1>
+          <p className="text-white/40 text-sm leading-relaxed mb-8">Connect to create and manage invoices.</p>
+          <ConnectButton.Custom>
+            {({ openConnectModal }) => (
+              <button onClick={openConnectModal}
+                className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl transition-all text-sm">
+                Connect Wallet
+              </button>
+            )}
+          </ConnectButton.Custom>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-[#0d0d14]">

@@ -20,11 +20,23 @@ function RemloLogo({ size = 32 }: { size?: number }) {
 function ArcLogo({ size = 20 }: { size?: number }) {
   return (
     <img
-      src="/arc-logo.JPG"
+      src="/arc-logo.jpg"
       alt="Arc"
       width={size}
       height={size}
       style={{ objectFit: "contain", borderRadius: "4px" }}
+    />
+  );
+}
+
+function USDCLogo({ size = 20 }: { size?: number }) {
+  return (
+    <img
+      src="/usdc-logo.png"
+      alt="USDC"
+      width={size}
+      height={size}
+      style={{ objectFit: "contain", borderRadius: "50%" }}
     />
   );
 }
@@ -86,14 +98,14 @@ function PayPageMockup() {
         </div>
         <div className="flex items-center justify-between">
           {[
-            { icon: "💲", label: "You pay USDC", sub: "from any network" },
+            { icon: "usdc", label: "You pay USDC", sub: "from any network" },
             { icon: "✦", label: "We find best", sub: "network for you" },
             { icon: "arc", label: "We settle on", sub: "Arc Testnet" },
           ].map((step, i) => (
             <div key={i} className="flex items-center gap-1">
               <div className="text-center">
                 <div className="w-9 h-9 rounded-xl bg-white/[0.06] flex items-center justify-center mx-auto mb-1.5 text-sm">
-                  {step.icon === "arc" ? <ArcLogo size={22} /> : step.icon}
+                  {step.icon === "arc" ? <ArcLogo size={22} /> : step.icon === "usdc" ? <USDCLogo size={22} /> : step.icon}
                 </div>
                 <div className="text-white/50 text-[9px] leading-tight">
                   {step.label}
@@ -219,12 +231,6 @@ export default function LandingPage() {
             Benefits
           </button>
         </div>
-
-        {/* Built on Arc badge */}
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03]">
-          <ArcLogo size={14} />
-          <span className="text-white/50 text-xs">Built on Arc Network</span>
-        </div>
       </nav>
 
       {/* HERO */}
@@ -241,8 +247,8 @@ export default function LandingPage() {
                 color: "#a5b4fc",
               }}
             >
-              <ArcLogo size={12} />
-              Built on Arc Network
+              <ArcLogo size={14} />
+              <span>Built on Arc Network</span>
             </div>
 
             <h1
@@ -316,7 +322,7 @@ export default function LandingPage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" className="py-24 px-6 md:px-12">
+      <section id="how-it-works" className="py-16 md:py-20 px-6 md:px-12">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2
@@ -415,7 +421,7 @@ export default function LandingPage() {
       </section>
 
       {/* BENEFITS */}
-      <section id="benefits" className="py-24 px-6 md:px-12">
+      <section id="benefits" className="py-16 md:py-20 px-6 md:px-12">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2
@@ -489,7 +495,7 @@ export default function LandingPage() {
       </section>
 
       {/* SUPPORTED CHAINS */}
-      <section className="py-24 px-6 md:px-12">
+      <section className="py-16 md:py-20 px-6 md:px-12">
         <div className="max-w-5xl mx-auto text-center">
           <h2
             className="font-black mb-3"
@@ -540,7 +546,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="py-24 px-6 md:px-12">
+      <section className="py-16 md:py-20 px-6 md:px-12">
         <div
           className="max-w-5xl mx-auto rounded-3xl p-12 md:p-16 relative overflow-hidden"
           style={{
@@ -594,7 +600,7 @@ export default function LandingPage() {
 
       {/* FOOTER */}
       <footer
-        className="px-6 md:px-12 py-12"
+        className="px-6 md:px-12 py-8 md:py-12"
         style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
       >
         <div className="max-w-5xl mx-auto">
