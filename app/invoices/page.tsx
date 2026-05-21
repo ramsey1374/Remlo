@@ -81,7 +81,9 @@ function StatusBadge({ status }: { status: string }) {
 export default function InvoicesPage() {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
+  const router = useRouter();
   const { toast } = useToast();
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [intents, setIntents] = useState<PaymentIntent[]>([]);
   const [loading, setLoading] = useState(true);
@@ -228,10 +230,14 @@ export default function InvoicesPage() {
     <div className="flex min-h-screen bg-[#0d0d14]">
       <aside className="hidden md:flex w-[200px] min-h-screen bg-[#13131a] border-r border-white/[0.06] flex-col">
         <div className="flex items-center justify-center px-4 py-4 border-b border-white/[0.06]">
-          <div className="flex items-center gap-2.5">
+          <button
+            type="button"
+            onClick={() => router.push("/create-invoice")}
+            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity text-left"
+          >
             <RemloLogo size={28} />
             <span className="text-white font-bold text-base tracking-tight">Remlo</span>
-          </div>
+          </button>
         </div>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
           {[

@@ -32,6 +32,8 @@ function formatTimeAgo(dateStr: string | null) {
 export default function PaymentsPage() {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
+  const router = useRouter();
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const [payments, setPayments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [networkError, setNetworkError] = useState(false);
@@ -116,10 +118,14 @@ export default function PaymentsPage() {
       {/* Sidebar */}
       <aside className="hidden md:flex w-[200px] min-h-screen bg-[#13131a] border-r border-white/[0.06] flex-col">
         <div className="flex items-center justify-center px-4 py-4 border-b border-white/[0.06]">
-          <div className="flex items-center gap-2.5">
+          <button
+            type="button"
+            onClick={() => router.push("/create-invoice")}
+            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity text-left"
+          >
             <RemloLogo size={28} />
             <span className="text-white font-bold text-base tracking-tight">Remlo</span>
-          </div>
+          </button>
         </div>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
           {[
@@ -156,9 +162,56 @@ export default function PaymentsPage() {
 
         {/* Mobile top bar */}
         <div className="flex md:hidden items-center justify-between mb-6">
-          <div className="flex items-center gap-2.5">
+          <button
+            type="button"
+            onClick={() => router.push("/create-invoice")}
+            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
+          >
             <RemloLogo size={28} />
             <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+          </button>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setMobileDropdownOpen((current) => !current)}
+              className="h-10 w-10 rounded-xl border border-white/[0.08] bg-[#13131a] text-white/70 hover:text-white transition"
+            >
+              <span className="text-lg">☰</span>
+            </button>
+            {mobileDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-[#13131a] border border-white/[0.06] rounded-2xl shadow-lg z-50">
+                {[
+                  { label: "Invoices", href: "/invoices" },
+                  { label: "Payments", href: "/payments" },
+                  { label: "Analytics", href: "/analytics" },
+                  { label: "Settings", href: "/settings" },
+                ].map((item) => (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => {
+                      router.push(item.href);
+                      setMobileDropdownOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-3 text-sm text-white/80 hover:text-white hover:bg-white/[0.04] transition"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+                <div className="border-t border-white/[0.06]">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      disconnect();
+                      setMobileDropdownOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-3 text-sm text-red-400 hover:text-red-300 transition"
+                  >
+                    Disconnect
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
