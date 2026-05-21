@@ -115,7 +115,10 @@ export default function PaymentsPage() {
       {/* Sidebar */}
       <aside className="hidden md:flex w-[200px] min-h-screen bg-[#13131a] border-r border-white/[0.06] flex-col">
         <div className="flex items-center justify-center px-4 py-4 border-b border-white/[0.06]">
-          <RemloLogo size={120} />
+          <div className="flex items-center gap-2.5">
+            <RemloLogo size={28} />
+            <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+          </div>
         </div>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
           {[
@@ -152,7 +155,10 @@ export default function PaymentsPage() {
 
         {/* Mobile top bar */}
         <div className="flex md:hidden items-center justify-between mb-6">
-          <RemloLogo size={80} />
+          <div className="flex items-center gap-2.5">
+            <RemloLogo size={28} />
+            <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+          </div>
         </div>
 
         <div className="mb-6">

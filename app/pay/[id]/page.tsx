@@ -329,7 +329,10 @@ if (creatorSettings?.display_name) {
       <div className="w-full max-w-sm relative z-10">
 
         <div className="flex items-center justify-between mb-6">
-          <RemloLogo size={90} />
+          <div className="flex items-center gap-2.5">
+            <RemloLogo size={28} />
+            <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+          </div>
           <span className="text-emerald-400 text-xs font-semibold bg-emerald-400/10 px-2.5 py-1 rounded-full border border-emerald-400/20">🔒 Secure</span>
         </div>
 
