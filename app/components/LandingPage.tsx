@@ -44,7 +44,7 @@ function USDCLogo({ size = 24 }: { size?: number }) {
 
 function PayPageMockup() {
   return (
-    <div className="w-full max-w-sm ui-card overflow-hidden relative transform-gpu will-change-transform xl:-translate-x-2 xl:rotate-[0.25deg] animate-fade-in-up">
+    <div className="w-full max-w-sm ui-card overflow-hidden relative transform-gpu will-change-transform xl:-translate-x-2 xl:rotate-[0.25deg] animate-fade-in-up border border-white/[0.04] transition-transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]">
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-indigo-500/15 to-transparent pointer-events-none" />
       <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-gradient-to-br from-indigo-500/20 to-transparent opacity-80 pointer-events-none animate-float-slow" />
       <div className="px-6 pt-6 pb-5 text-center border-b border-white/[0.06]">
@@ -298,10 +298,9 @@ export default function LandingPage() {
             ].map((step, i) => (
               <div key={i} className="relative">
                 <div
-                  className="rounded-2xl p-5 h-full"
+                  className="rounded-2xl p-5 h-full border border-white/[0.06] transition-transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]"
                   style={{
                     background: "rgba(255,255,255,0.02)",
-                    border: "1px solid rgba(255,255,255,0.06)",
                   }}
                 >
                   <div
