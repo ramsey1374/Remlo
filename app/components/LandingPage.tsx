@@ -98,8 +98,7 @@ function PayPageMockup() {
         
         <div className="flex items-center gap-2 mb-2 px-3 py-2 bg-white/[0.03] border border-white/[0.06] rounded-2xl">
           <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
-          <span className="text-white/40 text-xs">Connected:</span>
-          <span className="text-white/70 text-xs font-mono">0x8F0F1E...D62</span>
+          
         </div>
         <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-emerald-500/5 border border-emerald-500/15 rounded-2xl">
           <div className="w-2 h-2 rounded-full bg-blue-400" />
@@ -110,9 +109,7 @@ function PayPageMockup() {
         <div className="w-full py-3 rounded-2xl text-center text-white text-sm font-bold ui-button-primary">
           Pay 100 USDC →
         </div>
-        <div className="text-center text-white/20 text-[10px] mt-2">
-          USDC sent from best chain. We'll handle everything for you.
-        </div>
+      
       </div>
 
       <div className="absolute -top-20 -right-20 w-48 h-48 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)" }} />
