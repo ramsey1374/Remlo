@@ -406,11 +406,11 @@ export default function LandingPage() {
           <div className="mx-auto max-w-3xl">
             <div className="flex flex-wrap justify-center gap-4">
               {[
-                { name: "Arbitrum", short: "ARB" },
-                { name: "Base", short: "BASE" },
-                { name: "Ethereum", short: "ETH" },
-                { name: "Optimism", short: "OP" },
-                { name: "And more...", short: "+" },
+                { name: "Arbitrum", logo: "/arbitrum-logo.png" },
+                { name: "Base", logo: "/base-logo.png" },
+                { name: "Ethereum", logo: "/ethereum-logo.png" },
+                { name: "Optimism", logo: "/optimism-logo.png" },
+                { name: "And more...", logo: null },
               ].map((c) => (
                 <div
                   key={c.name}
@@ -418,9 +418,17 @@ export default function LandingPage() {
                   style={{ minWidth: 0 }}
                 >
                   <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-white/[0.03] to-white/[0.01] border border-white/[0.04] flex-shrink-0">
-                    <div className="w-8 h-8 flex items-center justify-center rounded-md text-white font-bold text-sm" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))' }}>
-                      {c.short}
-                    </div>
+                    {c.logo ? (
+                      <img
+                        src={c.logo}
+                        alt={`${c.name} logo`}
+                        className="h-8 w-8 object-contain"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 flex items-center justify-center rounded-md text-white font-bold text-sm" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))' }}>
+                        +
+                      </div>
+                    )}
                   </div>
                   <div className="flex-1 text-left min-w-0">
                     <div className="text-white font-semibold truncate">{c.name}</div>
