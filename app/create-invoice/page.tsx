@@ -175,7 +175,7 @@ export default function CreateInvoicePage() {
         >
           <div className="flex items-center gap-2.5">
             <RemloLogo size={28} />
-            <span className="text-white font-semibold text-base tracking-tight">Remlo</span>
+            
           </div>
         </button>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
@@ -216,7 +216,7 @@ export default function CreateInvoicePage() {
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
           >
             <RemloLogo size={28} />
-            <span className="text-white font-semibold text-base tracking-tight">Remlo</span>
+            
           </button>
           <div className="relative">
             <button 
