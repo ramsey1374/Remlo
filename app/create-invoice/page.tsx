@@ -10,10 +10,16 @@ import { useToast } from "@/lib/toast";
 import { sanitizeText, sanitizeAmount } from "@/lib/sanitize";
 import { checkRateLimit, formatResetTime } from "@/lib/rate-limit";
 import * as Sentry from "@sentry/nextjs";
+import { IconPlus, IconInvoices, IconPayments, IconAnalytics, IconSettings, IconMenu, IconCheck, IconShield } from "../components/Icons";
 
 
 function RemloLogo({ size = 28 }: { size?: number }) {
-  return <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />;
+  return (
+    <div className="flex items-center gap-2">
+      <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />
+      <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+    </div>
+  );
 }
 function ArcLogo({ size = 28 }: { size?: number }) {
   return <img src="/arc-logo.jpg" alt="Arc" width={size} height={size} style={{ objectFit: "contain", borderRadius: "6px" }} />;
@@ -174,11 +180,11 @@ export default function CreateInvoicePage() {
         </button>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
           {[
-            { label: "Create Invoice", icon: "+", href: "/create-invoice", active: true },
-            { label: "Invoices", icon: "☰", href: "/invoices" },
-            { label: "Payments", icon: "↕", href: "/payments" },
-            { label: "Analytics", icon: "◎", href: "/analytics" },
-            { label: "Settings", icon: "⚙", href: "/settings" },
+            { label: "Create Invoice", icon: <IconPlus />, href: "/create-invoice", active: true },
+            { label: "Invoices", icon: <IconInvoices />, href: "/invoices" },
+            { label: "Payments", icon: <IconPayments />, href: "/payments" },
+            { label: "Analytics", icon: <IconAnalytics />, href: "/analytics" },
+            { label: "Settings", icon: <IconSettings />, href: "/settings" },
           ].map((item) => (
             <a key={item.label} href={item.href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
@@ -217,15 +223,15 @@ export default function CreateInvoicePage() {
               onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
               className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/40 hover:text-white/70 text-sm transition-colors"
             >
-              <span>☰</span>
+              <IconMenu />
             </button>
             {mobileDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-[#13131a] border border-white/[0.06] rounded-lg shadow-lg z-50">
                 {[
-                  { label: "Invoices", icon: "☰", href: "/invoices" },
-                  { label: "Payments", icon: "↕", href: "/payments" },
-                  { label: "Analytics", icon: "◎", href: "/analytics" },
-                  { label: "Settings", icon: "⚙", href: "/settings" },
+                  { label: "Invoices", icon: <IconInvoices />, href: "/invoices" },
+                  { label: "Payments", icon: <IconPayments />, href: "/payments" },
+                  { label: "Analytics", icon: <IconAnalytics />, href: "/analytics" },
+                  { label: "Settings", icon: <IconSettings />, href: "/settings" },
                 ].map((item) => (
                   <a 
                     key={item.label} 
@@ -350,7 +356,7 @@ export default function CreateInvoicePage() {
                   </div>
                 </div>
                 <span className="text-emerald-400 text-xs font-semibold bg-emerald-400/10 px-2 py-1 rounded-full border border-emerald-400/20 hidden sm:inline-flex">
-                  On Arc ✓
+                  On Arc <IconCheck size={12} />
                 </span>
               </div>
               <p className="text-white/25 text-xs mt-1.5">Your funds are always settled on Arc Testnet.</p>
@@ -399,7 +405,7 @@ export default function CreateInvoicePage() {
 
             <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-4 md:p-5 flex items-start gap-3">
               <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-indigo-400 text-sm">🛡</span>
+                <IconShield size={16} />
               </div>
               <div>
                 <div className="text-white font-semibold text-sm mb-1">Smart routing enabled</div>
@@ -411,7 +417,7 @@ export default function CreateInvoicePage() {
 
             {link && (
               <div className="bg-[#13131a] border border-emerald-500/20 rounded-2xl p-4 md:p-5">
-                <div className="text-emerald-400 font-semibold text-sm mb-3">✓ Invoice Created — Share this link</div>
+                <div className="flex items-center gap-2 text-emerald-400 font-semibold text-sm mb-3"><IconCheck size={14} /> <span>Invoice Created — Share this link</span></div>
                 <div className="flex items-center gap-2 bg-[#0d0d14] border border-white/[0.08] rounded-xl px-3 py-2.5 mb-4">
                   <span className="text-white/40 text-xs font-mono flex-1 truncate">{link}</span>
                   <button onClick={copyLink}
@@ -437,16 +443,16 @@ export default function CreateInvoicePage() {
 
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#13131a] border-t border-white/[0.06] flex z-50">
         <a href="/create-invoice" className="flex-1 flex flex-col items-center justify-center py-3 text-indigo-400">
-          <span className="text-lg">+</span><span className="text-[10px] mt-0.5">Create</span>
+          <IconPlus /><span className="text-[10px] mt-0.5">Create</span>
         </a>
         <a href="/invoices" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-          <span className="text-lg">☰</span><span className="text-[10px] mt-0.5">Invoices</span>
+          <IconInvoices /><span className="text-[10px] mt-0.5">Invoices</span>
         </a>
         <a href="/payments" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-          <span className="text-lg">↕</span><span className="text-[10px] mt-0.5">Payments</span>
+          <IconPayments /><span className="text-[10px] mt-0.5">Payments</span>
         </a>
         <a href="/settings" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-          <span className="text-lg">⚙</span><span className="text-[10px] mt-0.5">Settings</span>
+          <IconSettings /><span className="text-[10px] mt-0.5">Settings</span>
         </a>
       </div>
     </div>

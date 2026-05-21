@@ -4,9 +4,15 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useAccount, useDisconnect } from "wagmi";
 import { supabase } from "@/lib/db";
+import { IconPlus, IconInvoices, IconPayments, IconAnalytics, IconSettings, IconMenu, IconCheck, IconCircle } from "../../components/Icons";
 
 function RemloLogo({ size = 28 }: { size?: number }) {
-  return <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />;
+  return (
+    <div className="flex items-center gap-2">
+      <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />
+      <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+    </div>
+  );
 }
 
 function formatInvoiceId(id: string) {
@@ -148,11 +154,11 @@ export default function InvoiceDetailPage() {
         </div>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
           {[
-            { label: "Create Invoice", icon: "+", href: "/create-invoice" },
-            { label: "Invoices", icon: "☰", href: "/invoices", active: true },
-            { label: "Payments", icon: "↕", href: "/payments" },
-            { label: "Analytics", icon: "◎", href: "/analytics" },
-            { label: "Settings", icon: "⚙", href: "/settings" },
+            { label: "Create Invoice", icon: <IconPlus />, href: "/create-invoice" },
+            { label: "Invoices", icon: <IconInvoices />, href: "/invoices", active: true },
+            { label: "Payments", icon: <IconPayments />, href: "/payments" },
+            { label: "Analytics", icon: <IconAnalytics />, href: "/analytics" },
+            { label: "Settings", icon: <IconSettings />, href: "/settings" },
           ].map((item) => (
             <a key={item.label} href={item.href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
@@ -196,7 +202,7 @@ export default function InvoiceDetailPage() {
               onClick={() => setMobileDropdownOpen((c) => !c)}
               className="h-10 w-10 rounded-xl border border-white/[0.08] bg-[#13131a] text-white/70 hover:text-white transition"
             >
-              <span className="text-lg">☰</span>
+              <IconMenu />
             </button>
             {mobileDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-[#13131a] border border-white/[0.06] rounded-2xl shadow-lg z-50">
@@ -305,8 +311,8 @@ export default function InvoiceDetailPage() {
               )}
               {normalizedStatus !== "expired" && normalizedStatus !== "settled" && (
                 <button onClick={copyLink}
-                  className="flex-1 py-2.5 text-center text-xs font-semibold text-white/40 hover:text-white border border-white/[0.08] hover:border-white/20 rounded-xl transition-all">
-                  {copied ? "Copied! ✓" : "Copy Payment Link"}
+                  className="flex-1 py-2.5 text-center text-xs font-semibold text-white/40 hover:text-white border border-white/[0.08] hover:border-white/20 rounded-xl transition-all flex items-center justify-center gap-2">
+                  {copied ? (<><IconCheck size={14} /> Copied!</>) : "Copy Payment Link"}
                 </button>
               )}
               {normalizedStatus !== "expired" && (
@@ -330,7 +336,7 @@ export default function InvoiceDetailPage() {
                       step.active ? "bg-amber-500 text-white" :
                       "bg-white/[0.06] text-white/20 border border-white/[0.08]"
                     }`}>
-                      {step.done ? "✓" : step.key === "settled" ? "A" : "○"}
+                      {step.done ? <IconCheck size={12} /> : <IconCircle size={12} />}
                     </div>
                     {i < steps.length - 1 && (
                       <div className={`w-px flex-1 my-1 ${step.done ? "bg-emerald-500/30" : "bg-white/[0.06]"}`}

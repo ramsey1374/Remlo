@@ -5,9 +5,15 @@ import { useRouter } from "next/navigation";
 import { useAccount, useDisconnect } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { supabase } from "@/lib/db";
+import { IconPlus, IconInvoices, IconPayments, IconAnalytics, IconSettings, IconMenu, IconGlobe } from "../components/Icons";
 
 function RemloLogo({ size = 28 }: { size?: number }) {
-  return <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />;
+  return (
+    <div className="flex items-center gap-2">
+      <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />
+      <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+    </div>
+  );
 }
 
 function chainName(chainId: number | null) {
@@ -129,11 +135,11 @@ export default function PaymentsPage() {
         </div>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
           {[
-            { label: "Create Invoice", icon: "+", href: "/create-invoice" },
-            { label: "Invoices", icon: "☰", href: "/invoices" },
-            { label: "Payments", icon: "↕", href: "/payments", active: true },
-            { label: "Analytics", icon: "◎", href: "/analytics" },
-            { label: "Settings", icon: "⚙", href: "/settings" },
+            { label: "Create Invoice", icon: <IconPlus />, href: "/create-invoice" },
+            { label: "Invoices", icon: <IconInvoices />, href: "/invoices" },
+            { label: "Payments", icon: <IconPayments />, href: "/payments", active: true },
+            { label: "Analytics", icon: <IconAnalytics />, href: "/analytics" },
+            { label: "Settings", icon: <IconSettings />, href: "/settings" },
           ].map((item) => (
             <a key={item.label} href={item.href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
@@ -176,7 +182,7 @@ export default function PaymentsPage() {
               onClick={() => setMobileDropdownOpen((current) => !current)}
               className="h-10 w-10 rounded-xl border border-white/[0.08] bg-[#13131a] text-white/70 hover:text-white transition"
             >
-              <span className="text-lg">☰</span>
+              <IconMenu />
             </button>
             {mobileDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-[#13131a] border border-white/[0.06] rounded-2xl shadow-lg z-50">
@@ -222,7 +228,7 @@ export default function PaymentsPage() {
 
         {networkError && (
           <div className="bg-red-500/5 border border-red-500/20 rounded-2xl p-6 text-center mb-6">
-            <div className="text-2xl mb-2">📡</div>
+            <div className="text-2xl mb-2"><IconGlobe size={28} /></div>
             <div className="text-red-400 font-semibold text-sm mb-1">No Internet Connection</div>
             <button onClick={fetchPayments}
               className="px-4 py-2 bg-white/[0.06] hover:bg-white/[0.1] text-white/60 text-xs rounded-lg transition-all mt-3">
@@ -319,16 +325,16 @@ export default function PaymentsPage() {
         {/* Mobile bottom nav */}
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#13131a] border-t border-white/[0.06] flex z-50">
           <a href="/create-invoice" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-            <span className="text-lg">+</span><span className="text-[10px] mt-0.5">Create</span>
+            <IconPlus /><span className="text-[10px] mt-0.5">Create</span>
           </a>
           <a href="/invoices" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-            <span className="text-lg">☰</span><span className="text-[10px] mt-0.5">Invoices</span>
+            <IconInvoices /><span className="text-[10px] mt-0.5">Invoices</span>
           </a>
           <a href="/payments" className="flex-1 flex flex-col items-center justify-center py-3 text-indigo-400">
-            <span className="text-lg">↕</span><span className="text-[10px] mt-0.5">Payments</span>
+            <IconPayments /><span className="text-[10px] mt-0.5">Payments</span>
           </a>
           <a href="/analytics" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-            <span className="text-lg">◎</span><span className="text-[10px] mt-0.5">Analytics</span>
+            <IconAnalytics /><span className="text-[10px] mt-0.5">Analytics</span>
           </a>
         </div>
       </main>

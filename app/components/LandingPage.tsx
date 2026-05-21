@@ -2,8 +2,9 @@
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { IconBolt, IconCircle, IconLink, IconDoc, IconSearch, IconCheck, IconGlobe, IconShield, IconChart } from "./Icons";
 
 function RemloLogo({ size = 32 }: { size?: number }) {
   return (
@@ -24,12 +25,12 @@ function ArcLogo({ size = 20 }: { size?: number }) {
       alt="Arc"
       width={size}
       height={size}
-      style={{ objectFit: "contain", borderRadius: "4px" }}
+      style={{ objectFit: "contain", borderRadius: "6px" }}
     />
   );
 }
 
-function USDCLogo({ size = 20 }: { size?: number }) {
+function USDCLogo({ size = 24 }: { size?: number }) {
   return (
     <img
       src="/usdc-logo.png"
@@ -41,33 +42,21 @@ function USDCLogo({ size = 20 }: { size?: number }) {
   );
 }
 
-// Mock pay page card matching image 3
 function PayPageMockup() {
   return (
-    <div
-      className="relative w-full max-w-[340px] rounded-2xl overflow-hidden"
-      style={{
-        background: "linear-gradient(160deg, #13131a 0%, #0d0d14 100%)",
-        border: "1px solid rgba(255,255,255,0.08)",
-        boxShadow:
-          "0 0 0 1px rgba(99,102,241,0.1), 0 32px 64px rgba(0,0,0,0.6)",
-      }}
-    >
-      {/* Header */}
+    <div className="w-full max-w-sm bg-[#13131a] border border-white/[0.06] rounded-3xl shadow-[0_30px_100px_rgba(0,0,0,0.25)] overflow-hidden relative">
+      <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-gradient-to-br from-indigo-500/10 to-transparent pointer-events-none" />
       <div className="px-6 pt-6 pb-5 text-center border-b border-white/[0.06]">
         <div className="text-white font-semibold text-sm mb-0.5">Ramsey</div>
         <div className="text-white/40 text-xs font-mono">0x8F0F1E...D62</div>
         <div className="text-white/25 text-xs mt-1">is requesting payment</div>
         <div className="text-white/40 text-xs mt-4 mb-1">Amount</div>
         <div className="flex items-baseline justify-center gap-2">
-          <span className="text-white text-4xl font-black tracking-tight">
-            2.00
-          </span>
+          <span className="text-white text-4xl font-black tracking-tight">2.00</span>
           <span className="text-white/40 text-xl font-semibold">USDC</span>
         </div>
       </div>
 
-      {/* Meta */}
       <div className="px-6 py-4 border-b border-white/[0.06] flex flex-col gap-2.5">
         {[
           { label: "Invoice ID", value: "1aa523" },
@@ -91,46 +80,36 @@ function PayPageMockup() {
         ))}
       </div>
 
-      {/* How it works */}
       <div className="px-6 py-4 border-b border-white/[0.06]">
         <div className="text-white/25 text-[10px] font-semibold uppercase tracking-widest mb-3">
           How it works
         </div>
         <div className="flex items-center justify-between">
           {[
-            { icon: "usdc", label: "You pay USDC", sub: "from any network" },
-            { icon: "✦", label: "We find best", sub: "network for you" },
-            { icon: "arc", label: "We settle on", sub: "Arc Testnet" },
+            { icon: <USDCLogo size={22} />, label: "You pay USDC", sub: "from any network" },
+            { icon: <IconSearch size={18} />, label: "We find best", sub: "network for you" },
+            { icon: <ArcLogo size={22} />, label: "We settle on", sub: "Arc Testnet" },
           ].map((step, i) => (
             <div key={i} className="flex items-center gap-1">
               <div className="text-center">
                 <div className="w-9 h-9 rounded-xl bg-white/[0.06] flex items-center justify-center mx-auto mb-1.5 text-sm">
-                  {step.icon === "arc" ? <ArcLogo size={22} /> : step.icon === "usdc" ? <USDCLogo size={22} /> : step.icon}
+                  {step.icon}
                 </div>
-                <div className="text-white/50 text-[9px] leading-tight">
-                  {step.label}
-                </div>
+                <div className="text-white/50 text-[9px] leading-tight">{step.label}</div>
                 <div className="text-white/25 text-[8px]">{step.sub}</div>
               </div>
-              {i < 2 && (
-                <div className="text-white/10 text-xs mx-0.5 mb-3">···</div>
-              )}
+              {i < 2 && <div className="text-white/10 text-xs mx-0.5 mb-3">···</div>}
             </div>
           ))}
         </div>
       </div>
 
-      {/* Pay section */}
       <div className="px-6 py-4">
-        <div className="text-white font-semibold text-sm mb-3">
-          Pay with USDC
-        </div>
+        <div className="text-white font-semibold text-sm mb-3">Pay with USDC</div>
         <div className="flex items-center gap-2 mb-2 px-3 py-2 bg-white/[0.03] border border-white/[0.06] rounded-xl">
           <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
           <span className="text-white/40 text-xs">Connected:</span>
-          <span className="text-white/70 text-xs font-mono">
-            0x8F0F1E...D62
-          </span>
+          <span className="text-white/70 text-xs font-mono">0x8F0F1E...D62</span>
         </div>
         <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-emerald-500/5 border border-emerald-500/15 rounded-xl">
           <div className="w-2 h-2 rounded-full bg-blue-400" />
@@ -138,10 +117,7 @@ function PayPageMockup() {
             8.00 USDC found on Base Sepolia — ready to pay
           </span>
         </div>
-        <div
-          className="w-full py-3 rounded-xl text-center text-white text-sm font-bold"
-          style={{ background: "linear-gradient(135deg, #6366f1, #4f46e5)" }}
-        >
+        <div className="w-full py-3 rounded-xl text-center text-white text-sm font-bold" style={{ background: "linear-gradient(135deg, #6366f1, #4f46e5)" }}>
           Pay 2.00 USDC →
         </div>
         <div className="text-center text-white/20 text-[10px] mt-2">
@@ -149,14 +125,7 @@ function PayPageMockup() {
         </div>
       </div>
 
-      {/* Glow */}
-      <div
-        className="absolute -top-20 -right-20 w-48 h-48 rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)",
-        }}
-      />
+      <div className="absolute -top-20 -right-20 w-48 h-48 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)" }} />
     </div>
   );
 }
@@ -164,16 +133,22 @@ function PayPageMockup() {
 export default function LandingPage() {
   const { isConnected } = useAccount();
   const router = useRouter();
+  const [navigateAfterConnect, setNavigateAfterConnect] = useState(false);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleLogoClick = () => {
-    if (isConnected) {
+    router.push("/");
+  };
+
+  useEffect(() => {
+    if (isConnected && navigateAfterConnect) {
+      setNavigateAfterConnect(false);
       router.push("/create-invoice");
     }
-  };
+  }, [isConnected, navigateAfterConnect, router]);
 
   return (
     <div
@@ -209,11 +184,7 @@ export default function LandingPage() {
         }}
       >
         {/* Logo */}
-        <button
-          onClick={handleLogoClick}
-          disabled={!isConnected}
-          className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-default"
-        >
+        <button onClick={handleLogoClick} className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-opacity">
           <RemloLogo size={28} />
           <span className="text-white font-bold text-base tracking-tight">
             Remlo
@@ -280,9 +251,9 @@ export default function LandingPage() {
             {/* Feature pills */}
             <div className="flex flex-wrap gap-3 mb-10">
               {[
-                { icon: "⚡", label: "Automatic USDC detection" },
-                { icon: "🔵", label: "Always settles to Arc Network" },
-                { icon: "🔗", label: "Shareable payment links" },
+                { icon: <IconBolt />, label: "Automatic USDC detection" },
+                { icon: <IconCircle />, label: "Always settles to Arc Network" },
+                { icon: <IconLink />, label: "Shareable payment links" },
               ].map((f) => (
                 <div
                   key={f.label}
@@ -292,7 +263,7 @@ export default function LandingPage() {
                     border: "1px solid rgba(255,255,255,0.06)",
                   }}
                 >
-                  <span>{f.icon}</span>
+                  <span className="inline-flex">{f.icon}</span>
                   {f.label}
                 </div>
               ))}
@@ -303,7 +274,10 @@ export default function LandingPage() {
               <ConnectButton.Custom>
                 {({ openConnectModal }) => (
                   <button
-                    onClick={openConnectModal}
+                    onClick={() => {
+                      setNavigateAfterConnect(true);
+                      openConnectModal();
+                    }}
                     className="flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 active:scale-95"
                     style={{
                       background:
@@ -344,31 +318,31 @@ export default function LandingPage() {
             {[
               {
                 num: "1",
-                icon: "📄",
+                icon: <IconDoc />,
                 title: "Create Invoice",
                 desc: "Create an invoice link with the amount you want to receive.",
               },
               {
                 num: "2",
-                icon: "🔗",
+                icon: <IconLink />,
                 title: "Share Link",
                 desc: "Share the payment link with your payer anywhere.",
               },
               {
                 num: "3",
-                icon: "🔍",
+                icon: <IconSearch />,
                 title: "We Find USDC",
                 desc: "Remlo automatically scans the payer's wallet across multiple chains.",
               },
               {
                 num: "4",
-                icon: "⚡",
+                icon: <IconBolt />,
                 title: "Payer Clicks Pay",
                 desc: "They approve the payment — no need to switch chains.",
               },
               {
                 num: "5",
-                icon: "✓",
+                icon: <IconCheck />,
                 title: "You Receive USDC",
                 desc: "You get USDC on Arc Network. Fast, secure, and unified.",
               },
@@ -442,28 +416,28 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               {
-                icon: "🌐",
+                icon: <IconGlobe />,
                 title: "Accept from Any Chain",
                 desc: "Your payer can pay from any supported chain. Remlo handles the complexity.",
                 color: "rgba(99,102,241,0.15)",
                 border: "rgba(99,102,241,0.2)",
               },
               {
-                icon: "⚡",
+                icon: <IconBolt />,
                 title: "Automatic USDC Detection",
                 desc: "We scan the payer's wallet and find the best USDC balance automatically.",
                 color: "rgba(251,191,36,0.08)",
                 border: "rgba(251,191,36,0.15)",
               },
               {
-                icon: "🛡",
+                icon: <IconShield />,
                 title: "Secure & Non-Custodial",
                 desc: "Remlo never holds your funds. Payments are secure, transparent, and non-custodial.",
                 color: "rgba(52,211,153,0.08)",
                 border: "rgba(52,211,153,0.15)",
               },
               {
-                icon: "📊",
+                icon: <IconChart />,
                 title: "Built for Scale",
                 desc: "Built on modern infra. Designed for builders, web3 apps, and global businesses.",
                 color: "rgba(99,102,241,0.1)",
@@ -586,7 +560,10 @@ export default function LandingPage() {
             <ConnectButton.Custom>
               {({ openConnectModal }) => (
                 <button
-                  onClick={openConnectModal}
+                  onClick={() => {
+                    setNavigateAfterConnect(true);
+                    openConnectModal();
+                  }}
                   className="flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 active:scale-95"
                   style={{
                     background:

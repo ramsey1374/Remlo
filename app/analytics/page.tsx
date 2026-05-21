@@ -5,9 +5,15 @@ import { useRouter } from "next/navigation";
 import { useAccount, useDisconnect } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { supabase } from "@/lib/db";
+import { IconPlus, IconInvoices, IconPayments, IconAnalytics, IconSettings, IconMenu } from "../components/Icons";
 
 function RemloLogo({ size = 28 }: { size?: number }) {
-  return <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />;
+  return (
+    <div className="flex items-center gap-2">
+      <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />
+      <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+    </div>
+  );
 }
 
 function chainName(chainId: number | null) {
@@ -122,10 +128,10 @@ export default function AnalyticsPage() {
         </div>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
           {[
-            { label: "Create Invoice", icon: "+", href: "/create-invoice" },
-            { label: "Invoices", icon: "☰", href: "/invoices" },
-            { label: "Payments", icon: "↕", href: "/payments" },
-            { label: "Analytics", icon: "◎", href: "/analytics", active: true },
+            { label: "Create Invoice", icon: <IconPlus />, href: "/create-invoice" },
+            { label: "Invoices", icon: <IconInvoices />, href: "/invoices" },
+            { label: "Payments", icon: <IconPayments />, href: "/payments" },
+            { label: "Analytics", icon: <IconAnalytics />, href: "/analytics", active: true },
           ].map((item) => (
             <a key={item.label} href={item.href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
@@ -167,7 +173,7 @@ export default function AnalyticsPage() {
               onClick={() => setMobileDropdownOpen((current) => !current)}
               className="h-10 w-10 rounded-xl border border-white/[0.08] bg-[#13131a] text-white/70 hover:text-white transition"
             >
-              <span className="text-lg">☰</span>
+              <IconMenu />
             </button>
             {mobileDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-[#13131a] border border-white/[0.06] rounded-2xl shadow-lg z-50">
@@ -337,16 +343,16 @@ export default function AnalyticsPage() {
         {/* Mobile bottom nav */}
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#13131a] border-t border-white/[0.06] flex z-50">
           <a href="/create-invoice" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-            <span className="text-lg">+</span><span className="text-[10px] mt-0.5">Create</span>
+            <IconPlus /><span className="text-[10px] mt-0.5">Create</span>
           </a>
           <a href="/invoices" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-            <span className="text-lg">☰</span><span className="text-[10px] mt-0.5">Invoices</span>
+            <IconInvoices /><span className="text-[10px] mt-0.5">Invoices</span>
           </a>
           <a href="/payments" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-            <span className="text-lg">↕</span><span className="text-[10px] mt-0.5">Payments</span>
+            <IconPayments /><span className="text-[10px] mt-0.5">Payments</span>
           </a>
           <a href="/analytics" className="flex-1 flex flex-col items-center justify-center py-3 text-indigo-400">
-            <span className="text-lg">◎</span><span className="text-[10px] mt-0.5">Analytics</span>
+            <IconAnalytics /><span className="text-[10px] mt-0.5">Analytics</span>
           </a>
         </div>
       </main>

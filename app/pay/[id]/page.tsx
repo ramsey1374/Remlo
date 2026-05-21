@@ -10,9 +10,15 @@ import { pickBestChain } from "@/lib/solver";
 import { settleToArc } from "@/lib/arc-settlement";
 import { settleIntent } from "@/lib/intent/settler";
 import { supabase } from "@/lib/db";
+import { IconGlobe, IconX, IconShield, IconDoc, IconCheck, IconSearch } from "../../components/Icons";
 
 function RemloLogo({ size = 28 }: { size?: number }) {
-  return <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />;
+  return (
+    <div className="flex items-center gap-2">
+      <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />
+      <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+    </div>
+  );
 }
 function ArcLogo({ size = 28 }: { size?: number }) {
   return <img src="/arc-logo.jpg" alt="Arc" width={size} height={size} style={{ objectFit: "contain", borderRadius: "6px" }} />;
@@ -239,7 +245,7 @@ if (creatorSettings?.display_name) {
       } catch (e) { console.error("settleIntent failed:", e); }
 
       setPaid(true);
-      setStage("Payment complete ✔");
+      setStage("Payment complete");
     } catch (err: any) {
       console.error(err);
       const raw = err?.message ?? "";
@@ -252,7 +258,7 @@ if (creatorSettings?.display_name) {
       else if (raw.includes("Mint failure")) friendly = "Settlement on Arc failed. Please try paying again.";
       else if (raw.includes("No wallet detected")) friendly = "No wallet detected. Please install MetaMask or another wallet.";
       else if (raw.includes("No valid chain")) friendly = "No chain found with sufficient USDC. Please top up your balance.";
-      setStage(`❌ ${friendly}`);
+      setStage(`Error: ${friendly}`);
     } finally {
       setLoading(false);
     }
@@ -262,10 +268,10 @@ if (creatorSettings?.display_name) {
   if (networkError) {
     return (
       <div className="min-h-screen bg-[#0d0d14] flex items-center justify-center px-4">
-        <div className="text-center max-w-sm">
-          <div className="text-2xl mb-3">📡</div>
-          <div className="text-white font-bold mb-2">No Internet Connection</div>
-          <div className="text-white/40 text-sm mb-6">Please check your network and try again.</div>
+          <div className="text-center max-w-sm">
+            <div className="text-2xl mb-3"><IconGlobe size={28} /></div>
+            <div className="text-white font-bold mb-2">No Internet Connection</div>
+            <div className="text-white/40 text-sm mb-6">Please check your network and try again.</div>
           <button onClick={() => window.location.reload()}
             className="px-6 py-3 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl text-sm transition-all">
             Try Again
@@ -285,7 +291,7 @@ if (creatorSettings?.display_name) {
           </div>
           <div className="bg-[#13131a] border border-red-500/20 rounded-2xl p-8 text-center">
             <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center mx-auto mb-4">
-              <span className="text-red-400 text-3xl">✕</span>
+              <IconX size={28} />
             </div>
             <div className="text-white text-xl font-bold mb-2">Invoice Expired</div>
             <div className="text-white/40 text-sm mb-2">
@@ -334,15 +340,15 @@ if (creatorSettings?.display_name) {
             <RemloLogo size={28} />
             <span className="text-white font-bold text-base tracking-tight">Remlo</span>
           </div>
-          <span className="text-emerald-400 text-xs font-semibold bg-emerald-400/10 px-2.5 py-1 rounded-full border border-emerald-400/20">🔒 Secure</span>
+          <span className="text-emerald-400 text-xs font-semibold bg-emerald-400/10 px-2.5 py-1 rounded-full border border-emerald-400/20"><IconShield size={12} /> Secure</span>
         </div>
 
         {paid ? (
           <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-6">
             <div className="text-center mb-5">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-4">
-                <span className="text-emerald-400 text-3xl">✓</span>
-              </div>
+                <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-4">
+                  <IconCheck size={28} />
+                </div>
               <div className="text-white text-xl font-bold mb-1">Payment Complete</div>
               <div className="text-white/40 text-sm">{finalAmount.toFixed(2)} USDC sent and settling on Arc Testnet.</div>
             </div>
@@ -363,7 +369,7 @@ if (creatorSettings?.display_name) {
                 txHash, chain: paidChain ?? "Unknown", timestamp: new Date().toLocaleString(),
               })}
                 className="w-full py-2.5 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 text-indigo-300 text-xs font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
-                📄 Download Receipt
+                <IconDoc size={14} /> Download Receipt
               </button>
               {txHash && arcExplorerUrl(txHash) && (
                 <a href={arcExplorerUrl(txHash)!} target="_blank" rel="noopener noreferrer"
@@ -435,7 +441,7 @@ if (creatorSettings?.display_name) {
                         <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-2">
                           {step.type === "arc" ? <ArcLogo size={40} /> :
                            step.type === "usdc" ? <USDCLogo size={40} /> :
-                           <div className="w-10 h-10 rounded-xl bg-white/[0.06] flex items-center justify-center text-lg">✦</div>}
+                           <div className="w-10 h-10 rounded-xl bg-white/[0.06] flex items-center justify-center"><IconSearch size={20} /></div>}
                         </div>
                         <div className="text-white/60 text-[10px] sm:text-[11px] font-medium">{step.label}</div>
                         <div className="text-white/25 text-[9px] sm:text-[10px]">{step.sub}</div>
@@ -536,7 +542,7 @@ if (creatorSettings?.display_name) {
 
                 {isConnected && balanceError && (
                   <div className="flex items-start gap-2 px-3 py-2.5 bg-red-500/5 border border-red-500/20 rounded-xl mb-3">
-                    <span className="text-red-400 flex-shrink-0">⚠</span>
+                    <IconX size={16} />
                     <span className="text-red-400 text-xs leading-relaxed">{balanceError}</span>
                   </div>
                 )}
@@ -559,14 +565,14 @@ if (creatorSettings?.display_name) {
 
                 {stage && !paid && (
                   <div className={`flex items-start gap-2 px-3 py-2.5 border rounded-xl mb-3 ${
-                    stage.startsWith("❌") ? "bg-red-500/5 border-red-500/20" : "bg-white/[0.03] border-white/[0.06]"
+                    stage.startsWith("Error:") ? "bg-red-500/5 border-red-500/20" : "bg-white/[0.03] border-white/[0.06]"
                   }`}>
-                    {loading && !stage.startsWith("❌") && (
+                    {loading && !stage.startsWith("Error:") && (
                       <div className="w-3 h-3 border border-indigo-400 border-t-transparent rounded-full animate-spin flex-shrink-0 mt-0.5" />
                     )}
-                    {stage.startsWith("❌") && <span className="text-red-400 flex-shrink-0">⚠</span>}
-                    <span className={`text-xs leading-relaxed ${stage.startsWith("❌") ? "text-red-400" : "text-white/50"}`}>
-                      {stage.startsWith("❌") ? stage.slice(2).trim() : stage}
+                    {stage.startsWith("Error:") && <span className="text-red-400 flex-shrink-0"><IconX size={16} /></span>}
+                    <span className={`text-xs leading-relaxed ${stage.startsWith("Error:") ? "text-red-400" : "text-white/50"}`}>
+                      {stage.startsWith("Error:") ? stage.replace(/^Error:\s*/, "") : stage}
                     </span>
                   </div>
                 )}

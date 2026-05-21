@@ -5,11 +5,17 @@ import { useRouter } from "next/navigation";
 import { useAccount, useDisconnect } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { supabase } from "@/lib/db";
+import { IconPlus, IconInvoices, IconPayments, IconAnalytics, IconSettings, IconCopy, IconCheck, IconDoc, IconMenu, IconGlobe } from "../components/Icons";
 import { useToast } from "@/lib/toast";
 import * as Sentry from "@sentry/nextjs";
 
 function RemloLogo({ size = 28 }: { size?: number }) {
-  return <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />;
+  return (
+    <div className="flex items-center gap-2">
+      <img src="/remlo-logo.png" alt="Remlo" width={size} height={size} style={{ objectFit: "contain" }} />
+      <span className="text-white font-bold text-base tracking-tight">Remlo</span>
+    </div>
+  );
 }
 
 type Invoice = {
@@ -241,11 +247,11 @@ export default function InvoicesPage() {
         </div>
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
           {[
-            { label: "Create Invoice", icon: "+", href: "/create-invoice" },
-            { label: "Invoices", icon: "☰", href: "/invoices", active: true },
-            { label: "Payments", icon: "↕", href: "/payments" },
-            { label: "Analytics", icon: "◎", href: "/analytics" },
-            { label: "Settings", icon: "⚙", href: "/settings" },
+            { label: "Create Invoice", icon: <IconPlus />, href: "/create-invoice" },
+            { label: "Invoices", icon: <IconInvoices />, href: "/invoices", active: true },
+            { label: "Payments", icon: <IconPayments />, href: "/payments" },
+            { label: "Analytics", icon: <IconAnalytics />, href: "/analytics" },
+            { label: "Settings", icon: <IconSettings />, href: "/settings" },
           ].map((item) => (
             <a key={item.label} href={item.href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
@@ -303,7 +309,7 @@ export default function InvoicesPage() {
 
         {networkError && (
           <div className="bg-red-500/5 border border-red-500/20 rounded-2xl p-6 text-center mb-6">
-            <div className="text-2xl mb-2">📡</div>
+            <div className="text-2xl mb-2"><IconGlobe size={28} /></div>
             <div className="text-red-400 font-semibold text-sm mb-1">No Internet Connection</div>
             <button onClick={() => fetchData()}
               className="px-4 py-2 bg-white/[0.06] hover:bg-white/[0.1] text-white/60 text-xs rounded-lg transition-all mt-3">
@@ -408,13 +414,13 @@ export default function InvoicesPage() {
                                   </a>
                                   <button onClick={() => copyInvoiceLink(row.id)} title="Copy link"
                                     className="w-7 h-7 flex items-center justify-center bg-white/[0.06] hover:bg-white/[0.1] text-white/50 hover:text-white rounded-lg transition-all text-xs">
-                                    {copied === row.id ? "✓" : "⎘"}
+                                    {copied === row.id ? <IconCheck size={14} /> : <IconCopy size={14} />}
                                   </button>
                                   {row.notes && (
                                     <button onClick={() => setExpandedNotes(expandedNotes === row.id ? null : row.id)}
                                       title="View private notes"
                                       className="w-7 h-7 flex items-center justify-center bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 rounded-lg transition-all text-xs">
-                                      📝
+                                      <IconDoc size={14} />
                                     </button>
                                   )}
                                 </div>
@@ -425,7 +431,7 @@ export default function InvoicesPage() {
                               <tr key={`${row.id}-notes`} className="border-b border-white/[0.04] bg-amber-500/5">
                                 <td colSpan={6} className="px-6 py-3">
                                   <div className="flex items-start gap-2">
-                                    <span className="text-amber-400 text-xs flex-shrink-0">📝 Private note:</span>
+                                    <span className="text-amber-400 text-xs flex-shrink-0"><IconDoc size={14} /> Private note:</span>
                                     <span className="text-amber-300/70 text-xs leading-relaxed">{row.notes}</span>
                                   </div>
                                 </td>
@@ -466,14 +472,14 @@ export default function InvoicesPage() {
                               className="px-3 py-1.5 bg-white/[0.06] text-white/70 text-xs font-semibold rounded-lg">View</a>
                             <button onClick={() => copyInvoiceLink(row.id)}
                               className="w-7 h-7 flex items-center justify-center bg-white/[0.06] text-white/50 rounded-lg text-xs">
-                              {copied === row.id ? "✓" : "⎘"}
+                              {copied === row.id ? <IconCheck size={14} /> : <IconCopy size={14} />}
                             </button>
                           </div>
                         </div>
                         {row.notes && (
                           <div className="mt-2 px-3 py-2 bg-amber-500/5 border border-amber-500/10 rounded-lg">
-                            <span className="text-amber-400/70 text-xs">📝 {row.notes}</span>
-                          </div>
+                              <span className="text-amber-400/70 text-xs"><IconDoc size={14} /> {row.notes}</span>
+                            </div>
                         )}
                       </div>
                     ))}
@@ -492,16 +498,16 @@ export default function InvoicesPage() {
 
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[#13131a] border-t border-white/[0.06] flex z-50">
           <a href="/create-invoice" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-            <span className="text-lg">+</span><span className="text-[10px] mt-0.5">Create</span>
+            <IconPlus /><span className="text-[10px] mt-0.5">Create</span>
           </a>
           <a href="/invoices" className="flex-1 flex flex-col items-center justify-center py-3 text-indigo-400">
-            <span className="text-lg">☰</span><span className="text-[10px] mt-0.5">Invoices</span>
+            <IconInvoices /><span className="text-[10px] mt-0.5">Invoices</span>
           </a>
           <a href="/payments" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-            <span className="text-lg">↕</span><span className="text-[10px] mt-0.5">Payments</span>
+            <IconPayments /><span className="text-[10px] mt-0.5">Payments</span>
           </a>
           <a href="/settings" className="flex-1 flex flex-col items-center justify-center py-3 text-white/40">
-            <span className="text-lg">⚙</span><span className="text-[10px] mt-0.5">Settings</span>
+            <IconSettings /><span className="text-[10px] mt-0.5">Settings</span>
           </a>
         </div>
       </main>
