@@ -234,7 +234,7 @@ export default function InvoicesPage() {
 
   return (
     <div className="flex min-h-screen bg-[#0d0d14]">
-      <aside className="hidden md:flex w-[200px] min-h-screen bg-[#13131a] border-r border-white/[0.06] flex-col">
+      <aside className="hidden md:flex w-[220px] min-h-screen flex-col ui-card px-0 py-0">
         <div className="flex items-center justify-center px-4 py-4 border-b border-white/[0.06]">
           <button
             type="button"
@@ -297,11 +297,11 @@ export default function InvoicesPage() {
           </div>
           <div className="hidden md:flex items-center gap-2">
             <button onClick={exportCSV} disabled={exporting}
-              className="flex items-center gap-2 px-3 py-2 bg-white/[0.06] hover:bg-white/[0.1] text-white/60 hover:text-white text-xs font-semibold rounded-xl transition-all disabled:opacity-40">
+              className="ui-button-secondary text-xs py-2 px-3 disabled:opacity-40">
               {exporting ? "Exporting..." : "↓ Export CSV"}
             </button>
             <a href="/create-invoice"
-              className="flex items-center gap-2 px-4 py-2.5 bg-indigo-500 hover:bg-indigo-400 text-white text-sm font-semibold rounded-xl transition-all shadow-lg shadow-indigo-500/20">
+              className="ui-button-primary text-sm py-2.5 px-4">
               + Create Invoice
             </a>
           </div>
@@ -312,7 +312,7 @@ export default function InvoicesPage() {
             <div className="text-2xl mb-2"><IconGlobe size={28} /></div>
             <div className="text-red-400 font-semibold text-sm mb-1">No Internet Connection</div>
             <button onClick={() => fetchData()}
-              className="px-4 py-2 bg-white/[0.06] hover:bg-white/[0.1] text-white/60 text-xs rounded-lg transition-all mt-3">
+              className="ui-button-secondary text-xs mt-3">
               Try Again
             </button>
           </div>
@@ -328,7 +328,7 @@ export default function InvoicesPage() {
                 { label: "Settled to Arc", value: counts.settled, sub: `${totalVolume.toFixed(2)} USDC`, color: "text-indigo-400" },
                 { label: "Expired", value: counts.expired, sub: `${expiredVolume.toFixed(2)} USDC`, color: "text-red-400" },
               ].map((stat) => (
-                <div key={stat.label} className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-4 md:p-5">
+                <div key={stat.label} className="ui-card p-4 md:p-5">
                   <div className="text-white/40 text-xs mb-2">{stat.label}</div>
                   <div className={`text-2xl md:text-3xl font-black tracking-tight mb-1 ${stat.color}`}>{stat.value}</div>
                   <div className="text-white/30 text-xs">{stat.sub}</div>
@@ -336,11 +336,11 @@ export default function InvoicesPage() {
               ))}
             </div>
 
-            <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl overflow-hidden">
+            <div className="ui-card overflow-hidden">
               <div className="flex items-center gap-1 px-4 md:px-6 py-4 border-b border-white/[0.06] overflow-x-auto">
                 {(["all", "pending", "settled", "expired"] as const).map((f) => (
                   <button key={f} onClick={() => setFilter(f)}
-                    className={`flex items-center gap-1.5 px-2.5 md:px-3 py-1.5 rounded-lg text-xs font-semibold transition-all capitalize whitespace-nowrap ${
+                    className={`ui-button-secondary text-xs py-1.5 px-2.5 transition-all capitalize whitespace-nowrap ${
                       filter === f ? "bg-white/[0.08] text-white" : "text-white/30 hover:text-white/60"
                     }`}>
                     {f}
@@ -351,7 +351,7 @@ export default function InvoicesPage() {
                 ))}
                 {/* Mobile export */}
                 <button onClick={exportCSV} disabled={exporting}
-                  className="ml-auto flex-shrink-0 px-2.5 py-1.5 bg-white/[0.06] hover:bg-white/[0.1] text-white/40 text-xs rounded-lg transition-all disabled:opacity-40 md:hidden">
+                  className="ml-auto flex-shrink-0 ui-button-secondary text-xs disabled:opacity-40 md:hidden">
                   ↓ CSV
                 </button>
               </div>
@@ -452,9 +452,9 @@ export default function InvoicesPage() {
                   </div>
 
                   {/* Mobile cards */}
-                  <div className="md:hidden divide-y divide-white/[0.04]">
+                  <div className="md:hidden space-y-3">
                     {filtered.map((row) => (
-                      <div key={row.id} className="px-4 py-4">
+                      <div key={row.id} className="ui-card p-4">
                         <div className="flex items-start justify-between mb-2">
                           <div>
                             <div className="text-white text-sm font-semibold font-mono">{formatInvoiceId(row.id)}</div>

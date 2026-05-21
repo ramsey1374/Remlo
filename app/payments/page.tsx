@@ -122,7 +122,7 @@ export default function PaymentsPage() {
   return (
     <div className="flex min-h-screen bg-[#0d0d14]">
       {/* Sidebar */}
-      <aside className="hidden md:flex w-[200px] min-h-screen bg-[#13131a] border-r border-white/[0.06] flex-col">
+      <aside className="hidden md:flex w-[220px] min-h-screen flex-col ui-card px-0 py-0">
         <div className="flex items-center justify-center px-4 py-4 border-b border-white/[0.06]">
           <button
             type="button"
@@ -222,7 +222,7 @@ export default function PaymentsPage() {
         </div>
 
         <div className="mb-6">
-          <h1 className="text-white text-xl md:text-2xl font-bold tracking-tight mb-1">Payment History</h1>
+          <h1 className="text-white text-xl md:text-2xl font-semibold tracking-tight mb-1">Payment History</h1>
           <p className="text-white/40 text-sm">All payments you've made as a payer.</p>
         </div>
 
@@ -231,7 +231,7 @@ export default function PaymentsPage() {
             <div className="text-2xl mb-2"><IconGlobe size={28} /></div>
             <div className="text-red-400 font-semibold text-sm mb-1">No Internet Connection</div>
             <button onClick={fetchPayments}
-              className="px-4 py-2 bg-white/[0.06] hover:bg-white/[0.1] text-white/60 text-xs rounded-lg transition-all mt-3">
+              className="ui-button-secondary text-xs mt-3">
               Try Again
             </button>
           </div>
@@ -246,7 +246,7 @@ export default function PaymentsPage() {
                 { label: "Total Paid", value: `${totalPaid.toFixed(2)}`, sub: "USDC settled to Arc", accent: true },
                 { label: "Pending", value: payments.filter((p) => p.status === "pending").length, sub: "awaiting settlement" },
               ].map((stat) => (
-                <div key={stat.label} className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-4 md:p-5">
+                <div key={stat.label} className="ui-card p-4 md:p-5">
                   <div className="text-white/40 text-xs mb-2">{stat.label}</div>
                   <div className={`text-2xl md:text-3xl font-black tracking-tight mb-1 ${stat.accent ? "text-indigo-400" : "text-white"}`}>
                     {stat.value}
@@ -257,7 +257,7 @@ export default function PaymentsPage() {
             </div>
 
             {/* Payment list */}
-            <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl overflow-hidden">
+            <div className="ui-card overflow-hidden">
               <div className="px-6 py-4 border-b border-white/[0.06]">
                 <h2 className="text-white font-semibold text-sm">All Payments</h2>
               </div>

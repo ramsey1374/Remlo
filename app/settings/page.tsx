@@ -162,7 +162,7 @@ export default function SettingsPage() {
 
   return (
     <div className="flex min-h-screen bg-[#0d0d14]">
-      <aside className="hidden md:flex w-[200px] min-h-screen bg-[#13131a] border-r border-white/[0.06] flex-col">
+      <aside className="hidden md:flex w-[220px] min-h-screen flex-col ui-card px-0 py-0">
         <div className="flex items-center justify-center px-4 py-4 border-b border-white/[0.06]">
           <button
             type="button"
@@ -242,7 +242,7 @@ export default function SettingsPage() {
               </p>
 
               <div>
-                <label className="text-white/40 text-xs font-semibold uppercase tracking-wider mb-2 block">
+                <label className="ui-label">
                   Display Name
                 </label>
                 <input
@@ -251,7 +251,7 @@ export default function SettingsPage() {
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   maxLength={40}
-                  className="w-full bg-[#0d0d14] border border-white/[0.08] rounded-xl px-4 py-3 text-white text-sm outline-none placeholder:text-white/20 focus:border-indigo-500/50 transition-colors"
+                  className="ui-input"
                 />
                 <p className="text-white/25 text-xs mt-1.5">
                   Shown on pay page as "{displayName || "Your Name"}" alongside your wallet address.
@@ -273,7 +273,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Payment preferences */}
-            <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-6">
+            <div className="ui-card p-6">
               <h2 className="text-white font-semibold text-base mb-1">Payment Preferences</h2>
               <p className="text-white/40 text-xs mb-5">Control how payers can pay your invoices.</p>
 
@@ -307,7 +307,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Webhook */}
-            <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-6">
+            <div className="ui-card p-6">
               <h2 className="text-white font-semibold text-base mb-1">Webhook</h2>
               <p className="text-white/40 text-xs mb-5">
                 Receive a POST request whenever a payment is settled.
@@ -325,12 +325,12 @@ export default function SettingsPage() {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <label className="text-white/40 text-xs font-semibold uppercase tracking-wider">Signing Secret</label>
-                    <button onClick={generateSecret} className="text-indigo-400 hover:text-indigo-300 text-xs transition-colors">Generate</button>
+                    <button onClick={generateSecret} className="ui-button-secondary text-xs">Generate</button>
                   </div>
                   <input type="text" placeholder="Used to verify webhook authenticity"
                     value={webhookSecret}
                     onChange={(e) => setWebhookSecret(e.target.value)}
-                    className="w-full bg-[#0d0d14] border border-white/[0.08] rounded-xl px-4 py-3 text-white text-sm outline-none placeholder:text-white/20 focus:border-indigo-500/50 transition-colors font-mono" />
+                    className="ui-input font-mono" />
                   <p className="text-white/25 text-xs mt-1.5">Check the X-Remlo-Signature header to verify requests.</p>
                 </div>
 
@@ -366,7 +366,7 @@ export default function SettingsPage() {
             </div>
 
             <button onClick={saveSettings} disabled={saving}
-              className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-400 disabled:opacity-40 text-white font-bold rounded-xl transition-all text-sm shadow-lg shadow-indigo-500/20">
+              className="ui-button-primary w-full py-3.5 text-sm disabled:opacity-40">
               {saving ? "Saving..." : "Save Settings"}
             </button>
           </div>

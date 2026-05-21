@@ -115,7 +115,7 @@ export default function AnalyticsPage() {
 
   return (
     <div className="flex min-h-screen bg-[#0d0d14]">
-      <aside className="hidden md:flex w-[200px] min-h-screen bg-[#13131a] border-r border-white/[0.06] flex-col">
+      <aside className="hidden md:flex w-[220px] min-h-screen flex-col ui-card px-0 py-0">
         <div className="flex items-center justify-center px-4 py-4 border-b border-white/[0.06]">
           <button
             type="button"
@@ -229,7 +229,7 @@ export default function AnalyticsPage() {
                 { label: "Avg Invoice", value: `${avgInvoice.toFixed(2)}`, unit: "USDC", color: "text-white" },
                 { label: "Success Rate", value: `${successRate}`, unit: "%", color: successRate >= 70 ? "text-emerald-400" : "text-amber-400" },
               ].map((m) => (
-                <div key={m.label} className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-4 md:p-5">
+                <div key={m.label} className="ui-card p-4 md:p-5">
                   <div className="text-white/40 text-xs mb-2">{m.label}</div>
                   <div className={`text-2xl md:text-3xl font-black tracking-tight mb-0.5 ${m.color}`}>
                     {m.value}
@@ -241,7 +241,7 @@ export default function AnalyticsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               {/* Volume chart */}
-              <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-6">
+              <div className="ui-card p-6">
                 <h2 className="text-white font-semibold text-sm mb-6">Monthly Volume (USDC)</h2>
                 <div className="flex items-end gap-2 h-32">
                   {monthlyData.map(([month, value]) => (
@@ -264,7 +264,7 @@ export default function AnalyticsPage() {
               </div>
 
               {/* Invoice status breakdown */}
-              <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-6">
+              <div className="ui-card p-6">
                 <h2 className="text-white font-semibold text-sm mb-6">Invoice Breakdown</h2>
                 <div className="flex flex-col gap-4">
                   {[
@@ -313,7 +313,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* Recent settled invoices */}
-            <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl overflow-hidden">
+            <div className="ui-card overflow-hidden">
               <div className="px-6 py-4 border-b border-white/[0.06]">
                 <h2 className="text-white font-semibold text-sm">Recent Settled Invoices</h2>
               </div>

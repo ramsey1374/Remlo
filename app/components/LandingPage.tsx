@@ -44,12 +44,13 @@ function USDCLogo({ size = 24 }: { size?: number }) {
 
 function PayPageMockup() {
   return (
-    <div className="w-full max-w-sm bg-[#13131a] border border-white/[0.06] rounded-3xl shadow-[0_30px_100px_rgba(0,0,0,0.25)] overflow-hidden relative">
-      <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-gradient-to-br from-indigo-500/10 to-transparent pointer-events-none" />
+    <div className="w-full max-w-sm ui-card overflow-hidden relative transform-gpu will-change-transform xl:-translate-x-2 xl:rotate-[0.25deg] animate-fade-in-up">
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-indigo-500/15 to-transparent pointer-events-none" />
+      <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-gradient-to-br from-indigo-500/20 to-transparent opacity-80 pointer-events-none animate-float-slow" />
       <div className="px-6 pt-6 pb-5 text-center border-b border-white/[0.06]">
-        <div className="text-white font-semibold text-sm mb-0.5">Ramsey</div>
+        <div className="text-white font-semibold text-sm mb-1">Ramsey</div>
         <div className="text-white/40 text-xs font-mono">0x8F0F1E...D62</div>
-        <div className="text-white/25 text-xs mt-1">is requesting payment</div>
+        <div className="text-white/30 text-[11px] mt-2">is requesting payment</div>
         <div className="text-white/40 text-xs mt-4 mb-1">Amount</div>
         <div className="flex items-baseline justify-center gap-2">
           <span className="text-white text-4xl font-black tracking-tight">2.00</span>
@@ -57,23 +58,15 @@ function PayPageMockup() {
         </div>
       </div>
 
-      <div className="px-6 py-4 border-b border-white/[0.06] flex flex-col gap-2.5">
+      <div className="px-6 py-4 border-b border-white/[0.06] space-y-3">
         {[
           { label: "Invoice ID", value: "1aa523" },
           { label: "Recipient", value: "0x8F0F1E...D62", mono: true },
           { label: "Settlement", value: "Arc Testnet", accent: true },
         ].map((row) => (
-          <div key={row.label} className="flex justify-between items-center">
-            <span className="text-white/30 text-xs">{row.label}</span>
-            <span
-              className={`text-xs font-medium ${
-                row.accent
-                  ? "text-indigo-400"
-                  : row.mono
-                  ? "font-mono text-white/60"
-                  : "text-white/60"
-              }`}
-            >
+          <div key={row.label} className="flex justify-between items-center text-sm">
+            <span className="text-white/30">{row.label}</span>
+            <span className={`font-medium ${row.accent ? "text-indigo-400" : row.mono ? "font-mono text-white/60" : "text-white/60"}`}>
               {row.value}
             </span>
           </div>
@@ -84,21 +77,18 @@ function PayPageMockup() {
         <div className="text-white/25 text-[10px] font-semibold uppercase tracking-widest mb-3">
           How it works
         </div>
-        <div className="flex items-center justify-between">
+        <div className="grid grid-cols-3 gap-3">
           {[
             { icon: <USDCLogo size={22} />, label: "You pay USDC", sub: "from any network" },
             { icon: <IconSearch size={18} />, label: "We find best", sub: "network for you" },
             { icon: <ArcLogo size={22} />, label: "We settle on", sub: "Arc Testnet" },
           ].map((step, i) => (
-            <div key={i} className="flex items-center gap-1">
-              <div className="text-center">
-                <div className="w-9 h-9 rounded-xl bg-white/[0.06] flex items-center justify-center mx-auto mb-1.5 text-sm">
-                  {step.icon}
-                </div>
-                <div className="text-white/50 text-[9px] leading-tight">{step.label}</div>
-                <div className="text-white/25 text-[8px]">{step.sub}</div>
+            <div key={i} className="rounded-2xl bg-white/[0.03] p-3 text-center">
+              <div className="mx-auto mb-2 flex h-11 w-11 items-center justify-center rounded-2xl bg-white/[0.06]">
+                {step.icon}
               </div>
-              {i < 2 && <div className="text-white/10 text-xs mx-0.5 mb-3">···</div>}
+              <div className="text-white/60 text-[10px] font-medium">{step.label}</div>
+              <div className="text-white/25 text-[9px] mt-1">{step.sub}</div>
             </div>
           ))}
         </div>
@@ -106,18 +96,18 @@ function PayPageMockup() {
 
       <div className="px-6 py-4">
         <div className="text-white font-semibold text-sm mb-3">Pay with USDC</div>
-        <div className="flex items-center gap-2 mb-2 px-3 py-2 bg-white/[0.03] border border-white/[0.06] rounded-xl">
+        <div className="flex items-center gap-2 mb-2 px-3 py-2 bg-white/[0.03] border border-white/[0.06] rounded-2xl">
           <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
           <span className="text-white/40 text-xs">Connected:</span>
           <span className="text-white/70 text-xs font-mono">0x8F0F1E...D62</span>
         </div>
-        <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-emerald-500/5 border border-emerald-500/15 rounded-xl">
+        <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-emerald-500/5 border border-emerald-500/15 rounded-2xl">
           <div className="w-2 h-2 rounded-full bg-blue-400" />
           <span className="text-emerald-400 text-xs">
             8.00 USDC found on Base Sepolia — ready to pay
           </span>
         </div>
-        <div className="w-full py-3 rounded-xl text-center text-white text-sm font-bold" style={{ background: "linear-gradient(135deg, #6366f1, #4f46e5)" }}>
+        <div className="w-full py-3 rounded-2xl text-center text-white text-sm font-bold ui-button-primary">
           Pay 2.00 USDC →
         </div>
         <div className="text-center text-white/20 text-[10px] mt-2">
@@ -177,31 +167,29 @@ export default function LandingPage() {
       <nav
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12"
         style={{
-          height: "60px",
+          height: "72px",
           background: "rgba(13,13,20,0.85)",
-          backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
+          backdropFilter: "blur(24px)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}
       >
-        {/* Logo */}
-        <button onClick={handleLogoClick} className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-opacity">
+        <button onClick={handleLogoClick} className="flex items-center gap-3 cursor-pointer transition-opacity hover:opacity-80">
           <RemloLogo size={28} />
-          <span className="text-white font-bold text-base tracking-tight">
+          <span className="text-white font-semibold text-base tracking-tight">
             Remlo
           </span>
         </button>
 
-        {/* Nav links */}
         <div className="hidden md:flex items-center gap-8">
           <button
             onClick={() => scrollTo("how-it-works")}
-            className="text-white/50 hover:text-white text-sm transition-colors"
+            className="text-white/50 hover:text-white text-sm font-medium transition-colors"
           >
             How it works
           </button>
           <button
             onClick={() => scrollTo("benefits")}
-            className="text-white/50 hover:text-white text-sm transition-colors"
+            className="text-white/50 hover:text-white text-sm font-medium transition-colors"
           >
             Benefits
           </button>
@@ -210,67 +198,36 @@ export default function LandingPage() {
 
       {/* HERO */}
       <section className="relative pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.9fr] items-center">
           {/* Left */}
-          <div className="flex-1 max-w-xl">
-            {/* Badge */}
-            <div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8 text-xs font-medium"
-              style={{
-                background: "rgba(99,102,241,0.1)",
-                border: "1px solid rgba(99,102,241,0.2)",
-                color: "#a5b4fc",
-              }}
-            >
+          <div className="flex flex-col gap-6 max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/15 text-xs font-semibold text-indigo-200 w-fit">
               <ArcLogo size={14} />
-              <span>Built on Arc Network</span>
+              Built on Arc Network
             </div>
 
-            <h1
-              className="font-black leading-[1.05] mb-6"
-              style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", letterSpacing: "-1.5px" }}
-            >
-              Universal USDC
-              <br />
-              <span
-                style={{
-                  background: "linear-gradient(135deg, #6366f1 0%, #a5b4fc 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                Checkout
-              </span>
+            <h1 className="ui-title-large text-white tracking-tight leading-[1.02] max-w-3xl">
+              Universal USDC <span className="bg-gradient-to-r from-indigo-400 via-sky-300 to-amber-300 bg-clip-text text-transparent">Checkout</span>
             </h1>
 
-            <p className="text-white/50 text-lg leading-relaxed mb-8 max-w-md">
-              Create invoice links. We automatically find USDC in your payer's
-              wallet — they click pay, and you receive USDC on Arc Network.
+            <p className="text-white/50 text-lg leading-8 max-w-md">
+              Create invoice links that keep payments fast, secure, and settled on Arc Network without asking payers to switch chains.
             </p>
 
-            {/* Feature pills */}
-            <div className="flex flex-wrap gap-3 mb-10">
+            <div className="flex flex-wrap gap-3 mb-3">
               {[
                 { icon: <IconBolt />, label: "Automatic USDC detection" },
                 { icon: <IconCircle />, label: "Always settles to Arc Network" },
                 { icon: <IconLink />, label: "Shareable payment links" },
               ].map((f) => (
-                <div
-                  key={f.label}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-white/60"
-                  style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                  }}
-                >
-                  <span className="inline-flex">{f.icon}</span>
+                <div key={f.label} className="ui-chip ui-chip-muted gap-2 text-xs text-white/70">
+                  {f.icon}
                   {f.label}
                 </div>
               ))}
             </div>
 
-            {/* CTA */}
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
               <ConnectButton.Custom>
                 {({ openConnectModal }) => (
                   <button
@@ -278,17 +235,15 @@ export default function LandingPage() {
                       setNavigateAfterConnect(true);
                       openConnectModal();
                     }}
-                    className="flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 active:scale-95"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
-                      boxShadow: "0 8px 32px rgba(99,102,241,0.3)",
-                    }}
+                    className="ui-button-primary px-6 py-3.5 text-sm"
                   >
                     Create Invoice →
                   </button>
                 )}
               </ConnectButton.Custom>
+              <a href="#how-it-works" className="ui-button-secondary px-5 py-3 text-sm text-white/80">
+                View how it works
+              </a>
             </div>
           </div>
 
@@ -541,7 +496,7 @@ export default function LandingPage() {
               fontFamily: "system-ui",
             }}
           >
-            R
+          
           </div>
 
           <div className="relative z-10 max-w-lg">

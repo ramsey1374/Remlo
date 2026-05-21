@@ -273,7 +273,7 @@ if (creatorSettings?.display_name) {
             <div className="text-white font-bold mb-2">No Internet Connection</div>
             <div className="text-white/40 text-sm mb-6">Please check your network and try again.</div>
           <button onClick={() => window.location.reload()}
-            className="px-6 py-3 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl text-sm transition-all">
+            className="ui-button-primary text-sm px-6 py-3">
             Try Again
           </button>
         </div>
@@ -289,7 +289,7 @@ if (creatorSettings?.display_name) {
             <RemloLogo size={90} />
             <span className="text-red-400 text-xs font-semibold bg-red-400/10 px-2.5 py-1 rounded-full border border-red-400/20">Expired</span>
           </div>
-          <div className="bg-[#13131a] border border-red-500/20 rounded-2xl p-8 text-center">
+          <div className="ui-card p-8 border-red-500/20 text-center">
             <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center mx-auto mb-4">
               <IconX size={28} />
             </div>
@@ -322,7 +322,7 @@ if (creatorSettings?.display_name) {
         <div className="text-center">
           <div className="text-red-400 text-sm mb-4">{invoiceError ?? "Invoice could not be loaded"}</div>
           <button onClick={() => window.location.reload()}
-            className="px-6 py-3 bg-white/[0.06] text-white/60 text-sm rounded-xl transition-all">Try Again</button>
+            className="ui-button-secondary text-sm px-6 py-3">Try Again</button>
         </div>
       </div>
     );
@@ -344,7 +344,7 @@ if (creatorSettings?.display_name) {
         </div>
 
         {paid ? (
-          <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-6">
+          <div className="ui-card p-6">
             <div className="text-center mb-5">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-4">
                   <IconCheck size={28} />
@@ -368,12 +368,12 @@ if (creatorSettings?.display_name) {
                 from: address ?? "Unknown", recipient: invoice.recipient ?? invoice.receiver,
                 txHash, chain: paidChain ?? "Unknown", timestamp: new Date().toLocaleString(),
               })}
-                className="w-full py-2.5 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 text-indigo-300 text-xs font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
+                className="ui-button-secondary w-full text-xs py-2.5 flex items-center justify-center gap-2">
                 <IconDoc size={14} /> Download Receipt
               </button>
               {txHash && arcExplorerUrl(txHash) && (
                 <a href={arcExplorerUrl(txHash)!} target="_blank" rel="noopener noreferrer"
-                  className="w-full py-2.5 border border-white/[0.08] hover:border-white/20 rounded-xl text-white/40 hover:text-white text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                  className="ui-button-secondary w-full text-xs py-2.5 flex items-center justify-center gap-2">
                   View on Arc Explorer ↗
                 </a>
               )}
@@ -381,7 +381,7 @@ if (creatorSettings?.display_name) {
           </div>
         ) : (
           <>
-            <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl overflow-hidden mb-3">
+            <div className="ui-card overflow-hidden mb-3">
 
               {/* Amount hero */}
 <div className="px-6 py-8 text-center border-b border-white/[0.06] relative">
@@ -461,23 +461,23 @@ if (creatorSettings?.display_name) {
                   <div className="mb-3">
                     <div className="flex gap-2 mb-3">
                       <button onClick={() => setPaymentMode("full")}
-                        className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                          paymentMode === "full" ? "bg-indigo-500 text-white" : "bg-white/[0.06] text-white/50 hover:text-white"
+                        className={`ui-button-secondary flex-1 text-xs ${
+                          paymentMode === "full" ? "bg-indigo-500 text-white" : "text-white/50 hover:text-white"
                         }`}>
                         Full ({invoice.amount} USDC)
                       </button>
                       {settings?.allow_partial && (
                         <button onClick={() => setPaymentMode("partial")}
-                          className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                            paymentMode === "partial" ? "bg-indigo-500 text-white" : "bg-white/[0.06] text-white/50 hover:text-white"
+                          className={`ui-button-secondary flex-1 text-xs ${
+                            paymentMode === "partial" ? "bg-indigo-500 text-white" : "text-white/50 hover:text-white"
                           }`}>
                           Partial
                         </button>
                       )}
                       {settings?.allow_tip && (
                         <button onClick={() => setPaymentMode("tip")}
-                          className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                            paymentMode === "tip" ? "bg-indigo-500 text-white" : "bg-white/[0.06] text-white/50 hover:text-white"
+                          className={`ui-button-secondary flex-1 text-xs ${
+                            paymentMode === "tip" ? "bg-indigo-500 text-white" : "text-white/50 hover:text-white"
                           }`}>
                           + Tip
                         </button>
@@ -504,14 +504,14 @@ if (creatorSettings?.display_name) {
                         <div className="flex gap-2 mb-2">
                           {["1", "2", "5"].map((tip) => (
                             <button key={tip} onClick={() => setTipAmount(tip)}
-                              className={`flex-1 py-1.5 text-xs rounded-lg transition-all ${
-                                tipAmount === tip ? "bg-indigo-500 text-white" : "bg-white/[0.06] text-white/50 hover:text-white"
+                              className={`ui-button-secondary flex-1 text-xs ${
+                                tipAmount === tip ? "bg-indigo-500 text-white" : "text-white/50 hover:text-white"
                               }`}>
                               +{tip} USDC
                             </button>
                           ))}
                         </div>
-                        <div className="flex items-center gap-2 bg-[#0d0d14] border border-white/[0.08] rounded-xl px-3 py-2.5 focus-within:border-indigo-500/50 transition-colors">
+                        <div className="ui-input flex items-center gap-2">
                           <span className="text-white/40 text-xs">Custom:</span>
                           <input type="number" placeholder="0.00"
                             value={tipAmount}
@@ -579,14 +579,14 @@ if (creatorSettings?.display_name) {
 
                 {isConnected ? (
                   <button onClick={handlePay} disabled={loading || !!balanceError || (paymentMode === "partial" && !customAmount)}
-                    className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-400 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all text-sm shadow-lg shadow-indigo-500/20">
+                    className="ui-button-primary w-full text-sm disabled:opacity-40 disabled:cursor-not-allowed">
                     {loading ? "Processing..." : `Pay ${finalAmount > 0 ? finalAmount.toFixed(2) : Number(invoice.amount).toFixed(2)} USDC →`}
                   </button>
                 ) : (
                   <ConnectButton.Custom>
                     {({ openConnectModal }) => (
                       <button onClick={openConnectModal}
-                        className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl transition-all text-sm shadow-lg shadow-indigo-500/20">
+                        className="ui-button-primary w-full text-sm">
                         Connect Wallet
                       </button>
                     )}
