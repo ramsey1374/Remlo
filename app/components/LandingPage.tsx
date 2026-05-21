@@ -44,7 +44,7 @@ function USDCLogo({ size = 24 }: { size?: number }) {
 
 function PayPageMockup() {
   return (
-    <div className="w-full max-w-sm ui-card overflow-hidden relative transform-gpu will-change-transform xl:-translate-x-2 xl:rotate-[0.25deg] animate-fade-in-up border border-white/[0.04] transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]">
+    <div className="w-full max-w-sm ui-card overflow-visible relative transform-gpu will-change-transform xl:-translate-x-2 xl:rotate-[0.25deg] animate-fade-in-up border border-white/[0.04] transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]">
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-indigo-500/15 to-transparent pointer-events-none" />
       <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-gradient-to-br from-indigo-500/20 to-transparent opacity-80 pointer-events-none animate-float-slow" />
       <div className="px-6 pt-6 pb-5 text-center border-b border-white/[0.06]">
@@ -242,7 +242,7 @@ export default function LandingPage() {
           </div>
 
           {/* Right — Pay page mockup */}
-          <div className="flex-shrink-0 w-full lg:w-auto flex justify-center lg:justify-end self-end">
+          <div className="flex-shrink-0 w-full lg:w-auto flex justify-center lg:justify-end mt-6 lg:mt-12 lg:self-end">
             <PayPageMockup />
           </div>
         </div>
@@ -357,7 +357,7 @@ export default function LandingPage() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-3xl p-6 bg-white/[0.03] border border-white/[0.06] shadow-[0_20px_90px_rgba(13,13,20,0.2)] backdrop-blur-xl">
+              <div className="rounded-3xl p-6 bg-white/[0.03] border border-white/[0.06] shadow-[0_20px_90px_rgba(13,13,20,0.2)] backdrop-blur-xl transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]">
                 <div className="text-sm uppercase tracking-[0.24em] text-white/40 mb-3">Problem</div>
                 <div className="space-y-3 text-sm text-white/70">
                   <p>Paying crypto invoices across chains is fragmented.</p>
@@ -365,7 +365,7 @@ export default function LandingPage() {
                   <p>Merchants lose conversions because payers don’t have funds on the right chain.</p>
                 </div>
               </div>
-              <div className="rounded-3xl p-6 bg-gradient-to-br from-indigo-500/10 via-slate-900/70 to-slate-950 border border-indigo-500/10 shadow-[0_20px_120px_rgba(99,102,241,0.12)] backdrop-blur-xl">
+              <div className="rounded-3xl p-6 bg-gradient-to-br from-indigo-500/10 via-slate-900/70 to-slate-950 border border-indigo-500/10 shadow-[0_20px_120px_rgba(99,102,241,0.12)] backdrop-blur-xl transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]">
                 <div className="text-sm uppercase tracking-[0.24em] text-indigo-200 mb-3">Solution</div>
                 <div className="space-y-3 text-sm text-white/70">
                   <p>Remlo automatically detects USDC across chains.</p>
@@ -449,12 +449,12 @@ export default function LandingPage() {
             </div>
 
             <div className="mt-6 max-w-md mx-auto grid grid-cols-2 gap-4">
-              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6 text-center">
+              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6 text-center transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]">
                 <div className="text-white/40 uppercase text-[11px] tracking-[0.3em] mb-2">Transactions</div>
                 <div className="text-3xl font-black text-white">120+</div>
                 <div className="text-white/50 text-sm mt-1">invoices created</div>
               </div>
-              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6 text-center">
+              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6 text-center transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]">
                 <div className="text-white/40 uppercase text-[11px] tracking-[0.3em] mb-2">Testnet Volume</div>
                 <div className="text-3xl font-black text-white">$4,200+</div>
                 <div className="text-white/50 text-sm mt-1">settled on Arc</div>
