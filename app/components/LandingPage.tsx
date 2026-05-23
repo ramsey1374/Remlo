@@ -100,20 +100,16 @@ function PayPageMockup() {
       </div>
 
       <div className="px-6 py-4">
-        
-        
-        <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-emerald-500/5 border border-emerald-500/15 rounded-2xl">
-          <div className="w-2 h-2 rounded-full bg-blue-400" />
-          <span className="text-emerald-400 text-xs">
-            100 USDC found on Base Sepolia — ready to pay
-          </span>
+          <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-emerald-500/5 border border-emerald-500/15 rounded-2xl">
+            <div className="w-2 h-2 rounded-full bg-blue-400" />
+            <span className="text-emerald-400 text-xs">
+              100 USDC found on Base Sepolia — ready to pay
+            </span>
+          </div>
+          <div className="w-full py-3 rounded-2xl text-center text-white/50 text-sm font-semibold border border-white/[0.08] bg-slate-950/80 cursor-default">
+            Pay 100 USDC →
+          </div>
         </div>
-        <div className="w-full py-3 rounded-2xl text-center text-white text-sm font-bold ui-button-primary">
-          Pay 100 USDC →
-        </div>
-      
-      </div>
-
       <div className="absolute -top-20 -right-20 w-48 h-48 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)" }} />
     </div>
   );
@@ -250,9 +246,9 @@ export default function LandingPage() {
               </ConnectButton.Custom>
               <motion.a 
                 href="#how-it-works" 
-                className="ui-button-secondary px-5 py-3 text-sm text-white/80"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center justify-center rounded-xl border border-white/[0.12] bg-slate-950/80 px-5 py-3 text-sm font-medium text-white/80 shadow-[0_0_0_1px_rgba(99,102,241,0.15)] transition-all duration-200 hover:border-indigo-300/25 hover:bg-slate-900/95 hover:text-white"
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.985 }}
               >
                 View how it works
               </motion.a>
@@ -432,15 +428,22 @@ export default function LandingPage() {
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-              <motion.a 
-                href="#how-it-works" 
-                className="ui-button-primary px-6 py-3.5 text-sm inline-flex items-center gap-2"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Start Accepting USDC
-                <span className="text-xl leading-none">→</span>
-              </motion.a>
+              <ConnectButton.Custom>
+                {({ openConnectModal }) => (
+                  <motion.button
+                    onClick={() => {
+                      setNavigateAfterConnect(true);
+                      openConnectModal();
+                    }}
+                    className="inline-flex items-center justify-center rounded-xl border border-indigo-400/20 bg-white/[0.06] px-6 py-3.5 text-sm font-medium text-white/85 shadow-[0_0_0_1px_rgba(99,102,241,0.12)] transition-all duration-200 hover:border-indigo-300/30 hover:bg-white/[0.09] hover:text-white"
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.985 }}
+                  >
+                    Start Accepting USDC
+                    <span className="text-xl leading-none">→</span>
+                  </motion.button>
+                )}
+              </ConnectButton.Custom>
               <motion.a 
                 href="#supported-chains" 
                 className="ui-button-secondary px-6 py-3.5 text-sm inline-flex items-center gap-2"
