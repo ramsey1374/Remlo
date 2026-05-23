@@ -4,6 +4,11 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { AnimatedSection } from "./AnimatedSection";
+import { AnimatedCard } from "./AnimatedCard";
+import { AnimatedStaggerContainer } from "./AnimatedStaggerContainer";
+import { fadeInUpVariant, staggerContainerVariant, viewportConfig } from "@/lib/animations";
 import { IconBolt, IconCircle, IconLink, IconDoc, IconSearch, IconCheck, IconGlobe, IconShield, IconChart } from "./Icons";
 
 function RemloLogo({ size = 32 }: { size?: number }) {
@@ -213,43 +218,61 @@ export default function LandingPage() {
                 { icon: <IconBolt />, label: "Automatic USDC detection" },
                 { icon: <IconCircle />, label: "Always settles to Arc Network" },
                 { icon: <IconLink />, label: "Shareable payment links" },
-              ].map((f) => (
-                <div key={f.label} className="ui-chip ui-chip-muted gap-2 text-xs text-white/70">
+              ].map((f, i) => (
+                <motion.div 
+                  key={f.label}
+                  className="ui-chip ui-chip-muted gap-2 text-xs text-white/70"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.1 + i * 0.05 }}
+                >
                   {f.icon}
                   {f.label}
-                </div>
+                </motion.div>
               ))}
             </div>
 
             <div className="flex flex-wrap items-center gap-4">
               <ConnectButton.Custom>
                 {({ openConnectModal }) => (
-                  <button
+                  <motion.button
                     onClick={() => {
                       setNavigateAfterConnect(true);
                       openConnectModal();
                     }}
                     className="ui-button-primary px-6 py-3.5 text-sm"
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     Create Invoice →
-                  </button>
+                  </motion.button>
                 )}
               </ConnectButton.Custom>
-              <a href="#how-it-works" className="ui-button-secondary px-5 py-3 text-sm text-white/80">
+              <motion.a 
+                href="#how-it-works" 
+                className="ui-button-secondary px-5 py-3 text-sm text-white/80"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 View how it works
-              </a>
+              </motion.a>
             </div>
           </div>
 
           {/* Right — Pay page mockup */}
-          <div className="flex-shrink-0 w-full lg:w-auto flex justify-center lg:justify-end mt-6 lg:mt-12 lg:self-end">
+          <motion.div 
+            className="flex-shrink-0 w-full lg:w-auto flex justify-center lg:justify-end mt-6 lg:mt-12 lg:self-end"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: [0.34, 1.56, 0.64, 1], delay: 0.2 }}
+          >
             <PayPageMockup />
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
+      <AnimatedSection className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2
@@ -263,7 +286,13 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+            variants={staggerContainerVariant}
+          >
             {[
               {
                 num: "1",
@@ -296,7 +325,7 @@ export default function LandingPage() {
                 desc: "You get USDC on Arc Network. Fast, secure, and unified.",
               },
             ].map((step, i) => (
-              <div key={i} className="relative">
+              <AnimatedCard key={i} index={i} className="relative">
                 <div
                   className="rounded-2xl p-5 h-full border border-white/[0.06] transition-transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]"
                   style={{
@@ -326,23 +355,35 @@ export default function LandingPage() {
                     ···
                   </div>
                 )}
-              </div>
+              </AnimatedCard>
             ))}
-          </div>
+          </motion.div>
 
           {/* Powered by banner */}
-          <div className="flex items-center justify-center gap-2 py-3 px-6 rounded-full mx-auto w-fit"
-            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+          <motion.div 
+            className="flex items-center justify-center gap-2 py-3 px-6 rounded-full mx-auto w-fit"
+            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportConfig}
+            transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.3 }}
+          >
             <ArcLogo size={14} />
             <span className="text-white/40 text-xs">Powered by Circle · Settled on Arc Network</span>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* PROBLEM → SOLUTION */}
-      <section id="benefits" className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
+      <AnimatedSection id="benefits" className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
         <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.05fr_0.95fr] items-center">
-          <div className="space-y-8">
+          <motion.div 
+            className="space-y-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+            variants={staggerContainerVariant}
+          >
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.06] px-4 py-2 text-white/60 text-xs uppercase tracking-[0.24em]">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.35)]" />
@@ -357,15 +398,29 @@ export default function LandingPage() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-3xl p-6 bg-white/[0.03] border border-white/[0.06] shadow-[0_20px_90px_rgba(13,13,20,0.2)] backdrop-blur-xl transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]">
+              <motion.div 
+                className="rounded-3xl p-6 bg-white/[0.03] border border-white/[0.06] shadow-[0_20px_90px_rgba(13,13,20,0.2)] backdrop-blur-xl transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+                whileHover={{ y: -6 }}
+              >
                 <div className="text-sm uppercase tracking-[0.24em] text-white/40 mb-3">Problem</div>
                 <div className="space-y-3 text-sm text-white/70">
                   <p>Paying crypto invoices across chains is fragmented.</p>
                   <p>Users must bridge, switch networks, and manually manage balances.</p>
                   <p>Merchants lose conversions because payers don’t have funds on the right chain.</p>
                 </div>
-              </div>
-              <div className="rounded-3xl p-6 bg-gradient-to-br from-indigo-500/10 via-slate-900/70 to-slate-950 border border-indigo-500/10 shadow-[0_20px_120px_rgba(99,102,241,0.12)] backdrop-blur-xl transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]">
+              </motion.div>
+              <motion.div 
+                className="rounded-3xl p-6 bg-gradient-to-br from-indigo-500/10 via-slate-900/70 to-slate-950 border border-indigo-500/10 shadow-[0_20px_120px_rgba(99,102,241,0.12)] backdrop-blur-xl transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1], delay: 0.1 }}
+                whileHover={{ y: -6 }}
+              >
                 <div className="text-sm uppercase tracking-[0.24em] text-indigo-200 mb-3">Solution</div>
                 <div className="space-y-3 text-sm text-white/70">
                   <p>Remlo automatically detects USDC across chains.</p>
@@ -373,27 +428,37 @@ export default function LandingPage() {
                   <p>Merchant always receives USDC on Arc Network.</p>
                   <p>No bridging confusion. No chain switching confusion.</p>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-              <a href="#how-it-works" className="ui-button-primary px-6 py-3.5 text-sm inline-flex items-center gap-2">
+              <motion.a 
+                href="#how-it-works" 
+                className="ui-button-primary px-6 py-3.5 text-sm inline-flex items-center gap-2"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 Start Accepting USDC
                 <span className="text-xl leading-none">→</span>
-              </a>
-              <a href="#supported-chains" className="ui-button-secondary px-6 py-3.5 text-sm inline-flex items-center gap-2">
+              </motion.a>
+              <motion.a 
+                href="#supported-chains" 
+                className="ui-button-secondary px-6 py-3.5 text-sm inline-flex items-center gap-2"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 Explore the ecosystem
                 <span className="text-xl leading-none">→</span>
-              </a>
+              </motion.a>
             </div>
-          </div>
+          </motion.div>
 
           {/* removed Invoice checkout demo to simplify landing layout per design update */}
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* SUPPORTED CHAINS - redesigned to premium fintech aesthetic */}
-      <section id="supported-chains" className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
+      <AnimatedSection id="supported-chains" className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
         <div className="max-w-6xl mx-auto text-center">
           <div className="inline-flex items-center justify-center gap-2 rounded-full bg-white/[0.03] px-4 py-2 mb-4 text-xs uppercase tracking-[0.24em] text-white/50">
             <span className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.18)]" />
@@ -404,19 +469,21 @@ export default function LandingPage() {
 
           {/* Chain cards container */}
           <div className="mx-auto max-w-3xl">
-            <div className="flex flex-wrap justify-center gap-4">
+            <motion.div 
+              className="flex flex-wrap justify-center gap-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+              variants={staggerContainerVariant}
+            >
               {[
                 { name: "Arbitrum", logo: "/arbitrum-logo.png" },
                 { name: "Base", logo: "/base-logo.png" },
                 { name: "Ethereum", logo: "/ethereum-logo.png" },
                 { name: "Optimism", logo: "/optimism-logo.png" },
                 { name: "And more...", logo: null },
-              ].map((c) => (
-                <div
-                  key={c.name}
-                  className="w-full sm:w-48 md:w-52 lg:w-56 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-sm p-4 flex items-center gap-4 transition-transform transform hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30"
-                  style={{ minWidth: 0 }}
-                >
+              ].map((c, i) => (
+                <AnimatedCard key={c.name} index={i} className="w-full sm:w-48 md:w-52 lg:w-56 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-sm p-4 flex items-center gap-4 transition-transform transform hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30" style={{ minWidth: 0 }}>
                   <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-white/[0.03] to-white/[0.01] border border-white/[0.04] flex-shrink-0">
                     {c.logo ? (
                       <img
@@ -434,17 +501,23 @@ export default function LandingPage() {
                     <div className="text-white font-semibold truncate">{c.name}</div>
                     
                   </div>
-                </div>
+                </AnimatedCard>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* TRUST SIGNALS */}
-      <section className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
+      <AnimatedSection className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
         <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center">
-          <div className="space-y-6">
+          <motion.div 
+            className="space-y-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+            variants={staggerContainerVariant}
+          >
             <div className="inline-flex items-center gap-2 rounded-full bg-white/[0.05] px-4 py-2 text-xs uppercase tracking-[0.24em] text-white/50 w-fit">
               <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.35)]" />
               Non-custodial · Wallet-native checkout
@@ -457,27 +530,47 @@ export default function LandingPage() {
             </div>
 
             <div className="mt-6 max-w-md mx-auto grid grid-cols-2 gap-4">
-              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6 text-center transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]">
+              <motion.div 
+                className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6 text-center transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+                whileHover={{ y: -6 }}
+              >
                 <div className="text-white/40 uppercase text-[11px] tracking-[0.3em] mb-2">Transactions</div>
                 <div className="text-3xl font-black text-white">120+</div>
                 <div className="text-white/50 text-sm mt-1">invoices created</div>
-              </div>
-              <div className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6 text-center transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]">
+              </motion.div>
+              <motion.div 
+                className="rounded-3xl bg-white/[0.03] border border-white/[0.06] p-6 text-center transition-transform transform duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_10px_30px_rgba(99,102,241,0.12)] hover:border-indigo-400/30 hover:bg-white/[0.02]"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportConfig}
+                transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1], delay: 0.1 }}
+                whileHover={{ y: -6 }}
+              >
                 <div className="text-white/40 uppercase text-[11px] tracking-[0.3em] mb-2">Testnet Volume</div>
                 <div className="text-3xl font-black text-white">$4,200+</div>
                 <div className="text-white/50 text-sm mt-1">settled on Arc</div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Arc Network settlement panel removed per request */}
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* CTA SECTION */}
-      <section className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
-        <div className="max-w-3xl mx-auto rounded-3xl p-12 md:p-16 relative overflow-hidden"
-          style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(13,13,20,0.8) 60%)", border: "1px solid rgba(99,102,241,0.2)" }}>
+      <AnimatedSection className="py-24 px-6 md:px-8 border-t border-white/[0.04]">
+        <motion.div 
+          className="max-w-3xl mx-auto rounded-3xl p-12 md:p-16 relative overflow-hidden"
+          style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(13,13,20,0.8) 60%)", border: "1px solid rgba(99,102,241,0.2)" }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={viewportConfig}
+          transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+        >
           {/* Decorative R */}
           <div
             className="absolute right-8 bottom-0 text-[200px] font-black leading-none select-none pointer-events-none"
@@ -503,7 +596,7 @@ export default function LandingPage() {
 
             <ConnectButton.Custom>
               {({ openConnectModal }) => (
-                <button
+                <motion.button
                   onClick={() => {
                     setNavigateAfterConnect(true);
                     openConnectModal();
@@ -514,17 +607,25 @@ export default function LandingPage() {
                       "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
                     boxShadow: "0 8px 32px rgba(99,102,241,0.3)",
                   }}
+                  whileHover={{ y: -2, boxShadow: "0 12px 40px rgba(99,102,241,0.4)" }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   Connect Wallet
-                </button>
+                </motion.button>
               )}
             </ConnectButton.Custom>
           </div>
-        </div>
-      </section>
+        </motion.div>
+      </AnimatedSection>
 
       {/* FOOTER */}
-      <footer className="px-6 md:px-8 py-8 md:py-12 border-t border-white/[0.04]">
+      <motion.footer 
+        className="px-6 md:px-8 py-8 md:py-12 border-t border-white/[0.04]"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={viewportConfig}
+        transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+      >
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             {/* Brand */}
@@ -565,7 +666,7 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-      </footer>
+      </motion.footer>
     </div>
   );
 }
