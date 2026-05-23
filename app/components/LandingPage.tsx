@@ -435,24 +435,19 @@ export default function LandingPage() {
                       setNavigateAfterConnect(true);
                       openConnectModal();
                     }}
-                    className="inline-flex items-center justify-center rounded-xl border border-indigo-400/20 bg-white/[0.06] px-6 py-3.5 text-sm font-medium text-white/85 shadow-[0_0_0_1px_rgba(99,102,241,0.12)] transition-all duration-200 hover:border-indigo-300/30 hover:bg-white/[0.09] hover:text-white"
-                    whileHover={{ y: -1 }}
-                    whileTap={{ scale: 0.985 }}
+                    className="ui-button-primary px-6 py-3.5 text-sm inline-flex items-center gap-2"
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     Start Accepting USDC
                     <span className="text-xl leading-none">→</span>
                   </motion.button>
                 )}
               </ConnectButton.Custom>
-              <motion.a 
-                href="#supported-chains" 
-                className="ui-button-secondary px-6 py-3.5 text-sm inline-flex items-center gap-2"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
+              <a href="#supported-chains" className="ui-button-secondary px-6 py-3.5 text-sm inline-flex items-center gap-2">
                 Explore the ecosystem
                 <span className="text-xl leading-none">→</span>
-              </motion.a>
+              </a>
             </div>
           </motion.div>
 
