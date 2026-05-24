@@ -195,258 +195,359 @@ select {
   animation: fade-in-up 0.6s ease both;
 }
 
-/* Remlo overrides for RainbowKit modal (glassmorphism + subtle glow) */
-/* Targeting multiple possible classnames to be resilient across versions */
-.rainbowkit-modal,
-.rk-modal,
-.rainbowkit__modal,
-[data-rk="modal"] {
-  background: linear-gradient(180deg, rgba(13,13,20,0.78), rgba(13,13,20,0.86));
-  border: 1px solid rgba(99,102,241,0.08);
-  box-shadow: 0 20px 60px rgba(6,8,20,0.6), 0 6px 20px rgba(99,102,241,0.06);
-  backdrop-filter: blur(14px) saturate(120%);
-  border-radius: 16px;
-  padding: 0.5rem;
-}
+/* ============================================================================
+   PREMIUM FINTECH WALLET MODAL REDESIGN FOR REMLO
+   Inspired by Stripe, Coinbase, Linear, Vercel
+   ============================================================================ */
 
-.rainbowkit-modal .rk-modal-container,
-.rk-modal .rk-modal-container,
-[data-rk="modal"] .rk-modal-container {
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-/* Modal overlay/backdrop */
-.rainbowkit-modal-overlay,
-.rk-modal-overlay,
-[data-rk="overlay"] {
-  backdrop-filter: blur(6px) saturate(110%);
-  background: rgba(4,6,12,0.6);
-}
-
-/* Wallet list items */
-.rainbowkit-modal .connect-modal__wallet,
-.rk-modal .connect-modal__wallet,
-[data-rk="wallet-item"] {
-  border-radius: 12px;
-  padding: 0.9rem 1rem;
-  margin-bottom: 0.5rem;
-  transition: transform 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms ease, background-color 180ms ease;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.03);
-}
-
-.rainbowkit-modal .connect-modal__wallet:hover,
-.rk-modal .connect-modal__wallet:hover,
-[data-rk="wallet-item"]:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 30px rgba(99,102,241,0.08);
-  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
-}
-
-/* Heading and subtitle in modal */
-.rainbowkit-modal .connect-modal__heading,
-.rk-modal .connect-modal__heading,
-[data-rk="modal-header"] {
-  color: #fff;
-  font-weight: 800;
-}
-.rainbowkit-modal .connect-modal__subtitle,
-.rk-modal .connect-modal__subtitle,
-[data-rk="modal-subtitle"] {
-  color: rgba(255,255,255,0.7);
-  font-size: 0.95rem;
-}
-
-/* Mobile: bottom-sheet like */
-@media (max-width: 640px) {
-  .rainbowkit-modal,
-  .rk-modal,
-  [data-rk="modal"] {
-    border-radius: 12px 12px 0 0;
-    margin: 0;
-    width: 100% !important;
-    max-width: none !important;
-    position: fixed !important;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    transform: translateY(0) !important;
-  }
-}
-
-/* Deep Remlo RainbowKit modal refinements */
+/* Animation keyframes for smooth modal entrance/exit */
 @keyframes remlo-modal-in {
-  from { opacity: 0; transform: translateY(8px) scale(0.985); }
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes remlo-modal-out {
   from { opacity: 1; transform: translateY(0) scale(1); }
-  to   { opacity: 0; transform: translateY(8px) scale(0.995); }
+  to   { opacity: 0; transform: translateY(-12px) scale(0.98); }
 }
 
+@keyframes wallet-item-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal overlay — blurred, dark, professional backdrop */
+div[style*="position: fixed"][style*="inset: 0"],
+.rainbowkit-modal-overlay,
+.rk-modal-overlay,
+[role="dialog"] ~ div[role="presentation"],
+[data-rk="overlay"] {
+  backdrop-filter: blur(8px) saturate(105%);
+  background: linear-gradient(135deg, rgba(4,6,12,0.65), rgba(8,10,18,0.68)) !important;
+}
+
+/* ===== MAIN MODAL CONTAINER ===== */
 .rainbowkit-modal,
 .rk-modal,
-.rainbowkit__modal,
-[data-rk="modal"] {
-  background: linear-gradient(180deg, rgba(9,10,14,0.80), rgba(9,10,14,0.90));
-  border: 1px solid rgba(124,131,255,0.08);
-  box-shadow: 0 30px 80px rgba(6,8,20,0.72), inset 0 1px 0 rgba(255,255,255,0.02);
-  backdrop-filter: blur(16px) saturate(130%);
-  border-radius: 20px;
+[role="dialog"],
+[data-rk="modal"],
+.rainbowkit__modal {
+  /* Premium dark glassmorphism */
+  background: linear-gradient(180deg, rgba(9,11,16,0.88) 0%, rgba(13,14,22,0.92) 100%);
+  border: 1px solid rgba(99,102,241,0.1);
+  box-shadow: 
+    0 40px 120px rgba(0,0,0,0.8),
+    0 12px 32px rgba(6,8,20,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    inset 0 -1px 0 rgba(0,0,0,0.3);
+  backdrop-filter: blur(20px) saturate(135%);
+  border-radius: 24px;
   position: relative;
-  overflow: visible;
-  animation: remlo-modal-in 360ms cubic-bezier(.2,.9,.2,1) both;
+  overflow: hidden;
+  animation: remlo-modal-in 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  padding: 2rem !important;
 }
 
-/* Subtle ambient indigo glow */
-.rainbowkit-modal::after,
-.rk-modal::after,
-[data-rk="modal"]::after {
+/* Ambient glow effect — creates premium "floating" feel */
+.rainbowkit-modal::before,
+.rk-modal::before,
+[role="dialog"]::before,
+[data-rk="modal"]::before,
+.rainbowkit__modal::before {
   content: "";
   position: absolute;
-  inset: -6px;
+  inset: -12px;
   z-index: -1;
-  border-radius: 22px;
-  background: radial-gradient(600px 200px at 10% 10%, rgba(99,102,241,0.08), transparent 20%), radial-gradient(400px 140px at 90% 90%, rgba(124,131,255,0.06), transparent 18%);
-  filter: blur(18px) saturate(120%);
+  border-radius: 28px;
+  background: 
+    radial-gradient(800px 300px at 15% 20%, rgba(99,102,241,0.12), transparent 25%),
+    radial-gradient(600px 250px at 85% 85%, rgba(124,131,255,0.08), transparent 28%);
+  filter: blur(24px) saturate(130%);
   pointer-events: none;
 }
 
-/* Gradient edge highlight using pseudo element */
-.rainbowkit-modal::before,
-.rk-modal::before,
-[data-rk="modal"]::before {
+/* Top edge highlight — elegant premium touch */
+.rainbowkit-modal::after,
+.rk-modal::after,
+[role="dialog"]::after,
+[data-rk="modal"]::after,
+.rainbowkit__modal::after {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(124,131,255,0.18), rgba(99,102,241,0.12));
-  border-top-left-radius: 20px; border-top-right-radius: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    rgba(99,102,241,0) 0%,
+    rgba(124,131,255,0.2) 40%,
+    rgba(124,131,255,0.2) 60%,
+    rgba(99,102,241,0) 100%);
+  border-radius: 24px 24px 0 0;
   pointer-events: none;
 }
 
-/* Header branding: small Remlo logo and subtitle (injected via CSS for minimal structure change) */
-.rainbowkit-modal .connect-modal__heading,
-.rk-modal .connect-modal__heading,
-[data-rk="modal-header"] {
+/* ===== MODAL HEADER & TYPOGRAPHY ===== */
+.rainbowkit-modal h1,
+.rainbowkit-modal h2,
+.rainbowkit-modal h3,
+.rk-modal h1,
+.rk-modal h2,
+.rk-modal h3,
+[role="dialog"] h1,
+[role="dialog"] h2,
+[role="dialog"] h3,
+.connect-modal__heading {
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.rainbowkit-modal h2,
+.rk-modal h2,
+[role="dialog"] h2,
+.connect-modal__heading {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.connect-modal__subtitle,
+.rainbowkit-modal p,
+.rk-modal p,
+[role="dialog"] p {
+  color: rgba(255,255,255,0.72);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+  margin: 0 0 1.5rem 0;
+}
+
+/* ===== WALLET LIST CONTAINER ===== */
+.rainbowkit-modal > div,
+.rk-modal > div,
+[role="dialog"] > div,
+.connect-modal {
+  padding: 0.5rem 0;
+}
+
+/* ===== INDIVIDUAL WALLET ITEMS ===== */
+.connect-modal__wallet,
+.rainbowkit-modal button,
+.rk-modal button,
+[role="dialog"] [role="button"],
+[role="option"] {
+  padding: 1.25rem 1.5rem;
+  min-height: 76px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, 
+    rgba(255,255,255,0.02) 0%,
+    rgba(255,255,255,0.005) 100%);
+  border: 1px solid rgba(99,102,241,0.08);
+  margin: 12px 0;
+  cursor: pointer;
+  transition: all 240ms cubic-bezier(0.2, 0.9, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  animation: wallet-item-enter 300ms ease-out both;
+  animation-delay: calc(var(--index, 0) * 50ms);
 }
 
-.rainbowkit-modal .connect-modal__heading::before,
-.rk-modal .connect-modal__heading::before,
-[data-rk="modal-header"]::before {
-  content: "";
-  display: inline-block;
-  width: 36px;
-  height: 36px;
-  flex: 0 0 36px;
-  border-radius: 8px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect rx='12' width='64' height='64' fill='%236366f1'/%3E%3Ctext x='50%25' y='55%25' font-size='34' fill='white' font-family='Arial,Helvetica,sans-serif' text-anchor='middle' dominant-baseline='middle'%3ER%3C/text%3E%3C/svg%3E");
-  background-size: cover;
-  box-shadow: 0 6px 18px rgba(99,102,241,0.12);
+/* Staggered animation for multiple wallets */
+.connect-modal__wallet:nth-child(1) { animation-delay: 100ms; }
+.connect-modal__wallet:nth-child(2) { animation-delay: 150ms; }
+.connect-modal__wallet:nth-child(3) { animation-delay: 200ms; }
+.connect-modal__wallet:nth-child(4) { animation-delay: 250ms; }
+.connect-modal__wallet:nth-child(5) { animation-delay: 300ms; }
+
+/* Wallet item hover state — premium lift & glow */
+.connect-modal__wallet:hover,
+.rainbowkit-modal button:hover,
+.rk-modal button:hover,
+[role="option"]:hover {
+  transform: translateY(-8px);
+  background: linear-gradient(180deg, 
+    rgba(255,255,255,0.04) 0%,
+    rgba(255,255,255,0.01) 100%);
+  border-color: rgba(99,102,241,0.25);
+  box-shadow: 
+    0 24px 64px rgba(99,102,241,0.12),
+    0 8px 24px rgba(6,8,20,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
-/* Subtitle below the heading injected via pseudo element */
-.rainbowkit-modal .connect-modal__heading::after,
-.rk-modal .connect-modal__heading::after,
-[data-rk="modal-header"]::after {
-  content: "Securely connect your wallet to continue";
-  display: block;
-  font-size: 0.92rem;
-  color: rgba(255,255,255,0.78);
-  margin-top: 4px;
-  margin-left: 48px;
-  line-height: 1.05;
+/* Wallet item active/focus state */
+.connect-modal__wallet:active,
+.connect-modal__wallet:focus,
+.rainbowkit-modal button:active,
+.rainbowkit-modal button:focus,
+.rk-modal button:active,
+.rk-modal button:focus {
+  transform: translateY(-4px) scale(0.98);
+  box-shadow: 
+    0 16px 48px rgba(99,102,241,0.15),
+    0 6px 16px rgba(6,8,20,0.4),
+    inset 0 1px 2px rgba(255,255,255,0.1);
 }
 
-/* Optional powered-by badge near subtitle */
-.rainbowkit-modal .connect-modal__subtitle,
-.rk-modal .connect-modal__subtitle,
-[data-rk="modal-subtitle"] {
-  color: rgba(255,255,255,0.66);
-}
-
-/* Close button restyle */
-.rainbowkit-modal button[aria-label="Close"],
-.rk-modal button[aria-label="Close"],
-[data-rk="close-button"] {
-  width: 40px; height: 40px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.04);
-  display: inline-grid; place-items: center;
-  transition: transform 160ms ease, box-shadow 200ms ease, background 160ms ease;
-}
-
-.rainbowkit-modal button[aria-label="Close"]:hover,
-.rk-modal button[aria-label="Close"]:hover,
-[data-rk="close-button"]:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 30px rgba(99,102,241,0.12);
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-}
-
-/* Wallet list item refinements */
-.rainbowkit-modal .connect-modal__wallet,
-.rk-modal .connect-modal__wallet,
-[data-rk="wallet-item"] {
-  padding: 1rem 1rem;
-  min-height: 64px;
-  display: flex; align-items: center; gap: 14px;
+/* ===== WALLET ICON STYLING ===== */
+.connect-modal__wallet img,
+.rainbowkit-modal img,
+[role="option"] img {
+  width: 48px;
+  height: 48px;
   border-radius: 12px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
-  border: 1px solid rgba(255,255,255,0.03);
-  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms ease, background 220ms ease;
+  flex-shrink: 0;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  transition: transform 200ms ease;
 }
 
-.rainbowkit-modal .connect-modal__wallet .wallet-icon,
-.rk-modal .connect-modal__wallet .wallet-icon,
-[data-rk="wallet-item"] .wallet-icon {
-  width: 44px; height: 44px; border-radius: 8px; flex: 0 0 44px;
-  display: grid; place-items: center; background: rgba(255,255,255,0.02);
+.connect-modal__wallet:hover img {
+  transform: scale(1.08);
 }
 
-.rainbowkit-modal .connect-modal__wallet:hover,
-.rk-modal .connect-modal__wallet:hover,
-[data-rk="wallet-item"]:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 48px rgba(6,8,20,0.6), 0 8px 24px rgba(99,102,241,0.08);
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+/* ===== WALLET TEXT ===== */
+.connect-modal__wallet > div,
+.rainbowkit-modal [role="option"] > div,
+.rk-modal [role="option"] > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
 }
 
-/* Softer separators */
-.rainbowkit-modal .connect-modal__wallet + .connect-modal__wallet,
-.rk-modal .connect-modal__wallet + .connect-modal__wallet,
-[data-rk="wallet-item"] + [data-rk="wallet-item"] {
-  margin-top: 10px;
+.connect-modal__wallet .wallet-name,
+.rainbowkit-modal button span,
+.rainbowkit-modal button > div > span {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.3px;
+  transition: color 200ms ease;
 }
 
-/* Typography hierarchy */
-.rainbowkit-modal .connect-modal__wallet .wallet-name,
-.rk-modal .connect-modal__wallet .wallet-name,
-[data-rk="wallet-item"] .wallet-name {
-  color: #fff; font-weight: 700; font-size: 1rem;
-}
-.rainbowkit-modal .connect-modal__wallet .wallet-desc,
-.rk-modal .connect-modal__wallet .wallet-desc,
-[data-rk="wallet-item"] .wallet-desc {
-  color: rgba(255,255,255,0.66); font-size: 0.92rem; margin-top: 2px;
+.connect-modal__wallet:hover .wallet-name {
+  color: #ffffff;
 }
 
-/* Mobile: increased tap targets and bottom-sheet polish */
-@media (max-width: 640px) {
-  .rainbowkit-modal .connect-modal__wallet,
-  .rk-modal .connect-modal__wallet,
-  [data-rk="wallet-item"] { padding: 1.15rem; min-height: 72px; }
-  .rainbowkit-modal::after, .rk-modal::after, [data-rk="modal"]::after { filter: blur(22px); }
+.connect-modal__wallet .wallet-desc,
+.rainbowkit-modal button p,
+.rk-modal button p,
+[role="option"] span:nth-child(2) {
+  color: rgba(255,255,255,0.56);
+  font-size: 0.95rem;
+  transition: color 200ms ease;
 }
 
-/* Make transitions smooth for interactive elements */
-.rainbowkit-modal .connect-modal__wallet *,
-.rk-modal .connect-modal__wallet *,
-[data-rk="wallet-item"] * { transition: color 160ms ease, opacity 160ms ease; }
+.connect-modal__wallet:hover .wallet-desc {
+  color: rgba(255,255,255,0.72);
+}
+
+/* ===== CLOSE BUTTON ===== */
+button[aria-label="Close"],
+.rainbowkit-modal [role="button"][aria-label="Close"],
+.rk-modal [role="button"][aria-label="Close"],
+[data-rk="close-button"] {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 200ms ease;
+  color: rgba(255,255,255,0.72);
+  flex-shrink: 0;
+}
+
+button[aria-label="Close"]:hover {
+  transform: scale(1.08) rotate(90deg);
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.16);
+  box-shadow: 0 8px 24px rgba(99,102,241,0.1);
+  color: #ffffff;
+}
+
+button[aria-label="Close"]:active {
+  transform: scale(0.96) rotate(90deg);
+}
+
+/* ===== MOBILE RESPONSIVE — BOTTOM SHEET STYLE ===== */
+@media (max-width: 768px) {
+  .rainbowkit-modal,
+  .rk-modal,
+  [role="dialog"],
+  .rainbowkit__modal {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    border-radius: 24px 24px 0 0 !important;
+    margin: 0 !important;
+    padding: 1.75rem 1.25rem 2.25rem !important;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: remlo-modal-in-mobile 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes remlo-modal-in-mobile {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+
+  /* Larger tap targets on mobile */
+  .connect-modal__wallet {
+    padding: 1.5rem;
+    min-height: 80px;
+    margin: 14px 0;
+  }
+
+  .connect-modal__wallet img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .connect-modal__wallet .wallet-name {
+    font-size: 1.15rem;
+  }
+
+  /* Increase ambient glow on mobile for better depth */
+  .rainbowkit-modal::before,
+  .rk-modal::before,
+  [role="dialog"]::before,
+  .rainbowkit__modal::before {
+    filter: blur(28px) saturate(140%);
+  }
+}
+
+/* ===== ACCESSIBILITY & FOCUS STATES ===== */
+.connect-modal__wallet:focus-visible,
+button[aria-label="Close"]:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* ===== DISABLED STATE (IF NEEDED) ===== */
+.connect-modal__wallet:disabled,
+.rainbowkit-modal button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ===== LOADING STATE ===== */
+.connect-modal__wallet[data-loading="true"],
+.rainbowkit-modal [data-loading="true"] {
+  pointer-events: none;
+  opacity: 0.7;
+}
 
