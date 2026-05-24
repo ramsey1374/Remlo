@@ -194,3 +194,83 @@ select {
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease both;
 }
+
+/* Remlo overrides for RainbowKit modal (glassmorphism + subtle glow) */
+/* Targeting multiple possible classnames to be resilient across versions */
+.rainbowkit-modal,
+.rk-modal,
+.rainbowkit__modal,
+[data-rk="modal"] {
+  background: linear-gradient(180deg, rgba(13,13,20,0.78), rgba(13,13,20,0.86));
+  border: 1px solid rgba(99,102,241,0.08);
+  box-shadow: 0 20px 60px rgba(6,8,20,0.6), 0 6px 20px rgba(99,102,241,0.06);
+  backdrop-filter: blur(14px) saturate(120%);
+  border-radius: 16px;
+  padding: 0.5rem;
+}
+
+.rainbowkit-modal .rk-modal-container,
+.rk-modal .rk-modal-container,
+[data-rk="modal"] .rk-modal-container {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Modal overlay/backdrop */
+.rainbowkit-modal-overlay,
+.rk-modal-overlay,
+[data-rk="overlay"] {
+  backdrop-filter: blur(6px) saturate(110%);
+  background: rgba(4,6,12,0.6);
+}
+
+/* Wallet list items */
+.rainbowkit-modal .connect-modal__wallet,
+.rk-modal .connect-modal__wallet,
+[data-rk="wallet-item"] {
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 0.5rem;
+  transition: transform 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms ease, background-color 180ms ease;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.rainbowkit-modal .connect-modal__wallet:hover,
+.rk-modal .connect-modal__wallet:hover,
+[data-rk="wallet-item"]:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(99,102,241,0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+}
+
+/* Heading and subtitle in modal */
+.rainbowkit-modal .connect-modal__heading,
+.rk-modal .connect-modal__heading,
+[data-rk="modal-header"] {
+  color: #fff;
+  font-weight: 800;
+}
+.rainbowkit-modal .connect-modal__subtitle,
+.rk-modal .connect-modal__subtitle,
+[data-rk="modal-subtitle"] {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.95rem;
+}
+
+/* Mobile: bottom-sheet like */
+@media (max-width: 640px) {
+  .rainbowkit-modal,
+  .rk-modal,
+  [data-rk="modal"] {
+    border-radius: 12px 12px 0 0;
+    margin: 0;
+    width: 100% !important;
+    max-width: none !important;
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(0) !important;
+  }
+}

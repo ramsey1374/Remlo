@@ -1,7 +1,8 @@
 "use client";
 
 import "@rainbow-me/rainbowkit/styles.css";
-import { RainbowKitProvider, getDefaultConfig, darkTheme } from "@rainbow-me/rainbowkit";
+import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
+import { remloDarkTheme } from "@/lib/rainbowkitTheme";
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { baseSepolia, arbitrumSepolia, sepolia } from "wagmi/chains";
@@ -35,13 +36,14 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
-          theme={darkTheme({
-            accentColor: "#6366f1",
-            borderRadius: "medium",
-          })}
+          theme={remloDarkTheme}
           modalSize="compact"
           showRecentTransactions={false}
           initialChain={undefined}
+          appInfo={{
+            appName: "Remlo",
+            learnMoreUrl: "https://remloapp.vercel.app",
+          }}
         >
           <ToastProvider>
             {children}
