@@ -4,6 +4,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import RemloWalletModal from "./RemloWalletModal";
 import { motion } from "framer-motion";
 import { AnimatedSection } from "./AnimatedSection";
 import { AnimatedCard } from "./AnimatedCard";
@@ -119,6 +120,7 @@ export default function LandingPage() {
   const { isConnected } = useAccount();
   const router = useRouter();
   const [navigateAfterConnect, setNavigateAfterConnect] = useState(false);
+  const [isRemloModalOpen, setIsRemloModalOpen] = useState(false);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -229,21 +231,21 @@ export default function LandingPage() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4">
-              <ConnectButton.Custom>
-                {({ openConnectModal }) => (
-                  <motion.button
-                    onClick={() => {
-                      setNavigateAfterConnect(true);
-                      openConnectModal();
-                    }}
-                    className="ui-button-primary px-6 py-3.5 text-sm"
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Create Invoice →
-                  </motion.button>
-                )}
-              </ConnectButton.Custom>
+              {/* Use RemloWalletModal for a custom-styled wallet experience */}
+              <>
+                <motion.button
+                  onClick={() => {
+                    setNavigateAfterConnect(true);
+                    setIsRemloModalOpen(true);
+                  }}
+                  className="ui-button-primary px-6 py-3.5 text-sm"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Create Invoice →
+                </motion.button>
+                <RemloWalletModal isOpen={isRemloModalOpen} onClose={() => setIsRemloModalOpen(false)} />
+              </>
               <motion.a 
                 href="#how-it-works" 
                 className="inline-flex items-center justify-center rounded-xl border border-white/[0.12] bg-slate-950/80 px-5 py-3 text-sm font-medium text-white/80 shadow-[0_0_0_1px_rgba(99,102,241,0.15)] transition-all duration-200 hover:border-indigo-300/25 hover:bg-slate-900/95 hover:text-white"
