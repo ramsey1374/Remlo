@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAccount, useDisconnect } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import RemloWalletModal from "../components/RemloWalletModal";
 import { supabase } from "@/lib/db";
 import { IconPlus, IconInvoices, IconPayments, IconAnalytics, IconSettings, IconMenu, IconGlobe } from "../components/Icons";
 
@@ -43,6 +44,7 @@ export default function PaymentsPage() {
   const { disconnect } = useDisconnect();
   const router = useRouter();
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const [isRemloModalOpen, setIsRemloModalOpen] = useState(false);
   const [payments, setPayments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [networkError, setNetworkError] = useState(false);
@@ -109,14 +111,13 @@ export default function PaymentsPage() {
           <p className="text-white/40 text-sm leading-relaxed mb-8">
             Connect to view your payment history.
           </p>
-          <ConnectButton.Custom>
-            {({ openConnectModal }) => (
-              <button onClick={openConnectModal}
-                className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl transition-all text-sm shadow-lg shadow-indigo-500/20">
-                Connect Wallet
-              </button>
-            )}
-          </ConnectButton.Custom>
+          <>
+            <button onClick={() => setIsRemloModalOpen(true)}
+              className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl transition-all text-sm shadow-lg shadow-indigo-500/20">
+              Connect Wallet
+            </button>
+            <RemloWalletModal isOpen={isRemloModalOpen} onClose={() => setIsRemloModalOpen(false)} />
+          </>
         </div>
       </div>
     );

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAccount, useDisconnect } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import RemloWalletModal from "../components/RemloWalletModal";
 import { supabase } from "@/lib/db";
 import { IconPlus, IconInvoices, IconPayments, IconAnalytics, IconSettings, IconMenu } from "../components/Icons";
 
@@ -29,6 +30,7 @@ export default function AnalyticsPage() {
   const { disconnect } = useDisconnect();
   const router = useRouter();
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const [isRemloModalOpen, setIsRemloModalOpen] = useState(false);
   const [invoices, setInvoices] = useState<any[]>([]);
   const [intents, setIntents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -103,14 +105,13 @@ export default function AnalyticsPage() {
           <div className="flex items-center justify-center mb-10"><RemloLogo size={120} /></div>
           <h1 className="text-white text-3xl font-bold tracking-tight mb-3">Connect your wallet</h1>
           <p className="text-white/40 text-sm leading-relaxed mb-8">Connect to view your analytics.</p>
-          <ConnectButton.Custom>
-            {({ openConnectModal }) => (
-              <button onClick={openConnectModal}
-                className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl transition-all text-sm">
-                Connect Wallet
-              </button>
-            )}
-          </ConnectButton.Custom>
+          <>
+            <button onClick={() => setIsRemloModalOpen(true)}
+              className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl transition-all text-sm">
+              Connect Wallet
+            </button>
+            <RemloWalletModal isOpen={isRemloModalOpen} onClose={() => setIsRemloModalOpen(false)} />
+          </>
         </div>
       </div>
     );

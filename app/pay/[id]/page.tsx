@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAccount, useSwitchChain } from "wagmi";
 import { useParams } from "next/navigation";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import RemloWalletModal from "../../components/RemloWalletModal";
 import { getUnifiedBalances } from "@/lib/unified-balance";
 import { pickBestChain } from "@/lib/solver";
 import { settleToArc } from "@/lib/arc-settlement";
@@ -76,6 +77,7 @@ export default function PayPage() {
   const params = useParams();
   const invoiceIdFromUrl = params?.id as string;
   const prevAddressRef = useRef<string | undefined>(undefined);
+  const [isRemloModalOpen, setIsRemloModalOpen] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [stage, setStage] = useState("");
@@ -586,14 +588,13 @@ if (creatorSettings?.display_name) {
                     {loading ? "Processing..." : `Pay ${finalAmount > 0 ? finalAmount.toFixed(2) : Number(invoice.amount).toFixed(2)} USDC →`}
                   </button>
                 ) : (
-                  <ConnectButton.Custom>
-                    {({ openConnectModal }) => (
-                      <button onClick={openConnectModal}
-                        className="ui-button-primary w-full text-sm">
-                        Connect Wallet
-                      </button>
-                    )}
-                  </ConnectButton.Custom>
+                  <>
+                    <button onClick={() => setIsRemloModalOpen(true)}
+                      className="ui-button-primary w-full text-sm">
+                      Connect Wallet
+                    </button>
+                    <RemloWalletModal isOpen={isRemloModalOpen} onClose={() => setIsRemloModalOpen(false)} />
+                  </>
                 )}
 
                 <p className="text-white/20 text-xs text-center mt-3">

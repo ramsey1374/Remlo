@@ -594,26 +594,25 @@ export default function LandingPage() {
               Create invoice links and get paid on Arc Network.
             </p>
 
-            <ConnectButton.Custom>
-              {({ openConnectModal }) => (
-                <motion.button
-                  onClick={() => {
-                    setNavigateAfterConnect(true);
-                    openConnectModal();
-                  }}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 active:scale-95"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
-                    boxShadow: "0 8px 32px rgba(99,102,241,0.3)",
-                  }}
-                  whileHover={{ y: -2, boxShadow: "0 12px 40px rgba(99,102,241,0.4)" }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Connect Wallet
-                </motion.button>
-              )}
-            </ConnectButton.Custom>
+            <>
+              <motion.button
+                onClick={() => {
+                  setNavigateAfterConnect(true);
+                  setIsRemloModalOpen(true);
+                }}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 active:scale-95"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
+                  boxShadow: "0 8px 32px rgba(99,102,241,0.3)",
+                }}
+                whileHover={{ y: -2, boxShadow: "0 12px 40px rgba(99,102,241,0.4)" }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Connect Wallet
+              </motion.button>
+              <RemloWalletModal isOpen={isRemloModalOpen} onClose={() => setIsRemloModalOpen(false)} />
+            </>
           </div>
         </motion.div>
       </AnimatedSection>
