@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAccount, useDisconnect } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import RemloWalletModal from "../components/RemloWalletModal";
 import { supabase } from "@/lib/db";
 import { QRCodeSVG } from "qrcode.react";
 import { useToast } from "@/lib/toast";
@@ -48,7 +47,6 @@ export default function CreateInvoicePage() {
   const { toast } = useToast();
 
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
-  const [isRemloModalOpen, setIsRemloModalOpen] = useState(false);
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [notes, setNotes] = useState(""); // private notes
@@ -158,13 +156,14 @@ export default function CreateInvoicePage() {
           <div className="flex items-center justify-center mb-10"><RemloLogo size={120} /></div>
           <h1 className="text-white text-3xl font-bold tracking-tight mb-3">Connect your wallet</h1>
           <p className="text-white/40 text-sm leading-relaxed mb-8">Connect to create and manage invoices.</p>
-          <>
-            <button onClick={() => setIsRemloModalOpen(true)}
-              className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl transition-all text-sm">
-              Connect Wallet
-            </button>
-            <RemloWalletModal isOpen={isRemloModalOpen} onClose={() => setIsRemloModalOpen(false)} />
-          </>
+          <ConnectButton.Custom>
+            {({ openConnectModal }) => (
+              <button onClick={openConnectModal}
+                className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl transition-all text-sm">
+                Connect Wallet
+              </button>
+            )}
+          </ConnectButton.Custom>
         </div>
       </div>
     );
