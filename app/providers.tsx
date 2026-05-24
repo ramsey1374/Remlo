@@ -11,6 +11,9 @@ import { ToastProvider } from "@/lib/toast";
 const config = getDefaultConfig({
   appName: "Remlo",
   projectId: "2580423081bdcfca1cb7a583a8ec375f",
+  appDescription: "Universal USDC Checkout. Pay from any chain, settle on Arc Network.",
+  appUrl: "https://remloapp.vercel.app",
+  appIcon: "https://remloapp.vercel.app/remlo-logo.png",
   chains: [baseSepolia, arbitrumSepolia, sepolia],
   ssr: true,
   transports: {
@@ -19,6 +22,7 @@ const config = getDefaultConfig({
     [sepolia.id]: http(),
   },
 });
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
