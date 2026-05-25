@@ -213,7 +213,7 @@ export default function CreateInvoicePage() {
         </div>
       </aside>
 
-      <main className="flex-1 p-4 md:p-8 pb-24 md:pb-8">
+      <main className="flex-1 px-4 md:px-8 py-4 md:py-8 pb-24 md:pb-8 w-full overflow-x-hidden">
         <div className="flex md:hidden items-center justify-between mb-6">
           <button 
             onClick={() => router.push("/create-invoice")}
@@ -259,30 +259,30 @@ export default function CreateInvoicePage() {
         </div>
 
         <div className="mb-6 md:mb-8">
-          <h1 className="text-white text-xl md:text-2xl font-semibold tracking-tight">Create Invoice</h1>
-          <p className="text-white/40 text-sm mt-1 max-w-2xl">Fast invoice creation with Arc settlement and automatic USDC routing.</p>
+          <h1 className="text-white text-lg md:text-2xl font-semibold tracking-tight">Create Invoice</h1>
+          <p className="text-white/40 text-xs md:text-sm mt-1 max-w-2xl">Fast invoice creation with Arc settlement and automatic USDC routing.</p>
         </div>
 
-        <div className="flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-6 max-w-4xl">
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-6">
 
           {/* Form */}
-          <div className="ui-card p-5 md:p-6 flex flex-col gap-4 md:gap-5 self-start">
-            <div className="flex items-center justify-between">
-              <h2 className="text-white font-semibold text-base">Invoice Details</h2>
+          <div className="ui-card p-4 md:p-6 flex flex-col gap-4 md:gap-5 w-full">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <h2 className="text-white font-semibold text-base md:text-lg">Invoice Details</h2>
               <button onClick={() => setShowTemplates(!showTemplates)}
-                className="ui-button-secondary text-xs font-semibold px-2.5 py-1">
+                className="ui-button-secondary text-xs font-semibold px-2.5 py-1 w-full sm:w-auto">
                 {showTemplates ? "Hide templates" : "Use template"}
               </button>
             </div>
 
             {showTemplates && (
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {TEMPLATES.map((t) => (
                   <button key={t.label}
                     onClick={() => { setDescription(t.description); setShowTemplates(false); }}
-                    className="px-3 py-2.5 bg-[#0d0d14] border border-white/[0.08] hover:border-indigo-500/40 rounded-xl text-left transition-all group">
-                    <div className="text-white/70 text-xs font-semibold group-hover:text-white">{t.label}</div>
-                    {t.description && <div className="text-white/30 text-[10px] mt-0.5 truncate">{t.description}</div>}
+                    className="px-2 md:px-3 py-2 md:py-2.5 bg-[#0d0d14] border border-white/[0.08] hover:border-indigo-500/40 rounded-lg md:rounded-xl text-left transition-all group text-xs md:text-sm">
+                    <div className="text-white/70 font-semibold group-hover:text-white">{t.label}</div>
+                    {t.description && <div className="text-white/30 text-[9px] md:text-[10px] mt-0.5 truncate">{t.description}</div>}
                   </button>
                 ))}
               </div>
@@ -295,9 +295,9 @@ export default function CreateInvoicePage() {
                   <input type="number" placeholder="0.00" value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     className="flex-1 bg-transparent text-white text-lg font-bold outline-none placeholder:text-white/20" />
-                  <div className="flex items-center gap-2 bg-white/[0.06] px-3 py-1.5 rounded-xl">
-                    <USDCLogo size={18} />
-                    <span className="text-white text-sm font-semibold">USDC</span>
+                  <div className="flex items-center gap-2 bg-white/[0.06] px-2 md:px-3 py-1 md:py-1.5 rounded-lg md:rounded-xl whitespace-nowrap">
+                    <USDCLogo size={16} />
+                    <span className="text-white text-xs md:text-sm font-semibold">USDC</span>
                   </div>
                 </div>
               <p className="text-white/25 text-xs mt-1.5">Payer will pay in USDC. We'll route automatically.</p>
@@ -305,29 +305,29 @@ export default function CreateInvoicePage() {
 
             {/* Description — public, shown to payer */}
             <div>
-              <label className="ui-label">
+              <label className="ui-label text-xs md:text-sm">
                 Description
-                <span className="text-white/20 font-normal ml-2 normal-case">(shown to payer)</span>
+                <span className="text-white/20 font-normal ml-2 normal-case text-[10px] md:text-xs">(shown to payer)</span>
               </label>
               <textarea placeholder="e.g. Website development services"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 maxLength={100} rows={2}
-                className="ui-textarea resize-none" />
+                className="ui-textarea resize-none text-sm" />
               <p className="text-white/25 text-xs text-right mt-1">{description.length}/100</p>
             </div>
 
             {/* Private notes — only visible to creator */}
             <div>
-              <label className="ui-label">
+              <label className="ui-label text-xs md:text-sm">
                 Private Notes
-                <span className="text-white/20 font-normal ml-2 normal-case">(only you can see this)</span>
+                <span className="text-white/20 font-normal ml-2 normal-case text-[10px] md:text-xs">(only you can see this)</span>
               </label>
               <textarea placeholder="e.g. Client: Acme Corp, Project ref: #4521"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 maxLength={300} rows={2}
-                className="ui-textarea resize-none" />
+                className="ui-textarea resize-none text-sm" />
               <p className="text-white/25 text-xs text-right mt-1">{notes.length}/300</p>
             </div>
 
@@ -336,7 +336,7 @@ export default function CreateInvoicePage() {
               <label className="ui-label">Invoice Expires</label>
               <div className="relative">
                 <select value={expiry} onChange={(e) => setExpiry(e.target.value)}
-                  className="ui-select appearance-none pr-10">
+                  className="ui-select appearance-none pr-10 w-full">
                   <option value="1">1 day</option>
                   <option value="3">3 days</option>
                   <option value="7">7 days</option>
@@ -351,16 +351,16 @@ export default function CreateInvoicePage() {
             {/* Destination */}
             <div>
               <label className="text-white/40 text-xs font-semibold uppercase tracking-wider mb-2 block">Destination (You receive)</label>
-              <div className="ui-input flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
+              <div className="ui-input flex items-center justify-between gap-2 md:gap-3">
+                <div className="flex items-center gap-2 md:gap-3 min-w-0">
                   <ArcLogo size={28} />
-                  <div>
-                    <div className="text-white text-sm font-semibold">Arc Network</div>
-                    <div className="text-white/30 text-xs font-mono">{address?.slice(0, 6)}...{address?.slice(-4)}</div>
+                  <div className="min-w-0">
+                    <div className="text-white text-xs md:text-sm font-semibold">Arc Network</div>
+                    <div className="text-white/30 text-[10px] md:text-xs font-mono truncate">{address?.slice(0, 6)}...{address?.slice(-4)}</div>
                   </div>
                 </div>
-                <span className="text-emerald-400 text-xs font-semibold bg-emerald-400/10 px-2 py-1 rounded-full border border-emerald-400/20 hidden sm:inline-flex">
-                  On Arc <IconCheck size={12} />
+                <span className="text-emerald-400 text-[9px] md:text-xs font-semibold bg-emerald-400/10 px-1.5 md:px-2 py-0.5 md:py-1 rounded-full border border-emerald-400/20 hidden sm:inline-flex whitespace-nowrap flex-shrink-0">
+                  On Arc <IconCheck size={10} />
                 </span>
               </div>
               <p className="text-white/25 text-xs mt-1.5">Your funds are always settled on Arc Network.</p>
@@ -368,45 +368,45 @@ export default function CreateInvoicePage() {
 
             <button onClick={createInvoice}
               disabled={loading || !amount || parseFloat(amount) <= 0}
-              className="ui-button-primary w-full py-3.5 text-sm disabled:opacity-40 disabled:cursor-not-allowed">
+              className="ui-button-primary w-full py-3 md:py-3.5 text-xs md:text-sm disabled:opacity-40 disabled:cursor-not-allowed">
               {loading ? "Creating..." : "Create Invoice"}
             </button>
           </div>
 
           {/* Preview + QR */}
-          <div className="flex flex-col gap-4">
-            <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-4 md:p-6">
-              <h2 className="text-white font-semibold text-base mb-4 md:mb-5">Invoice Preview</h2>
-              <div className="text-center mb-5 md:mb-6">
-                <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center mx-auto mb-3">
-                  <USDCLogo size={32} />
+          <div className="flex flex-col gap-4 w-full">
+            <div className="bg-[#13131a] border border-white/[0.06] rounded-xl md:rounded-2xl p-4 md:p-6">
+              <h2 className="text-white font-semibold text-base md:text-lg mb-4 md:mb-5">Invoice Preview</h2>
+              <div className="text-center mb-4 md:mb-6">
+                <div className="w-10 md:w-12 h-10 md:h-12 rounded-lg md:rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center mx-auto mb-2 md:mb-3">
+                  <USDCLogo size={28} />
                 </div>
                 <div className="text-white/40 text-xs mb-1">Invoice Amount</div>
-                <div className="text-white text-3xl md:text-4xl font-black tracking-tight">
+                <div className="text-white text-2xl md:text-4xl font-black tracking-tight">
                   {amount ? parseFloat(amount).toFixed(2) : "0.00"} USDC
                 </div>
                 
               </div>
-              <div className="flex flex-col gap-2 border-t border-white/[0.06] pt-4">
+              <div className="flex flex-col gap-2 border-t border-white/[0.06] pt-3 md:pt-4">
                 {[
                   { label: "Invoice ID", value: previewId },
                   { label: "Expires", value: expiryLabel },
                   { label: "Payment", value: "Automatic routing" },
                   { label: "Payer Experience", value: "USDC sent from best chain" },
                 ].map((row) => (
-                  <div key={row.label} className="flex items-center justify-between">
+                  <div key={row.label} className="flex items-center justify-between gap-2">
                     <span className="text-white/30 text-xs">{row.label}</span>
-                    <span className="text-white/70 text-xs font-medium text-right ml-2">{row.value}</span>
+                    <span className="text-white/70 text-xs font-medium text-right">{row.value}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-[#13131a] border border-white/[0.06] rounded-2xl p-4 md:p-5 flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center flex-shrink-0">
-                <IconShield size={16} />
+            <div className="bg-[#13131a] border border-white/[0.06] rounded-xl md:rounded-2xl p-4 md:p-5 flex items-start gap-3">
+              <div className="w-7 md:w-8 h-7 md:h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center flex-shrink-0">
+                <IconShield size={14} />
               </div>
-              <div>
+              <div className="min-w-0">
                 <div className="text-white font-semibold text-sm mb-1">Smart routing enabled</div>
                 <div className="text-white/40 text-xs leading-relaxed">
                   We'll find the best network with USDC and settle to Arc automatically.
@@ -415,23 +415,24 @@ export default function CreateInvoicePage() {
             </div>
 
             {link && (
-              <div className="bg-[#13131a] border border-emerald-500/20 rounded-2xl p-4 md:p-5">
-                <div className="flex items-center gap-2 text-emerald-400 font-semibold text-sm mb-3"><IconCheck size={14} /> <span>Invoice Created — Share this link</span></div>
-                <div className="flex items-center gap-2 bg-[#0d0d14] border border-white/[0.08] rounded-xl px-3 py-2.5 mb-4">
-                  <span className="text-white/40 text-xs font-mono flex-1 truncate">{link}</span>
+              <div className="bg-[#13131a] border border-emerald-500/20 rounded-xl md:rounded-2xl p-4 md:p-5">
+                <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs md:text-sm mb-3"><IconCheck size={14} /> <span>Invoice Created — Share this link</span></div>
+                <div className="flex flex-col md:flex-row md:items-center gap-2 bg-[#0d0d14] border border-white/[0.08] rounded-lg md:rounded-xl px-2 md:px-3 py-2 md:py-2.5 mb-4">
+                  <span className="text-white/40 text-xs font-mono flex-1 min-w-0 truncate">{link}</span>
                   <button onClick={copyLink}
-                    className="text-indigo-400 hover:text-indigo-300 text-xs font-semibold px-2 py-1 rounded-lg hover:bg-indigo-500/10 transition-all flex-shrink-0">
+                    className="text-indigo-400 hover:text-indigo-300 text-xs font-semibold px-2 py-1 rounded-lg hover:bg-indigo-500/10 transition-all flex-shrink-0 w-full md:w-auto text-center md:text-left">
                     {copied ? "Copied!" : "Copy"}
                   </button>
                 </div>
                 <div className="flex flex-col items-center gap-2 py-2">
-                  <div className="p-2.5 bg-white rounded-xl">
-                    <QRCodeSVG value={link} size={110} bgColor="#ffffff" fgColor="#0d0d14" level="M" />
+                  <div className="p-2 md:p-2.5 bg-white rounded-lg md:rounded-xl">
+                    <QRCodeSVG value={link} size={100} bgColor="#ffffff" fgColor="#0d0d14" level="M" />
                   </div>
                   <p className="text-white/25 text-xs text-center">Scan to pay</p>
                 </div>
                 <a href={link} target="_blank"
-                  className="block text-center text-white/30 hover:text-white/60 text-xs mt-2 transition-colors">
+                  className="block text-center text-white/30 hover:text-white/60 text-xs mt-2 transition-colors"
+                >
                   Open pay page ↗
                 </a>
               </div>
