@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAccount, useDisconnect } from "wagmi";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAppKit } from "@reown/appkit/react";
 import { supabase } from "@/lib/db";
 import { IconPlus, IconInvoices, IconPayments, IconAnalytics, IconSettings, IconMenu, IconGlobe } from "../components/Icons";
 
@@ -109,14 +109,15 @@ export default function PaymentsPage() {
           <p className="text-white/40 text-sm leading-relaxed mb-8">
             Connect to view your payment history.
           </p>
-          <ConnectButton.Custom>
-            {({ openConnectModal }) => (
-              <button onClick={openConnectModal}
+          {(() => {
+            const { open } = useAppKit();
+            return (
+              <button onClick={() => open()}
                 className="w-full py-3.5 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl transition-all text-sm shadow-lg shadow-indigo-500/20">
                 Connect Wallet
               </button>
-            )}
-          </ConnectButton.Custom>
+            );
+          })()}
         </div>
       </div>
     );

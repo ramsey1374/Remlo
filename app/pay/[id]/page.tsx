@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useAccount, useSwitchChain } from "wagmi";
 import { useParams } from "next/navigation";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAppKit } from "@reown/appkit/react";
 import { getUnifiedBalances } from "@/lib/unified-balance";
 import { pickBestChain } from "@/lib/solver";
 import { settleToArc } from "@/lib/arc-settlement";
@@ -586,14 +586,15 @@ if (creatorSettings?.display_name) {
                     {loading ? "Processing..." : `Pay ${finalAmount > 0 ? finalAmount.toFixed(2) : Number(invoice.amount).toFixed(2)} USDC →`}
                   </button>
                 ) : (
-                  <ConnectButton.Custom>
-                    {({ openConnectModal }) => (
-                      <button onClick={openConnectModal}
+                  (() => {
+                    const { open } = useAppKit();
+                    return (
+                      <button onClick={() => open()}
                         className="ui-button-primary w-full text-sm">
                         Connect Wallet
                       </button>
-                    )}
-                  </ConnectButton.Custom>
+                    );
+                  })()
                 )}
 
                 <p className="text-white/20 text-xs text-center mt-3">

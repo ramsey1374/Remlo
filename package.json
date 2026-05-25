@@ -18,6 +18,8 @@
     "@circle-fin/unified-balance-kit": "^1.1.0",
     "@mysten/dapp-kit": "^1.0.6",
     "@rainbow-me/rainbowkit": "^2.2.10",
+    "@reown/appkit": "^1.8.20",
+    "@reown/appkit-adapter-wagmi": "^1.8.20",
     "@sentry/nextjs": "^10.53.1",
     "@solana/kit": "^5.5.1",
     "@solana/wallet-adapter-react": "^0.15.39",

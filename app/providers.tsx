@@ -1,37 +1,46 @@
 "use client";
 
-import "@rainbow-me/rainbowkit/styles.css";
-import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
-import { remloDarkTheme } from "@/lib/rainbowkitTheme";
+import { createAppKit } from "@reown/appkit/react";
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { baseSepolia, arbitrumSepolia, sepolia } from "wagmi/chains";
-import { http } from "viem";
+import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { ToastProvider } from "@/lib/toast";
 
-const config = getDefaultConfig({
-  appName: "Remlo",
-  projectId: "2580423081bdcfca1cb7a583a8ec375f",
-  appDescription: "Universal USDC Checkout. Pay from any chain, settle on Arc Network.",
-  appUrl: "https://remloapp.vercel.app",
-  appIcon: "https://remloapp.vercel.app/remlo-logo.png",
-  chains: [baseSepolia, arbitrumSepolia, sepolia],
+const projectId = "2580423081bdcfca1cb7a583a8ec375f";
+
+const metadata = {
+  name: "Remlo",
+  description: "Universal USDC Checkout. Pay from any chain, settle on Arc Network.",
+  url: "https://remloapp.vercel.app",
+  icons: ["https://remloapp.vercel.app/remlo-logo.png"],
+};
+
+import { arbitrumSepolia, baseSepolia, sepolia } from "@reown/appkit/networks";
+
+const networks = [arbitrumSepolia, baseSepolia, sepolia];
+
+const wagmiAdapter = new WagmiAdapter({
+  networks,
+  projectId,
   ssr: true,
-  walletConnectParameters: {
-    metadata: {
-      name: "Remlo",
-      description: "Universal USDC Checkout. Pay from any chain, settle on Arc Network.",
-      url: "https://remloapp.vercel.app",
-      icons: ["https://remloapp.vercel.app/remlo-logo.png"],
-    },
-  },
-  transports: {
-    [baseSepolia.id]: http(),
-    [arbitrumSepolia.id]: http(),
-    [sepolia.id]: http(),
-  },
 });
 
+createAppKit({
+  adapters: [wagmiAdapter],
+  networks,
+  projectId,
+  metadata,
+  features: {
+    analytics: false,
+    email: false,
+    socials: [],
+  },
+  themeMode: "dark",
+  themeVariables: {
+    "--w3m-accent": "#6366f1",
+    "--w3m-border-radius-master": "12px",
+  },
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,22 +50,11 @@ const queryClient = new QueryClient({
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <WagmiProvider config={config}>
+    <WagmiProvider config={wagmiAdapter.wagmiConfig}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider
-          theme={remloDarkTheme}
-          modalSize="compact"
-          showRecentTransactions={false}
-          initialChain={undefined}
-          appInfo={{
-            appName: "Remlo",
-            learnMoreUrl: "https://remloapp.vercel.app",
-          }}
-        >
-          <ToastProvider>
-            {children}
-          </ToastProvider>
-        </RainbowKitProvider>
+        <ToastProvider>
+          {children}
+        </ToastProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );
