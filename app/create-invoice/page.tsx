@@ -291,11 +291,11 @@ export default function CreateInvoicePage() {
             {/* Amount */}
             <div>
                 <label className="ui-label">Amount</label>
-                <div className="flex items-center gap-2 ui-input focus-within:border-indigo-500/50 transition-colors">
+                <div className="flex items-center gap-2 ui-input focus-within:border-indigo-500/50 transition-colors w-full overflow-hidden">
                   <input type="number" placeholder="0.00" value={amount}
                     onChange={(e) => setAmount(e.target.value)}
-                    className="flex-1 bg-transparent text-white text-lg font-bold outline-none placeholder:text-white/20" />
-                  <div className="flex items-center gap-2 bg-white/[0.06] px-2 md:px-3 py-1 md:py-1.5 rounded-lg md:rounded-xl whitespace-nowrap">
+                    className="flex-1 min-w-0 bg-transparent text-white text-lg font-bold outline-none placeholder:text-white/20" />
+                  <div className="flex items-center gap-2 bg-white/[0.06] px-2 md:px-3 py-1 md:py-1.5 rounded-lg md:rounded-xl whitespace-nowrap flex-shrink-0">
                     <USDCLogo size={16} />
                     <span className="text-white text-xs md:text-sm font-semibold">USDC</span>
                   </div>
