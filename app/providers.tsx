@@ -4,6 +4,7 @@ import { createAppKit } from "@reown/appkit/react";
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
+import { arbitrumSepolia, baseSepolia, sepolia } from "@reown/appkit/networks";
 import { ToastProvider } from "@/lib/toast";
 
 const projectId = "2580423081bdcfca1cb7a583a8ec375f";
@@ -15,9 +16,7 @@ const metadata = {
   icons: ["https://remloapp.vercel.app/remlo-logo.png"],
 };
 
-import { arbitrumSepolia, baseSepolia, sepolia } from "@reown/appkit/networks";
-
-const networks = [arbitrumSepolia, baseSepolia, sepolia];
+const networks = [arbitrumSepolia, baseSepolia, sepolia] as any;
 
 const wagmiAdapter = new WagmiAdapter({
   networks,
