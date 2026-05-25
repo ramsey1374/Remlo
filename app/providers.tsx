@@ -17,6 +17,14 @@ const config = getDefaultConfig({
   appIcon: "https://remloapp.vercel.app/remlo-logo.png",
   chains: [baseSepolia, arbitrumSepolia, sepolia],
   ssr: true,
+  walletConnectParameters: {
+    metadata: {
+      name: "Remlo",
+      description: "Universal USDC Checkout. Pay from any chain, settle on Arc Network.",
+      url: "https://remloapp.vercel.app",
+      icons: ["https://remloapp.vercel.app/remlo-logo.png"],
+    },
+  },
   transports: {
     [baseSepolia.id]: http(),
     [arbitrumSepolia.id]: http(),
