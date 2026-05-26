@@ -23,6 +23,25 @@ function getChainConfig(chainId: number) {
   }
 }
 
+// Safe provider detection for mobile wallets
+function getProvider(): any {
+  if (typeof window === "undefined") throw new Error("No window");
+
+  // Standard
+  if (window.ethereum) return window.ethereum;
+
+  // Bitget
+  if ((window as any).bitkeep?.ethereum) return (window as any).bitkeep.ethereum;
+
+  // Trust Wallet
+  if ((window as any).trustwallet) return (window as any).trustwallet;
+
+  // Generic injected
+  if ((window as any).web3?.currentProvider) return (window as any).web3.currentProvider;
+
+  throw new Error("No wallet detected. Please open in your wallet's browser.");
+}
+
 export async function settleToArc({
   chainId,
   amount,
@@ -39,30 +58,39 @@ export async function settleToArc({
   const chainConfig = getChainConfig(chainId);
   const sourceChain = mapChainName(chainId);
 
-  console.log("[ARC SOURCE CHAIN]", sourceChain);
+  const provider = getProvider();
+  console.log("[PROVIDER]", provider);
 
-  // Fetch fresh gas fees
-  const publicClient = createWalletClient({
-    chain: chainConfig,
-    transport: custom(window.ethereum),
-  }).extend(publicActions);
+  // Gas override — wrapped in try/catch so mobile failures don't block
+  let originalRequest: any = null;
+  try {
+    const publicClient = createWalletClient({
+      chain: chainConfig,
+      transport: custom(provider),
+    }).extend(publicActions);
 
-  const feeData = await publicClient.estimateFeesPerGas();
-  console.log("[GAS FEES]", feeData);
+    const feeData = await publicClient.estimateFeesPerGas();
+    console.log("[GAS FEES]", feeData);
 
-  // Override gas
-  const originalRequest = window.ethereum.request.bind(window.ethereum);
-  window.ethereum.request = async (args: any) => {
-    if (args.method === "eth_sendTransaction" && args.params?.[0]) {
-      args.params[0].maxFeePerGas = `0x${(feeData.maxFeePerGas! * 2n).toString(16)}`;
-      args.params[0].maxPriorityFeePerGas = `0x${feeData.maxPriorityFeePerGas!.toString(16)}`;
-    }
-    return originalRequest(args);
-  };
+    originalRequest = provider.request.bind(provider);
+    provider.request = async (args: any) => {
+      if (args.method === "eth_sendTransaction" && args.params?.[0]) {
+        try {
+          args.params[0].maxFeePerGas = `0x${(feeData.maxFeePerGas! * 2n).toString(16)}`;
+          args.params[0].maxPriorityFeePerGas = `0x${feeData.maxPriorityFeePerGas!.toString(16)}`;
+        } catch (e) {
+          console.warn("[GAS OVERRIDE FAILED]", e);
+          // Continue without override on mobile
+        }
+      }
+      return originalRequest(args);
+    };
+  } catch (gasErr) {
+    console.warn("[GAS ESTIMATION FAILED — continuing without override]", gasErr);
+    // Don't throw — let settlement proceed without gas override
+  }
 
-  const adapter = await createViemAdapterFromProvider({
-    provider: window.ethereum,
-  });
+  const adapter = await createViemAdapterFromProvider({ provider });
 
   // STEP 1 — DEPOSIT
   onStage?.("Approving USDC deposit...");
@@ -75,7 +103,10 @@ export async function settleToArc({
       allowanceStrategy: "permit",
     });
   } finally {
-    window.ethereum.request = originalRequest;
+    // Always restore original request
+    if (originalRequest) {
+      try { provider.request = originalRequest; } catch (e) {}
+    }
   }
 
   console.log("[DEPOSIT INITIATED]", depositResult);
@@ -86,42 +117,48 @@ export async function settleToArc({
     (depositResult as any)?.txHash ||
     null;
 
-  console.log("[ARC TX HASH]", txHash);
-
   // STEP 2 — WAIT FOR CONFIRMATION
+  // Increased attempts and interval for mobile (slower network)
   onStage?.("Waiting for deposit to confirm...");
   const amountNum = parseFloat(amount);
   let confirmed = false;
-  let balances: any = null;
-  let attempts = 0;
+  const MAX_ATTEMPTS = 60; // 4 min on mobile vs 2.5 min desktop
+  const POLL_INTERVAL = 5000; // 5s on mobile
 
-  for (let i = 0; i < 40; i++) {
-    attempts = i + 1;
-    balances = await kit.unifiedBalance.getBalances({
-      sources: { address, chains: [sourceChain] },
-      networkType: "testnet",
-      includePending: true,
-    });
+  for (let i = 0; i < MAX_ATTEMPTS; i++) {
+    try {
+      const balances = await kit.unifiedBalance.getBalances({
+        sources: { address, chains: [sourceChain] },
+        networkType: "testnet",
+        includePending: true,
+      });
 
-    const totalConfirmed = parseFloat(balances?.totalConfirmedBalance ?? "0");
-    onStage?.(`Confirming deposit... (${attempts}/40)`);
-    console.log(`[BALANCE CHECK ${attempts}] confirmed =`, totalConfirmed);
+      const totalConfirmed = parseFloat(
+        (balances as any)?.totalConfirmedBalance ?? "0"
+      );
 
-    if (totalConfirmed >= amountNum) {
-      confirmed = true;
-      break;
+      onStage?.(`Confirming deposit... (${i + 1}/${MAX_ATTEMPTS})`);
+      console.log(`[BALANCE CHECK ${i + 1}] confirmed =`, totalConfirmed);
+
+      if (totalConfirmed >= amountNum) {
+        confirmed = true;
+        break;
+      }
+    } catch (pollErr) {
+      console.warn(`[POLL ERROR attempt ${i + 1}]`, pollErr);
+      // Don't throw on poll errors — retry
     }
 
-    await new Promise((r) => setTimeout(r, 4000));
+    await new Promise((r) => setTimeout(r, POLL_INTERVAL));
   }
 
   if (!confirmed) {
-    throw new Error(`Deposit not confirmed after ${attempts} attempts. Please try again.`);
+    throw new Error(
+      `Deposit not confirmed after ${MAX_ATTEMPTS} attempts. Please try again.`
+    );
   }
 
   // STEP 3 — SPEND TO ARC TESTNET
-  // Try forwarding service first (eliminates Arc gas popup for payer)
-  // Falls back to regular spend if forwarding unavailable
   onStage?.("Settling to Arc Testnet...");
   let spendResult: any;
   let spendAttempt = 0;
@@ -131,44 +168,29 @@ export async function settleToArc({
       spendAttempt++;
       console.log(`[SPEND ATTEMPT ${spendAttempt}]`);
 
-      // Try forwarding spend first — payer doesn't need Arc Testnet gas
-      if ((kit.unifiedBalance as any).forwardSpend) {
-        onStage?.("Settling via forwarding service (no Arc gas needed)...");
-        spendResult = await (kit.unifiedBalance as any).forwardSpend({
-          amount,
-          token: "USDC",
-          from: { adapter },
-          to: {
-            chain: "Arc_Testnet",
-            recipientAddress: recipient,
-          },
-        });
-      } else {
-        // Fallback to regular spend
-        spendResult = await kit.unifiedBalance.spend({
-          amount,
-          token: "USDC",
-          from: { adapter },
-          to: {
-            adapter,
-            chain: "Arc_Testnet",
-            recipientAddress: recipient,
-          },
-        });
-      }
+      spendResult = await kit.unifiedBalance.spend({
+        amount,
+        token: "USDC",
+        from: { adapter },
+        to: {
+          adapter,
+          chain: "Arc_Testnet",
+          recipientAddress: recipient,
+        },
+      });
 
-      break; // success
+      break;
     } catch (err: any) {
       const isTimeout =
         err?.message?.includes("Timed out") ||
-        err?.message?.includes("ONCHAIN_TRANSACTION_REVERTED");
+        err?.message?.includes("ONCHAIN_TRANSACTION_REVERTED") ||
+        err?.message?.includes("Mint failure");
 
       if (isTimeout && spendAttempt < 3) {
-        console.log(`[SPEND TIMEOUT] retrying attempt ${spendAttempt + 1}...`);
+        console.log(`[SPEND TIMEOUT] retrying ${spendAttempt + 1}/3...`);
         onStage?.(`Arc settlement timed out, retrying... (${spendAttempt}/3)`);
-        await new Promise((r) => setTimeout(r, 5000));
 
-        // Try SDK retry with attestation trace
+        // Try SDK retry with attestation
         if (err?.cause?.trace && (kit.unifiedBalance as any).retry) {
           try {
             spendResult = await (kit.unifiedBalance as any).retry(err.cause.trace);
@@ -177,6 +199,8 @@ export async function settleToArc({
             console.log("[RETRY FAILED]", retryErr);
           }
         }
+
+        await new Promise((r) => setTimeout(r, 6000));
       } else {
         throw err;
       }
