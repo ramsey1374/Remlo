@@ -11,6 +11,7 @@ import { settleToArc } from "@/lib/arc-settlement";
 import { settleIntent } from "@/lib/intent/settler";
 import { supabase } from "@/lib/db";
 import { IconGlobe, IconX, IconShield, IconDoc, IconCheck, IconSearch } from "../../components/Icons";
+import CircleWalletPay from "@/components/CircleWalletPay";
 
 function RemloLogo({ size = 28 }: { size?: number }) {
   return (
@@ -95,6 +96,7 @@ export default function PayPage() {
   const [customAmount, setCustomAmount] = useState("");
   const [tipAmount, setTipAmount] = useState("");
   const [paymentMode, setPaymentMode] = useState<"full" | "partial" | "tip">("full");
+  const [payMethod, setPayMethod] = useState<"wallet" | "email">("wallet");
 
   useEffect(() => {
     if (!invoiceIdFromUrl) return;
@@ -413,6 +415,31 @@ if (creatorSettings?.display_name) {
   )}
 </div>
 
+              {/* Payment method toggle */}
+              <div className="px-5 pt-4 border-b border-white/[0.06]">
+                <div className="flex gap-2 p-1 bg-[#0d0d14] border border-white/[0.06] rounded-2xl">
+                  <button
+                    onClick={() => setPayMethod("wallet")}
+                    className={`flex-1 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+                      payMethod === "wallet"
+                        ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20"
+                        : "text-white/40 hover:text-white/60"
+                    }`}
+                  >
+                    🦊 Connect Wallet
+                  </button>
+                  <button
+                    onClick={() => setPayMethod("email")}
+                    className={`flex-1 py-2.5 text-xs font-semibold rounded-xl transition-all ${
+                      payMethod === "email"
+                        ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20"
+                        : "text-white/40 hover:text-white/60"
+                    }`}
+                  >
+                    ✉️ Pay with Email
+                  </button>
+                </div>
+              </div>
 
               {/* Meta */}
               <div className="px-5 py-4 border-b border-white/[0.06] flex flex-col gap-2.5">
@@ -431,6 +458,8 @@ if (creatorSettings?.display_name) {
               </div>
 
               {/* How it works */}
+              {payMethod === "wallet" && (
+              <>
               <div className="px-5 py-5 border-b border-white/[0.06]">
                 <div className="text-white/30 text-xs font-semibold uppercase tracking-wider mb-4">How it works</div>
                 <div className="flex items-center justify-between">
@@ -601,6 +630,26 @@ if (creatorSettings?.display_name) {
                   USDC sent from best chain. We'll handle everything for you.
                 </p>
               </div>
+              </>
+              )}
+
+              {payMethod === "email" && (
+                <div className="px-5 py-5">
+                  <CircleWalletPay
+                    invoice={{
+                      id: invoice.id,
+                      amount: String(invoice.amount),
+                      recipient: invoice.recipient ?? invoice.receiver,
+                      description: invoice.description,
+                    }}
+                    onSuccess={(txHash) => {
+                      setTxHash(txHash);
+                      setPaid(true);
+                    }}
+                    onError={(msg) => setStage("❌ " + msg)}
+                  />
+                </div>
+              )}
             </div>
            
           </>

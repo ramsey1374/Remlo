@@ -136,12 +136,14 @@ export default function AnalyticsPage() {
             { label: "Invoices", icon: <IconInvoices />, href: "/invoices" },
             { label: "Payments", icon: <IconPayments />, href: "/payments" },
             { label: "Analytics", icon: <IconAnalytics />, href: "/analytics", active: true },
+            { label: "Settings", icon: <IconSettings />, href: "/settings" },
+            { label: "Circle Wallet", icon: "◈", href: "/circle-wallet" },
           ].map((item) => (
             <a key={item.label} href={item.href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                 item.active ? "bg-indigo-500/15 text-white" : "text-white/40 hover:text-white/70 hover:bg-white/[0.04]"
               }`}>
-              <span className="text-base opacity-70">{item.icon}</span>
+              <span className="text-base opacity-70">{typeof item.icon === 'string' ? item.icon : item.icon}</span>
               {item.label}
             </a>
           ))}
