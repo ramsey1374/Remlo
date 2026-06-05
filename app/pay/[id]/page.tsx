@@ -11,7 +11,7 @@ import { settleToArc } from "@/lib/arc-settlement";
 import { settleIntent } from "@/lib/intent/settler";
 import { supabase } from "@/lib/db";
 import { IconGlobe, IconX, IconShield, IconDoc, IconCheck, IconSearch } from "../../components/Icons";
-import CircleWalletPay from "@/components/CircleWalletPay";
+import CircleWalletPay from "../../components/CircleWalletPay";
 
 function RemloLogo({ size = 28 }: { size?: number }) {
   return (
