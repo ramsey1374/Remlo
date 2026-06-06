@@ -345,13 +345,15 @@ export default function CircleWalletPay({ invoice, onSuccess, onError }: Props) 
       <div className="flex flex-col gap-3">
         {/* Wallet info */}
         <div className="bg-[#0d0d14] border border-white/[0.06] rounded-xl px-4 py-3">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-6 h-6 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
-              <span className="text-emerald-400 text-xs">✓</span>
+          <div className="flex flex-col md:flex-row md:items-center gap-2 mb-3">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                <span className="text-emerald-400 text-xs">✓</span>
+              </div>
+              <span className="text-white/70 text-xs font-semibold">Circle Wallet Ready</span>
             </div>
-            <span className="text-white/70 text-xs font-semibold">Circle Wallet Ready</span>
-            <span className="ml-auto text-white/25 text-xs font-mono">
-              {wallet?.address.slice(0, 8)}...{wallet?.address.slice(-4)}
+            <span className="text-white/25 text-xs font-mono truncate md:ml-auto">
+              {wallet?.address.slice(0, 6)}...{wallet?.address.slice(-4)}
             </span>
           </div>
 
@@ -401,6 +403,25 @@ export default function CircleWalletPay({ invoice, onSuccess, onError }: Props) 
           <span className="text-white/50 text-xs">{status}</span>
         </div>
         <p className="text-white/20 text-xs text-center">Do not close this page</p>
+      </div>
+    );
+  }
+
+  if (step === "done") {
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+            <span className="text-emerald-400 text-lg">✓</span>
+          </div>
+        </div>
+        <div className="text-center">
+          <div className="text-white font-semibold text-sm mb-1">Payment Complete</div>
+          <div className="text-white/40 text-xs">Your payment has been confirmed on the Arc network.</div>
+        </div>
+        <p className="text-white/20 text-xs text-center">
+          No gas fees · Instant · Powered by Circle
+        </p>
       </div>
     );
   }

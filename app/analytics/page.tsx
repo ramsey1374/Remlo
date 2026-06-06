@@ -188,6 +188,7 @@ export default function AnalyticsPage() {
                   { label: "Payments", href: "/payments" },
                   { label: "Analytics", href: "/analytics" },
                   { label: "Settings", href: "/settings" },
+                  { label: "Circle Wallet", href: "/circle-wallet" },
                 ].map((item) => (
                   <button
                     key={item.label}

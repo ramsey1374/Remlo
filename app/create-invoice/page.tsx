@@ -237,6 +237,7 @@ export default function CreateInvoicePage() {
                   { label: "Payments", icon: <IconPayments />, href: "/payments" },
                   { label: "Analytics", icon: <IconAnalytics />, href: "/analytics" },
                   { label: "Settings", icon: <IconSettings />, href: "/settings" },
+                  { label: "Circle Wallet", icon: "◈", href: "/circle-wallet" },
                 ].map((item) => (
                   <a 
                     key={item.label} 

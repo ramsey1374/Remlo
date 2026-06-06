@@ -221,7 +221,7 @@ export default function SettingsPage() {
             </button>
             {mobileDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-[#13131a] border border-white/[0.06] rounded-2xl shadow-lg z-50">
-                {[{ label: "Invoices", href: "/invoices" },{ label: "Payments", href: "/payments" },{ label: "Analytics", href: "/analytics" },{ label: "Settings", href: "/settings" },].map((item) => (
+                {[{ label: "Invoices", href: "/invoices" },{ label: "Payments", href: "/payments" },{ label: "Analytics", href: "/analytics" },{ label: "Settings", href: "/settings" },{ label: "Circle Wallet", href: "/circle-wallet" }].map((item) => (
                   <button key={item.label} type="button" onClick={() => { router.push(item.href); setMobileDropdownOpen(false); }} className="w-full text-left px-4 py-3 text-sm text-white/80 hover:text-white hover:bg-white/[0.04] transition">{item.label}</button>
                 ))}
                 <div className="border-t border-white/[0.06]"><button type="button" onClick={() => { disconnect(); setMobileDropdownOpen(false); }} className="w-full text-left px-4 py-3 text-sm text-red-400 hover:text-red-300 transition">Disconnect</button></div>
