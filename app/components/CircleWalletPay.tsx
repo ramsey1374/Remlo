@@ -117,7 +117,7 @@ export default function CircleWalletPay({ invoice, onSuccess, onError }: Props) 
       setCookie("deviceToken", deviceToken);
       setCookie("deviceEncryptionKey", deviceEncryptionKey);
 
-      sdkRef.current.updateConfig({
+      sdkRef.current.updateConfigs({
         appSettings: { appId: APP_ID },
         loginConfigs: {
           deviceToken,
@@ -131,7 +131,7 @@ export default function CircleWalletPay({ invoice, onSuccess, onError }: Props) 
       });
 
       setStatus("Opening Google login...");
-      sdkRef.current.socialLogin({ provider: "google" as any });
+      await sdkRef.current.performLogin("google" as any);
     } catch (e: any) {
       setError(e.message || "Login failed");
       setStep("error");

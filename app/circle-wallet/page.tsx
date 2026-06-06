@@ -120,7 +120,7 @@ export default function CircleWalletPage() {
       setCookie("deviceToken", deviceToken);
       setCookie("deviceEncryptionKey", deviceEncryptionKey);
 
-      sdkRef.current.updateConfig({
+      sdkRef.current.updateConfigs({
         appSettings: { appId: APP_ID },
         loginConfigs: {
           deviceToken,
@@ -133,7 +133,8 @@ export default function CircleWalletPage() {
         },
       });
 
-      sdkRef.current.socialLogin({ provider: "google" as any });
+      await sdkRef.current.performLogin("google" as any);
+
     } catch (e: any) {
       setError(e.message || "Login failed");
     } finally {
@@ -268,7 +269,7 @@ export default function CircleWalletPage() {
   async function copyAddress() {
     if (wallet?.address) {
       await navigator.clipboard.writeText(wallet.address);
-      toast({ title: "Copied!", description: "Address copied to clipboard" });
+      toast("Copied! Address copied to clipboard", "success");
     }
   }
 
