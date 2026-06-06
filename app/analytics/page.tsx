@@ -65,7 +65,7 @@ export default function AnalyticsPage() {
   const successRate = invoices.length > 0 ? Math.round((settled.length / invoices.length) * 100) : 0;
 
   // Chain breakdown
-  const chainBreakdown = intents.reduce((acc: Record<string, number>, intent) => {
+  const chainBreakdown = intents.reduce<Record<string, number>>((acc, intent) => {
     if (intent.chain_id && intent.status === "settled") {
       const name = chainName(intent.chain_id);
       acc[name] = (acc[name] ?? 0) + Number(intent.amount);
@@ -73,8 +73,8 @@ export default function AnalyticsPage() {
     return acc;
   }, {});
 
-  const chainEntries = Object.entries(chainBreakdown).sort((a, b) => b[1] - a[1]);
-  const chainTotal = chainEntries.reduce((sum, [, v]) => sum + v, 0);
+  const chainEntries = Object.entries(chainBreakdown).sort((a, b) => Number(b[1]) - Number(a[1]));
+  const chainTotal = chainEntries.reduce((sum, [, v]) => sum + Number(v), 0);
 
   // Monthly volume (last 6 months)
   const monthlyData = (() => {

@@ -45,6 +45,7 @@ export async function GET(req: NextRequest) {
           abi: erc20Abi,
           functionName: "balanceOf",
           args: [wallet as `0x${string}`],
+          authorizationList: [],
         });
 
         const balance = Number(formatUnits(raw, 6));

@@ -76,7 +76,7 @@ export async function settleToArc({
     provider.request = async (args: any) => {
       if (args.method === "eth_sendTransaction" && args.params?.[0]) {
         try {
-          args.params[0].maxFeePerGas = `0x${(feeData.maxFeePerGas! * 2n).toString(16)}`;
+          args.params[0].maxFeePerGas = `0x${(feeData.maxFeePerGas! * BigInt(2)).toString(16)}`;
           args.params[0].maxPriorityFeePerGas = `0x${feeData.maxPriorityFeePerGas!.toString(16)}`;
         } catch (e) {
           console.warn("[GAS OVERRIDE FAILED]", e);
